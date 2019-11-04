@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Airplane.iml" filepath="$PROJECT_DIR$/Airplane.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aos_airplane-Airplane.iml" filepath="$PROJECT_DIR$/aos_airplane-Airplane.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/aos_airplane-app.iml" filepath="$PROJECT_DIR$/app/aos_airplane-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
