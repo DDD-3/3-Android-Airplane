@@ -1,6 +1,6 @@
-package com.ddd.airplane.common.network
+package com.ddd.airplane.common.network.config
 
-object ServerConfig {
+object ServerInfo {
 
     const val image = "http://..."
 

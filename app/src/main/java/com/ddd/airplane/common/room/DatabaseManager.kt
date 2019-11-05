@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-abstract class AppDatabase : RoomDatabase() {
+abstract class DatabaseManager : RoomDatabase() {
 
     companion object {
 
-        lateinit var instance: AppDatabase
+        lateinit var instance: DatabaseManager
 
         fun init(context: Context) {
             instance = Room.databaseBuilder(
                 context,
-                AppDatabase::class.java,
+                DatabaseManager::class.java,
                 "airplane.db"
             )
                 .fallbackToDestructiveMigration()
@@ -24,5 +24,4 @@ abstract class AppDatabase : RoomDatabase() {
             instance.close()
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package kr.goodchoice.abouthere.database.dao
+package com.ddd.airplane.common.room.dao
 
 import androidx.room.Delete
 import androidx.room.Insert
