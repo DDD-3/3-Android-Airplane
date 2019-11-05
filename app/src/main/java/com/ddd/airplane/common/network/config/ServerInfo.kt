@@ -1,5 +1,8 @@
 package com.ddd.airplane.common.network.config
 
+/**
+ * @author jess
+ */
 object ServerInfo {
 
     const val image = "http://..."

@@ -1,8 +1,11 @@
-package com.ddd.airplane.common.views.extension
+package com.ddd.airplane.common.extension
 
 import android.content.Context
 import android.widget.Toast
 
+/**
+ * @author jess
+ */
 object ContextEx {
 
     /**

@@ -11,6 +11,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ *
+ * 레트로핏 매니저
+ *
+ * @author jess
+ */
 object RetrofitManager {
 
     val test: TestService by lazy {

@@ -5,6 +5,9 @@ import com.ddd.airplane.common.network.retrofit.RetrofitManager
 import com.ddd.airplane.common.room.DatabaseManager
 import timber.log.Timber
 
+/**
+ * @author jess
+ */
 class AirPlaneApplication : Application() {
 
     override fun onCreate() {
