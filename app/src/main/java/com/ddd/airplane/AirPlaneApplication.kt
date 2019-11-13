@@ -12,9 +12,9 @@ class AirPlaneApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        retrofit()
-        timber()
-        room()
+//        timber()
+//        retrofit()
+//        room()
     }
 
     override fun onTerminate() {
