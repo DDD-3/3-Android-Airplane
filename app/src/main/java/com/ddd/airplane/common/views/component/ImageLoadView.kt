@@ -2,17 +2,20 @@ package com.ddd.airplane.common.views.component
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.ddd.airplane.R
+import com.ddd.airplane.common.utils.tryCatch
 
 /**
  * ImageLoadView
@@ -24,6 +27,8 @@ class ImageLoadView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
+
+    enum class STYLE { NORMAL, CIRCLE, ROUND }
 
     private val glide by lazy {
         Glide.with(context)
@@ -57,12 +62,8 @@ class ImageLoadView @JvmOverloads constructor(
                 // fade 처리
                 transition(DrawableTransitionOptions.withCrossFade())
 
-                // circle
-                if (typedValue.getBoolean(R.styleable.ImageLoadView_isCircle, false)) {
-                    apply(RequestOptions().centerCrop().circleCrop())
-                } else {
-                    apply(RequestOptions().centerCrop())
-                }
+                // Request Options
+                apply(getRequestOptions(typedValue))
 
                 // 이미지
                 into(this@ImageLoadView)
@@ -91,5 +92,40 @@ class ImageLoadView @JvmOverloads constructor(
                 })
             }
         }
+    }
+
+    /**
+     * Options
+     */
+    private fun getRequestOptions(typedValue: TypedArray): RequestOptions {
+
+        var result = RequestOptions().centerCrop()
+
+        tryCatch {
+
+            // 스타일
+            val style = STYLE.values()[typedValue.getInt(
+                R.styleable.ImageLoadView_style,
+                STYLE.NORMAL.ordinal
+            )]
+
+            val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
+
+            result = when (style) {
+                STYLE.CIRCLE -> {
+                    RequestOptions().centerCrop().circleCrop()
+                }
+
+                STYLE.ROUND -> {
+                    RequestOptions.bitmapTransform(RoundedCorners(corner))
+                }
+
+                else -> {
+                    RequestOptions().centerCrop()
+                }
+            }
+        }
+
+        return result
     }
 }

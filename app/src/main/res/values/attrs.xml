@@ -4,6 +4,11 @@
         <attr name="url" format="string" />
         <attr name="placeholder" format="reference" />
         <attr name="error" format="reference" />
-        <attr name="isCircle" format="boolean" />
+        <attr name="style" format="enum">
+            <enum name="normal">0</enum>
+            <enum name="circle">1</enum>
+            <enum name="round">2</enum>
+        </attr>
+        <attr name="corner" format="integer" />
     </declare-styleable>
 </resources>

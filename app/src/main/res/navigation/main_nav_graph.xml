@@ -11,16 +11,4 @@
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
 
-    <fragment
-        android:id="@+id/fg_mypage"
-        android:name="com.ddd.airplane.presenter.mypage.view.MyPageFragment"
-        android:label="home_fragment"
-        tools:layout="@layout/mypage_fragment" />
-
-    <fragment
-        android:id="@+id/fg_schedule"
-        android:name="com.ddd.airplane.presenter.schedule.view.ScheduleFragment"
-        android:label="schedule_fragment"
-        tools:layout="@layout/schedule_fragment" />
-
 </navigation>
