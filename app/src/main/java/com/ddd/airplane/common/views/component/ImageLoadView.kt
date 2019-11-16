@@ -28,7 +28,7 @@ class ImageLoadView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
-    enum class STYLE { NORMAL, CIRCLE, ROUND }
+    enum class Style { NORMAL, CIRCLE, ROUND }
 
     private val glide by lazy {
         Glide.with(context)
@@ -104,19 +104,19 @@ class ImageLoadView @JvmOverloads constructor(
         tryCatch {
 
             // 스타일
-            val style = STYLE.values()[typedValue.getInt(
+            val style = Style.values()[typedValue.getInt(
                 R.styleable.ImageLoadView_style,
-                STYLE.NORMAL.ordinal
+                Style.NORMAL.ordinal
             )]
 
             val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
 
             result = when (style) {
-                STYLE.CIRCLE -> {
+                Style.CIRCLE -> {
                     RequestOptions().centerCrop().circleCrop()
                 }
 
-                STYLE.ROUND -> {
+                Style.ROUND -> {
                     RequestOptions.bitmapTransform(RoundedCorners(corner))
                 }
 

@@ -31,7 +31,7 @@ class BottomNavigationView @JvmOverloads constructor(
         ScheduleFragment()
     }
 
-    private val mypageFragment: Fragment by lazy {
+    private val myPageFragment: Fragment by lazy {
         MyPageFragment()
     }
 
@@ -44,7 +44,7 @@ class BottomNavigationView @JvmOverloads constructor(
                 }
 
                 R.id.item_mypage -> {
-                    mypageFragment.replace(fragmentManager, R.id.fl_main)
+                    myPageFragment.replace(fragmentManager, R.id.fl_main)
                     true
                 }
 
