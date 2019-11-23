@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Vertical Layout 에서 사용하는 구분선 -->
+    <style name="DividerVertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#ff0000</item>
+    </style>
+
+    <!-- Horizontal Layout 에서 사용하는 구분선 -->
+    <style name="DividerHorizontal">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:background">#ff0000</item>
+    </style>
+
 </resources>

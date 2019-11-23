@@ -38,17 +38,32 @@ class BottomNavigationView @JvmOverloads constructor(
     init {
         setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.item_schedule -> {
+                R.id.main_navi_item_schedule -> {
+                    // 편성표
                     scheduleFragment.replace(fragmentManager, R.id.fl_main)
                     true
                 }
 
-                R.id.item_mypage -> {
+                R.id.main_navi_item_chat -> {
+                    // 채팅
+                    myPageFragment.replace(fragmentManager, R.id.fl_main)
+                    true
+                }
+
+                R.id.main_navi_item_search -> {
+                    // 검색
+                    myPageFragment.replace(fragmentManager, R.id.fl_main)
+                    true
+                }
+
+                R.id.main_navi_item_mypage -> {
+                    // 마이페이지
                     myPageFragment.replace(fragmentManager, R.id.fl_main)
                     true
                 }
 
                 else -> {
+                    // 홈
                     homeFragment.replace(fragmentManager, R.id.fl_main)
                     true
                 }

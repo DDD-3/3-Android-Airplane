@@ -3,8 +3,10 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="nav_home">홈</string>
-    <string name="nav_schedule">편성표</string>
-    <string name="nav_mypage">마이페이지</string>
+    <string name="main_navi_home">홈</string>
+    <string name="main_navi_schedule">편성표</string>
+    <string name="main_navi_chat">채팅</string>
+    <string name="main_navi_search">검색</string>
+    <string name="main_navi_mypage">마이페이지</string>
 
 </resources>

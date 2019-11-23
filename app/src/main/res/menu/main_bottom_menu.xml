@@ -3,28 +3,28 @@
 
 
     <item
-        android:id="@+id/item_home"
+        android:id="@+id/main_navi_item_home"
         android:icon="@android:drawable/ic_menu_call"
-        android:title="@string/nav_home" />
+        android:title="@string/main_navi_home" />
 
     <item
-        android:id="@+id/item_schedule"
+        android:id="@+id/main_navi_item_schedule"
         android:icon="@android:drawable/ic_menu_camera"
-        android:title="@string/nav_schedule" />
+        android:title="@string/main_navi_schedule" />
 
     <item
-        android:id="@+id/item_mypage"
+        android:id="@+id/main_navi_item_chat"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/nav_mypage" />
+        android:title="@string/main_navi_chat" />
 
     <item
-        android:id="@+id/item_1"
+        android:id="@+id/main_navi_item_search"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="1" />
+        android:title="@string/main_navi_search" />
 
     <item
-        android:id="@+id/item_2"
+        android:id="@+id/main_navi_item_mypage"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="2" />
+        android:title="@string/main_navi_mypage" />
 
 </menu>
