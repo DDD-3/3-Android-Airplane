@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/cl_title"
             app:layout_constraintVertical_weight="1"
             app:spanCount="2"
-            tools:listitem="@layout/home_thumbnail_item" />
+            tools:listitem="@layout/thumbnail_general_item" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_info"

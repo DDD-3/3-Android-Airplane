@@ -9,16 +9,37 @@
     </style>
 
     <!-- Vertical Layout 에서 사용하는 구분선 -->
-    <style name="DividerVertical">
+    <style name="divider_vertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">#ff0000</item>
     </style>
 
     <!-- Horizontal Layout 에서 사용하는 구분선 -->
-    <style name="DividerHorizontal">
+    <style name="divider_horizontal">
         <item name="android:layout_width">1dp</item>
         <item name="android:background">#ff0000</item>
+    </style>
+
+    <!-- Font Style -->
+    <style name="font_r">
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+
+    <style name="font_b">
+        <item name="android:fontFamily">@font/notosans_bold</item>
+    </style>
+
+    <style name="font_l">
+        <item name="android:fontFamily">@font/notosans_light</item>
+    </style>
+
+    <style name="font_m">
+        <item name="android:fontFamily">@font/notosans_medium</item>
+    </style>
+
+    <style name="font_t">
+        <item name="android:fontFamily">@font/notosans_thin</item>
     </style>
 
 </resources>
