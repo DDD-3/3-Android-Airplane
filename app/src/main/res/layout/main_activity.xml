@@ -42,7 +42,6 @@
             tools:visibility="visible">
 
             <include layout="@layout/recent_floating" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.ddd.airplane.presenter.main.view.BottomNavigationView
