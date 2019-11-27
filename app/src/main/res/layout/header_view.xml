@@ -8,24 +8,6 @@
 
     </data>
 
-    <!--    <com.google.android.material.appbar.AppBarLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/common_header"-->
-    <!--        android:orientation="vertical">-->
-
-    <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:expandedTitleMarginEnd="56dp"-->
-    <!--            app:expandedTitleMarginStart="40dp"-->
-    <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">-->
-
-    <!--            <View-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="100dp"-->
-    <!--                android:layout_marginTop="56dp"-->
-    <!--                android:background="#ff0000" />-->
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_header"
         android:layout_width="match_parent"
@@ -110,6 +92,4 @@
                 tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
-    <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-    <!--    </com.google.android.material.appbar.AppBarLayout>-->
 </layout>

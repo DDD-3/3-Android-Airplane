@@ -24,22 +24,27 @@
 
     <!-- Font Style -->
     <style name="font_r">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">@font/notosans_regular</item>
     </style>
 
     <style name="font_b">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">@font/notosans_bold</item>
     </style>
 
     <style name="font_l">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">@font/notosans_light</item>
     </style>
 
     <style name="font_m">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">@font/notosans_medium</item>
     </style>
 
     <style name="font_t">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">@font/notosans_thin</item>
     </style>
 

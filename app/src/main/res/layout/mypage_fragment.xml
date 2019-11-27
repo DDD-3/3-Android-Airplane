@@ -10,7 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -36,21 +38,32 @@
                             android:id="@+id/cl_profile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shp_gray_r10"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/shp_787878_r4"
+                            android:paddingStart="16dp"
+                            android:paddingTop="14dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="14dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
+                                style="@style/font_r"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="#ffffff"
+                                android:textSize="14sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:text="프로필 이름" />
 
                             <TextView
+                                style="@style/font_b"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="#ffdb2e"
+                                android:textSize="14sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -61,6 +74,7 @@
                         <View
                             android:id="@+id/v_divider_profile"
                             style="@style/divider_vertical"
+                            android:layout_marginTop="24dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/cl_profile" />
@@ -69,11 +83,12 @@
                             android:id="@+id/cl_subscribe_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/v_divider_profile">
 
-                            <include layout="@layout/page_large_title_view" />
+                            <include layout="@layout/content_title_view" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <!-- 구독 리스트 -->
@@ -81,10 +96,11 @@
                             android:id="@+id/rv_subscribe"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/cl_subscribe_list"
                             app:spanCount="2"
-                            tools:listitem="@layout/thumbnail_general_item" />
+                            tools:listitem="@layout/thumbnail_grid_item" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.core.widget.NestedScrollView>
