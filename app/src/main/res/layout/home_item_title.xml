@@ -14,16 +14,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="#000000">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
+            style="@style/font_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{title}"
-            tools:text="핫한 방송"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="홈 리스트 아이템 타이틀" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

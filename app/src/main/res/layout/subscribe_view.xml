@@ -15,17 +15,20 @@
         <!-- 구독자수 -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_subscribe"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_sample" />
+            tools:background="#ff0000" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_subscribe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="#828181"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_subscribe"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,17 +37,21 @@
         <!-- 참여자수 -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_live"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_subscribe"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_sample" />
+            tools:background="#ff0000" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_live"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="#828181"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_live"
             app:layout_constraintTop_toTopOf="parent"

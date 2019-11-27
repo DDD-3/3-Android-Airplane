@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:background">#000000</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,13 +13,13 @@
     <style name="divider_vertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">#ff0000</item>
+        <item name="android:background">#5c5c5c</item>
     </style>
 
     <!-- Horizontal Layout 에서 사용하는 구분선 -->
     <style name="divider_horizontal">
         <item name="android:layout_width">1dp</item>
-        <item name="android:background">#ff0000</item>
+        <item name="android:background">#5c5c5c</item>
     </style>
 
     <!-- Font Style -->

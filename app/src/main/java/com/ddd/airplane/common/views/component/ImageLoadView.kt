@@ -109,21 +109,21 @@ class ImageLoadView @JvmOverloads constructor(
                 Style.NORMAL.ordinal
             )]
 
-            val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
-
-            result = when (style) {
-                Style.CIRCLE -> {
-                    RequestOptions().centerCrop().circleCrop()
-                }
-
-                Style.ROUND -> {
-                    RequestOptions.bitmapTransform(RoundedCorners(corner))
-                }
-
-                else -> {
-                    RequestOptions().centerCrop()
-                }
-            }
+//            val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
+//
+//            result = when (style) {
+//                Style.CIRCLE -> {
+//                    RequestOptions().centerCrop().circleCrop()
+//                }
+//
+//                Style.ROUND -> {
+//                    RequestOptions.bitmapTransform(RoundedCorners(corner))
+//                }
+//
+//                else -> {
+//                    RequestOptions().centerCrop()
+//                }
+//            }
         }
 
         return result

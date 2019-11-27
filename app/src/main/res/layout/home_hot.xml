@@ -10,7 +10,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="24dp">
 
         <!-- 핫한 방송 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +32,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_hot"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/tv_info"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,16 +41,26 @@
             app:layout_constraintTop_toBottomOf="@id/cl_title"
             app:layout_constraintVertical_weight="1"
             app:spanCount="2"
-            tools:listitem="@layout/thumbnail_general_item" />
+            tools:listitem="@layout/thumbnail_grid_item" />
+
+        <View
+            android:id="@+id/v_divider_hot"
+            style="@style/divider_vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_hot" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_info"
+            style="@style/font_r"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#4c4c4c"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_hot"
+            app:layout_constraintTop_toBottomOf="@id/v_divider_hot"
             tools:text="활동 참여자 기준으로 집계합니다." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

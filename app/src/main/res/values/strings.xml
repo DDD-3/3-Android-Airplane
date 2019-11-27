@@ -9,4 +9,6 @@
     <string name="main_navi_search">검색</string>
     <string name="main_navi_mypage">마이페이지</string>
 
+    <string name="schedule_broadcast">방송사별</string>
+    <string name="schedule_channel">주제별</string>
 </resources>
