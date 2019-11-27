@@ -10,87 +10,98 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <!-- 제목 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_title"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <include layout="@layout/page_large_title_view" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_title"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <!-- 프로필 이름 -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_profile"
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/sv_mypage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shp_gray_r10"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="프로필 이름" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="비행기팀" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <!-- 프로필 이름 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shp_gray_r10"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                <!-- 구분선 -->
-                <View
-                    android:id="@+id/v_divider_profile"
-                    style="@style/divider_vertical"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_profile" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="프로필 이름" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_subscribe_list"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="비행기팀" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- 구분선 -->
+                        <View
+                            android:id="@+id/v_divider_profile"
+                            style="@style/divider_vertical"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_profile" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_subscribe_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/v_divider_profile">
+
+                            <include layout="@layout/page_large_title_view" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- 구독 리스트 -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_subscribe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:layout_constraintTop_toBottomOf="@id/cl_subscribe_list"
+                            app:spanCount="2"
+                            tools:listitem="@layout/thumbnail_general_item" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.core.widget.NestedScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- 헤더 -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical">
+
+                <com.ddd.airplane.common.views.component.HeaderView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/v_divider_profile">
-
-                    <include layout="@layout/page_large_title_view" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_subscribe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/cl_subscribe_list"
-                    app:spanCount="2"
-                    tools:listitem="@layout/thumbnail_general_item" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

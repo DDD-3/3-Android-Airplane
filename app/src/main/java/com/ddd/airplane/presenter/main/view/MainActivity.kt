@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         bnv_main.run {
             tryCatch {
                 fragmentManager = supportFragmentManager
-//                init()
+                init()
             }
         }
     }

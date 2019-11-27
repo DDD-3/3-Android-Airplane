@@ -8,24 +8,41 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/common_header"-->
+    <!--        android:orientation="vertical">-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tb_header"
+    <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:expandedTitleMarginEnd="56dp"-->
+    <!--            app:expandedTitleMarginStart="40dp"-->
+    <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">-->
+
+    <!--            <View-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="100dp"-->
+    <!--                android:layout_marginTop="56dp"-->
+    <!--                android:background="#ff0000" />-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_collapseMode="pin"
+        app:theme="@null"
+        app:title="">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top|left"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            app:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_collapseMode="pin"
-            app:theme="@null"
-            app:title="">
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_finish"
@@ -89,6 +106,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="옵션텍스트"
                 tools:visibility="visible" />
-        </androidx.appcompat.widget.Toolbar>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
 </layout>

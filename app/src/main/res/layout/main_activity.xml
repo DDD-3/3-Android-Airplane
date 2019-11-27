@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@id/cl_recent"
+            app:layout_constraintBottom_toTopOf="@id/bnv_main"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,6 @@
             app:layout_constraintBottom_toTopOf="@id/bnv_main"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fl_main"
             tools:visibility="visible">
 
             <include layout="@layout/recent_floating" />
@@ -54,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_recent"
+            app:layout_constraintTop_toBottomOf="@id/fl_main"
             app:menu="@menu/main_bottom_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
