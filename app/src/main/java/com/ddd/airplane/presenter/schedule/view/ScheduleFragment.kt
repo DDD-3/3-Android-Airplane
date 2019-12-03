@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import com.ddd.airplane.R
 import com.ddd.airplane.presenter.base.view.BaseFragment
 
+/**
+ * 편성표
+ * @author jess
+ */
 class ScheduleFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

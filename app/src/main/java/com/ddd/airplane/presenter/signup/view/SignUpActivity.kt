@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ddd.airplane.R
 
 /**
+ * 회원가입
  * @author jess
  */
 class SignUpActivity : AppCompatActivity() {

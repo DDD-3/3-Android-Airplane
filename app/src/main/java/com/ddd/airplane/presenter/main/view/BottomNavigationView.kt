@@ -6,13 +6,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.replace
-import com.ddd.airplane.presenter.chat.view.ChatFragment
+import com.ddd.airplane.presenter.chat.list.view.ChatListFragment
 import com.ddd.airplane.presenter.home.view.HomeFragment
 import com.ddd.airplane.presenter.mypage.view.MyPageFragment
 import com.ddd.airplane.presenter.schedule.view.ScheduleFragment
 import com.ddd.airplane.presenter.search.view.SearchFragment
 
-
+/**
+ * 메인 하단 네비게이션 버튼
+ *
+ * @author jess
+ * @param context
+ * @param attrs
+ * @param defStyleAttr
+ */
 class BottomNavigationView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -34,7 +41,7 @@ class BottomNavigationView @JvmOverloads constructor(
     }
 
     private val chatFragment: Fragment by lazy {
-        ChatFragment()
+        ChatListFragment()
     }
 
     private val searchFragment: Fragment by lazy {

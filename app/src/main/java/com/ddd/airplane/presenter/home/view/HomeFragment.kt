@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment
 import com.ddd.airplane.R
 import com.ddd.airplane.presenter.base.view.BaseFragment
 
+/**
+ * 홈
+ * @author jess
+ */
 class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

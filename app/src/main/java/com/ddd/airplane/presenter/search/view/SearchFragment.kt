@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import com.ddd.airplane.R
 import com.ddd.airplane.presenter.base.view.BaseFragment
 
+/**
+ * 검색
+ * @author jess
+ */
 class SearchFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

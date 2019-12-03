@@ -1,4 +1,4 @@
-package com.ddd.airplane.presenter.chat.view
+package com.ddd.airplane.presenter.chat.list.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import com.ddd.airplane.R
 import com.ddd.airplane.presenter.base.view.BaseFragment
 
-class ChatFragment : BaseFragment() {
+/**
+ * 채팅 리스트
+ * @author jess
+ */
+class ChatListFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +23,7 @@ class ChatFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.chat_fragment, container, false)
+        return inflater.inflate(R.layout.chat_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -2,6 +2,7 @@ package com.ddd.airplane.presenter.base.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ddd.airplane.common.network.retrofit.RetrofitManager
 
 /**
  * @author jess
@@ -22,5 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        initDataBinding()
 //        initLayout()
+
+        RetrofitManager.test
     }
 }

@@ -10,6 +10,7 @@ import com.ddd.airplane.presenter.base.view.BaseActivity
 import kotlinx.android.synthetic.main.main_activity.*
 
 /**
+ * 메인
  * @author jess
  */
 class MainActivity : BaseActivity(), View.OnClickListener {

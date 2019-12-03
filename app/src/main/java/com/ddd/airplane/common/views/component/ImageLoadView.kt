@@ -57,7 +57,7 @@ class ImageLoadView @JvmOverloads constructor(
                 placeholder(typedValue.getDrawable(R.styleable.ImageLoadView_placeholder))
 
                 // 에러
-                error(typedValue.getDrawable(R.styleable.ImageLoadView_placeholder))
+                error(typedValue.getDrawable(R.styleable.ImageLoadView_error))
 
                 // fade 처리
                 transition(DrawableTransitionOptions.withCrossFade())

@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment
 import com.ddd.airplane.R
 import com.ddd.airplane.presenter.base.view.BaseFragment
 
+/**
+ * 마이페이지
+ * @author jess
+ */
 class MyPageFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
