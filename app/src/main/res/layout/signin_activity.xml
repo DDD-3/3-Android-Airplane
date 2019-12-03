@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presenter.main.view.SignInActivity">
+    tools:context=".presenter.signin.view.SignInActivity">
 
     <data>
 
@@ -12,37 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="match_parent"
+        <!-- 카카오 로그인 -->
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/cl_type"
+            android:background="@color/bg_login_button"
+            android:text="카카오로 로그인"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/ic_sample" />
+            />
 
-        <!-- 카카오 로그인 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_type"
-            android:layout_width="match_parent"
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/btn_kakao_login"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.kakao.usermgmt.LoginButton
-                android:id="@+id/com_kakao_login"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
