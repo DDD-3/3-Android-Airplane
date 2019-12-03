@@ -4,6 +4,22 @@
         <attr name="url" format="string" />
         <attr name="placeholder" format="reference" />
         <attr name="error" format="reference" />
-        <attr name="isCircle" format="boolean" />
+        <attr name="style" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="circle" value="1"/>
+            <enum name="round" value="2"/>
+        </attr>
+        <attr name="corner" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HeaderView">
+        <attr name="title" format="string" />
+        <attr name="finishType" format="enum">
+            <enum name="back" value="0"/>
+            <enum name="close" value="1"/>
+        </attr>
+        <attr name="textOption" format="string" />
+        <attr name="leftOption" format="reference" />
+        <attr name="rightOption" format="reference" />
     </declare-styleable>
 </resources>
