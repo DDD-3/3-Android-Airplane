@@ -4,21 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.main.view.SignInActivity">
-
-    <com.kakao.usermgmt.LoginButton
-        android:id="@+id/com_kakao_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+    tools:context=".presenter.main.view.SignInActivity">
 
     <data>
-
+        
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,17 +36,15 @@
             app:layout_constraintTop_toBottomOf="@id/iv_logo"
             app:layout_constraintVertical_chainStyle="packed">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_kakao"
-                android:layout_width="match_parent"
+            <com.kakao.usermgmt.LoginButton
+                android:id="@+id/com_kakao_login"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_sample" />
+                app:layout_constraintRight_toRightOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
->>>>>>> 14cc28d5e11df0d01700f9cf7e6712bca392dcdb
