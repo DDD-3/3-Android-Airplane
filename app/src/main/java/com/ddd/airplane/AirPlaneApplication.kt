@@ -15,9 +15,9 @@ class AirPlaneApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        retrofit()
-        timber()
-        room()
+//        retrofit()
+//        timber()
+//        room()
         kakao()
     }
 
