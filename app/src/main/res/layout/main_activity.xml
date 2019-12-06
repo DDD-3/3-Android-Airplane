@@ -8,52 +8,57 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- https://developer.android.com/guide/navigation/navigation-getting-started?hl=ko#kotlin -->
-        <!-- https://www.raywenderlich.com/6014-the-navigation-architecture-component-tutorial-getting-started#toc-anchor-001 -->
-
-        <FrameLayout
-            android:id="@+id/fl_main"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@id/bnv_main"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintVertical_weight="1"
-            app:navGraph="@navigation/main_nav_graph" />
-
-        <!-- 최근 본 방송 Floating -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_recent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/bnv_main"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:visibility="visible">
+            android:layout_height="match_parent">
 
-            <include layout="@layout/recent_floating" />
+            <!-- https://developer.android.com/guide/navigation/navigation-getting-started?hl=ko#kotlin -->
+            <!-- https://www.raywenderlich.com/6014-the-navigation-architecture-component-tutorial-getting-started#toc-anchor-001 -->
+
+            <FrameLayout
+                android:id="@+id/fl_main"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@id/bnv_main"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintVertical_weight="1"
+                app:navGraph="@navigation/main_nav_graph" />
+
+            <!-- 최근 본 방송 Bottom Sheet -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/bnv_main"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:visibility="visible">
+
+                <include layout="@layout/main_recent_sheet" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.ddd.airplane.presenter.main.view.BottomNavigationView
+                android:id="@+id/bnv_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemIconSize="30dp"
+                app:itemIconTint="@drawable/selector_enabled_disabled"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fl_main"
+                app:menu="@menu/main_bottom_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.ddd.airplane.presenter.main.view.BottomNavigationView
-            android:id="@+id/bnv_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemIconSize="30dp"
-            app:itemIconTint="@drawable/selector_enabled_disabled"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fl_main"
-            app:menu="@menu/main_bottom_menu" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
