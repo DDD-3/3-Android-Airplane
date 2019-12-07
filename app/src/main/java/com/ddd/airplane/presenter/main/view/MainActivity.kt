@@ -2,9 +2,7 @@ package com.ddd.airplane.presenter.main.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil
 import com.ddd.airplane.R
-import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.databinding.MainActivityBinding
 import com.ddd.airplane.presenter.base.view.BaseActivity
 import kotlinx.android.synthetic.main.main_activity.*
@@ -13,28 +11,25 @@ import kotlinx.android.synthetic.main.main_activity.*
  * 메인
  * @author jess
  */
-class MainActivity : BaseActivity(), View.OnClickListener {
+class MainActivity : BaseActivity<MainActivityBinding>(), View.OnClickListener {
 
-    private lateinit var binding: MainActivityBinding
+    override fun getLayoutId() = R.layout.main_activity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        initDataBinding()
-        initLayout()
-    }
-
-    private fun initDataBinding() {
-
-    }
-
-    private fun initLayout() {
-        bnv_main.run {
-            tryCatch {
-                fragmentManager = supportFragmentManager
-                init()
-            }
+    override fun initDataBinding() {
+        dataBinding.run {
+            lifecycleOwner = this@MainActivity
         }
+    }
+
+    override fun initLayout() {
+        bnv_main.run {
+            fragmentManager = supportFragmentManager
+            init()
+        }
+    }
+
+    override fun onCreated(savedInstanceState: Bundle?) {
+
     }
 
     override fun onClick(v: View?) {
