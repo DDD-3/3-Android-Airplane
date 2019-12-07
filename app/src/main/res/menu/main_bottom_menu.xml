@@ -17,10 +17,10 @@
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/main_navi_chat" />
 
-    <item
-        android:id="@+id/main_navi_item_search"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/main_navi_search" />
+<!--    <item-->
+<!--        android:id="@+id/main_navi_item_search"-->
+<!--        android:icon="@android:drawable/ic_menu_edit"-->
+<!--        android:title="@string/main_navi_search" />-->
 
     <item
         android:id="@+id/main_navi_item_mypage"

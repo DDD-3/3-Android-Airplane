@@ -19,6 +19,7 @@
     <!-- Horizontal Layout 에서 사용하는 구분선 -->
     <style name="divider_horizontal">
         <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:background">#5c5c5c</item>
     </style>
 

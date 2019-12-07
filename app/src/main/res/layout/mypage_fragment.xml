@@ -39,7 +39,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="16dp"
-                            android:background="@drawable/shp_787878_r4"
+                            android:background="@drawable/shp_rect_787878_r4"
                             android:paddingStart="16dp"
                             android:paddingTop="14dp"
                             android:paddingEnd="16dp"
@@ -115,7 +115,8 @@
 
                 <com.ddd.airplane.common.views.component.HeaderView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:title="@string/mypage_title" />
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

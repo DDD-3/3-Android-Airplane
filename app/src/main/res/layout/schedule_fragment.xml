@@ -8,7 +8,8 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,28 +17,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_broadcast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/schedule_broadcast"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/abl_header"
+                app:layout_constraintVertical_weight="1" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_channel"
-                android:layout_width="wrap_content"
+            <!-- 헤더 -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/abl_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/schedule_channel"
-                app:layout_constraintLeft_toRightOf="@id/tv_broadcast"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:fitsSystemWindows="true"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/vp_schedule"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include layout="@layout/schedule_header" />
+            </com.google.android.material.appbar.AppBarLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
