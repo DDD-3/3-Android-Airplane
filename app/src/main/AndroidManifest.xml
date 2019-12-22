@@ -17,13 +17,15 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".presenter.main.view.MainActivity">
+        </activity>
+
+        <activity android:name=".presenter.signin.view.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <!-- 카카오 앱 키 사용 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
