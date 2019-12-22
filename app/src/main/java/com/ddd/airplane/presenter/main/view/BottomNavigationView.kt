@@ -67,12 +67,6 @@ class BottomNavigationView @JvmOverloads constructor(
                     true
                 }
 
-                R.id.main_navi_item_search -> {
-                    // 검색
-                    searchFragment.replace(fragmentManager, R.id.fl_main)
-                    true
-                }
-
                 R.id.main_navi_item_mypage -> {
                     // 마이페이지
                     myPageFragment.replace(fragmentManager, R.id.fl_main)

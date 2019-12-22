@@ -1,6 +1,7 @@
 package com.ddd.airplane
 
 import android.app.Application
+import com.ddd.airplane.common.SBSSharedPreferences
 import com.ddd.airplane.common.network.retrofit.RetrofitManager
 import com.ddd.airplane.common.room.DatabaseManager
 import com.ddd.airplane.pages.signin.KakaoSdkAdapter
@@ -18,7 +19,8 @@ class AirPlaneApplication : Application() {
 //        retrofit()
 //        timber()
 //        room()
-        kakao()
+//        kakao()
+        prefs = SBSSharedPreferences(applicationContext)
     }
 
     override fun onTerminate() {
@@ -29,6 +31,7 @@ class AirPlaneApplication : Application() {
 
     companion object {
         var instance: AirPlaneApplication? = null
+        lateinit var prefs: SBSSharedPreferences
     }
 
     fun getGlobalApplicationContext() : AirPlaneApplication {
