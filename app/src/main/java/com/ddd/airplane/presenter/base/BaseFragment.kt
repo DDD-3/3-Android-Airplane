@@ -1,4 +1,4 @@
-package com.ddd.airplane.presenter.base.view
+package com.ddd.airplane.presenter.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ abstract class BaseFragment<D : ViewDataBinding> : Fragment() {
      * 레이아웃 ID
      */
     @LayoutRes
-    abstract fun getLayoutId(): Int
+    abstract fun setLayoutId(): Int
 
     /**
      * 데이터 바인딩 초기화
@@ -45,7 +45,7 @@ abstract class BaseFragment<D : ViewDataBinding> : Fragment() {
     ): View? {
         dataBinding = DataBindingUtil.inflate(
             inflater,
-            getLayoutId(),
+            setLayoutId(),
             container,
             false
         )

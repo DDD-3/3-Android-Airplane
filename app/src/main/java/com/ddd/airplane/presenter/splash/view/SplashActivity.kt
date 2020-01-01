@@ -1,17 +1,29 @@
 package com.ddd.airplane.presenter.splash.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ddd.airplane.R
+import com.ddd.airplane.databinding.SplashActivityBinding
+import com.ddd.airplane.presenter.base.BaseActivity
 
 /**
  * 스플래시
  * @author jess
  */
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity<SplashActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_activity)
+    override fun setLayoutId() = R.layout.splash_activity
+
+    override fun initDataBinding() {
+        dataBinding.run {
+            lifecycleOwner = this@SplashActivity
+        }
+    }
+
+    override fun initLayout() {
+
+    }
+
+    override fun onCreated(savedInstanceState: Bundle?) {
+
     }
 }

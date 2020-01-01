@@ -3,7 +3,7 @@ package com.ddd.airplane.presenter.home.view
 import android.os.Bundle
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.HomeFragmentBinding
-import com.ddd.airplane.presenter.base.view.BaseFragment
+import com.ddd.airplane.presenter.base.BaseFragment
 
 /**
  * 홈
@@ -11,7 +11,7 @@ import com.ddd.airplane.presenter.base.view.BaseFragment
  */
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
-    override fun getLayoutId() = R.layout.home_fragment
+    override fun setLayoutId() = R.layout.home_fragment
 
     override fun initDataBinding() {
         dataBinding.run {

@@ -1,16 +1,29 @@
 package com.ddd.airplane.presenter.favorite.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ddd.airplane.R
+import com.ddd.airplane.databinding.FavoriteActivityBinding
+import com.ddd.airplane.presenter.base.BaseActivity
 
 /**
  * @author jess
  */
-class FavoriteActivity : AppCompatActivity() {
+class FavoriteActivity : BaseActivity<FavoriteActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.favorite_activity)
+    override fun setLayoutId() = R.layout.favorite_activity
+
+    override fun initDataBinding() {
+        dataBinding.run {
+            lifecycleOwner = this@FavoriteActivity
+        }
     }
+
+    override fun initLayout() {
+
+    }
+
+    override fun onCreated(savedInstanceState: Bundle?) {
+
+    }
+
 }

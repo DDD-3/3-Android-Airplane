@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.MainActivityBinding
-import com.ddd.airplane.presenter.base.view.BaseActivity
+import com.ddd.airplane.presenter.base.BaseActivity
 import kotlinx.android.synthetic.main.main_activity.*
 
 /**
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.main_activity.*
  */
 class MainActivity : BaseActivity<MainActivityBinding>(), View.OnClickListener {
 
-    override fun getLayoutId() = R.layout.main_activity
+    override fun setLayoutId() = R.layout.main_activity
 
     override fun initDataBinding() {
         dataBinding.run {

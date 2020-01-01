@@ -1,12 +1,10 @@
-package com.ddd.airplane.presenter.base.view
+package com.ddd.airplane.presenter.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.ddd.airplane.R
-import com.ddd.airplane.common.network.retrofit.RetrofitManager
 
 /**
  * @author jess
@@ -19,7 +17,7 @@ abstract class BaseActivity<D : ViewDataBinding> : AppCompatActivity() {
      * 레이아웃 ID
      */
     @LayoutRes
-    abstract fun getLayoutId(): Int
+    abstract fun setLayoutId(): Int
 
     /**
      * 데이터 바인딩 초기화
@@ -38,7 +36,7 @@ abstract class BaseActivity<D : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        dataBinding = DataBindingUtil.setContentView(this, setLayoutId())
         initDataBinding()
         initLayout()
     }

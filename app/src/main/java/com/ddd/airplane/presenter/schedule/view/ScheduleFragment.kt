@@ -1,12 +1,9 @@
 package com.ddd.airplane.presenter.schedule.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ScheduleFragmentBinding
-import com.ddd.airplane.presenter.base.view.BaseFragment
+import com.ddd.airplane.presenter.base.BaseFragment
 
 /**
  * 편성표
@@ -14,7 +11,7 @@ import com.ddd.airplane.presenter.base.view.BaseFragment
  */
 class ScheduleFragment : BaseFragment<ScheduleFragmentBinding>() {
 
-    override fun getLayoutId() = R.layout.schedule_fragment
+    override fun setLayoutId() = R.layout.schedule_fragment
 
     override fun initDataBinding() {
         dataBinding.run {

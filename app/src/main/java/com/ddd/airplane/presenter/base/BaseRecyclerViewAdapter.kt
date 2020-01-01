@@ -1,4 +1,4 @@
-package com.hour24.tb.adapter
+package com.ddd.airplane.presenter.base
 
 
 import android.view.LayoutInflater
@@ -40,7 +40,7 @@ abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        onBind(position, list[position], holder.mDataBinding as D)
+        onBind(position, list[position], holder.dataBinding as D)
     }
 
     override fun getItemCount(): Int {
@@ -78,6 +78,6 @@ abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
     }
 
     class ViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        var mDataBinding: ViewDataBinding = binding
+        var dataBinding: ViewDataBinding = binding
     }
 }
