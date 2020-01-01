@@ -1,10 +1,10 @@
 package com.ddd.airplane
 
 import android.app.Application
-import com.ddd.airplane.common.SBSSharedPreferences
+import com.ddd.airplane.common.utils.SharedPreferences
 import com.ddd.airplane.common.network.retrofit.RetrofitManager
 import com.ddd.airplane.common.room.DatabaseManager
-import com.ddd.airplane.pages.signin.KakaoSdkAdapter
+import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
 import timber.log.Timber
 
@@ -13,30 +13,24 @@ import timber.log.Timber
  */
 class AirPlaneApplication : Application() {
 
+    companion object {
+        var instance: AirPlaneApplication? = null
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
-//        retrofit()
-//        timber()
-//        room()
-//        kakao()
-        prefs = SBSSharedPreferences(applicationContext)
+        retrofit()
+        timber()
+        room()
+        kakao()
+        sharedPreference()
     }
 
     override fun onTerminate() {
         DatabaseManager.close()
         instance = null
         super.onTerminate()
-    }
-
-    companion object {
-        var instance: AirPlaneApplication? = null
-        lateinit var prefs: SBSSharedPreferences
-    }
-
-    fun getGlobalApplicationContext() : AirPlaneApplication {
-        checkNotNull(instance) {"this application does not inherit"}
-        return instance!!
     }
 
     /**
@@ -67,5 +61,17 @@ class AirPlaneApplication : Application() {
      */
     private fun kakao() {
         KakaoSDK.init(KakaoSdkAdapter())
+    }
+
+    /**
+     * SharedPreference
+     */
+    private fun sharedPreference() {
+        SharedPreferences.init(applicationContext)
+    }
+
+    fun getGlobalApplicationContext(): AirPlaneApplication {
+        checkNotNull(instance) { "this application does not inherit" }
+        return instance!!
     }
 }

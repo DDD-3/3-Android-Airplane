@@ -5,12 +5,10 @@ package com.ddd.airplane.common.network.config
  */
 object ServerInfo {
 
-    const val image = "http://..."
+    const val image = "http://13.209.77.249"
 
     public enum class DOMAIN(val domain: String) {
-        DEV("http://..."),
-        REAL("http://...")
+        DEV("http://13.209.77.249"),
+        REAL("http://13.209.77.249")
     }
-
-
 }

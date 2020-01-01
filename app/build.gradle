@@ -14,9 +14,14 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "0.00.01"
-
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -89,7 +94,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifeCycle"
     implementation "androidx.lifecycle:lifecycle-runtime:$lifeCycle"
 
-    def room = '2.2.2'
+    def room = '2.2.3'
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-rxjava2:$room"
     kapt "androidx.room:room-compiler:$room"

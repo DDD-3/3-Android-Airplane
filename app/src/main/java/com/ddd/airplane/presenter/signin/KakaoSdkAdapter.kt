@@ -1,4 +1,4 @@
-package com.ddd.airplane.pages.signin
+package com.ddd.airplane.presenter.signin
 
 import com.ddd.airplane.AirPlaneApplication
 import com.kakao.auth.*
