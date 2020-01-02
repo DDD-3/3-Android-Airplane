@@ -17,12 +17,8 @@ abstract class BaseActivity<D : ViewDataBinding> : AppCompatActivity() {
      * 레이아웃 ID
      */
     @LayoutRes
-    abstract fun setLayoutId(): Int
+    abstract fun getLayoutId(): Int
 
-    /**
-     * 데이터 바인딩 초기화
-     */
-    abstract fun initDataBinding()
 
     /**
      * 레이아웃 초기화
@@ -36,8 +32,18 @@ abstract class BaseActivity<D : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBinding = DataBindingUtil.setContentView(this, setLayoutId())
         initDataBinding()
         initLayout()
+        onCreated(savedInstanceState)
+    }
+
+    /**
+     * 데이터 바인딩 초기화
+     */
+    protected open fun initDataBinding() {
+        dataBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        dataBinding.run {
+            lifecycleOwner = this@BaseActivity
+        }
     }
 }

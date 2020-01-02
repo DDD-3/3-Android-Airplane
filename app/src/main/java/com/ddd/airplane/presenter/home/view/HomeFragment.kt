@@ -2,8 +2,10 @@ package com.ddd.airplane.presenter.home.view
 
 import android.os.Bundle
 import com.ddd.airplane.R
+import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.databinding.HomeFragmentBinding
 import com.ddd.airplane.presenter.base.BaseFragment
+import com.ddd.airplane.presenter.home.viewmodel.HomeViewModel
 
 /**
  * 홈
@@ -11,12 +13,13 @@ import com.ddd.airplane.presenter.base.BaseFragment
  */
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
-    override fun setLayoutId() = R.layout.home_fragment
+    private var vm = HomeViewModel(ContextProvider(context))
+
+    override fun getLayoutId() = R.layout.home_fragment
 
     override fun initDataBinding() {
-        dataBinding.run {
-            lifecycleOwner = this@HomeFragment
-        }
+        super.initDataBinding()
+        dataBinding.vm = vm
     }
 
     override fun initLayout() {

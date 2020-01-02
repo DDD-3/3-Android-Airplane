@@ -12,11 +12,12 @@ import com.ddd.airplane.presenter.base.BaseActivity
  */
 class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding>(), View.OnClickListener {
 
-    override fun setLayoutId() = R.layout.chat_room_activity
+    override fun getLayoutId() = R.layout.chat_room_activity
 
     override fun initDataBinding() {
+        super.initDataBinding()
         dataBinding.run {
-            lifecycleOwner = this@ChatRoomActivity
+
         }
     }
 

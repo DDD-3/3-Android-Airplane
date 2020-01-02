@@ -11,11 +11,12 @@ import com.ddd.airplane.presenter.base.BaseFragment
  */
 class ScheduleFragment : BaseFragment<ScheduleFragmentBinding>() {
 
-    override fun setLayoutId() = R.layout.schedule_fragment
+    override fun getLayoutId() = R.layout.schedule_fragment
 
     override fun initDataBinding() {
+        super.initDataBinding()
         dataBinding.run {
-            lifecycleOwner = this@ScheduleFragment
+
         }
     }
 

@@ -11,13 +11,7 @@ import com.ddd.airplane.presenter.base.BaseActivity
  */
 class SplashActivity : BaseActivity<SplashActivityBinding>() {
 
-    override fun setLayoutId() = R.layout.splash_activity
-
-    override fun initDataBinding() {
-        dataBinding.run {
-            lifecycleOwner = this@SplashActivity
-        }
-    }
+    override fun getLayoutId() = R.layout.splash_activity
 
     override fun initLayout() {
 

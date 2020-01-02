@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
+import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.presenter.base.BaseFragment
+import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import kotlinx.android.synthetic.main.mypage_fragment.*
 
@@ -15,12 +17,13 @@ import kotlinx.android.synthetic.main.mypage_fragment.*
  */
 class MyPageFragment : BaseFragment<MypageFragmentBinding>(), View.OnClickListener {
 
-    override fun setLayoutId() = R.layout.mypage_fragment
+    private var vm = MyPageViewModel(ContextProvider(context))
+
+    override fun getLayoutId() = R.layout.mypage_fragment
 
     override fun initDataBinding() {
-        dataBinding.run {
-            lifecycleOwner = this@MyPageFragment
-        }
+        super.initDataBinding()
+        dataBinding.vm = vm
     }
 
     override fun initLayout() {

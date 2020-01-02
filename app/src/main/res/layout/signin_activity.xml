@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,15 +18,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_logo"
-            android:src="@drawable/logo_blue"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="188dp"
             android:layout_marginBottom="321dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/logo_blue"
+            app:layout_constraintBottom_toTopOf="@id/tv_login"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tv_login"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_login"
@@ -31,44 +35,44 @@
             android:layout_height="54dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/shp_rect_fae100_r4"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
             android:text="@string/login"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <!-- 카카오 로그인 -->
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_kakao_login_custom"-->
-<!--            style="@style/font_b"-->
-<!--            android:layout_width="327dp"-->
-<!--            android:layout_height="54dp"-->
-<!--            android:background="@color/shp_rect_fae100_r4"-->
-<!--            android:text="@string/login_kakao"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            android:layout_marginBottom="24dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            android:visibility="gone" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_kakao_login_custom"-->
+        <!--            style="@style/font_b"-->
+        <!--            android:layout_width="327dp"-->
+        <!--            android:layout_height="54dp"-->
+        <!--            android:background="@color/shp_rect_fae100_r4"-->
+        <!--            android:text="@string/login_kakao"-->
+        <!--            android:textColor="@android:color/black"-->
+        <!--            android:layout_marginBottom="24dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            android:visibility="gone" />-->
 
-<!--        <com.kakao.usermgmt.LoginButton-->
-<!--            android:id="@+id/btn_kakao_login"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="24dp"-->
-<!--            android:background="@color/shp_rect_fae100_r4"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            android:visibility="gone" />-->
+        <!--        <com.kakao.usermgmt.LoginButton-->
+        <!--            android:id="@+id/btn_kakao_login"-->
+        <!--            android:layout_width="300dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginBottom="24dp"-->
+        <!--            android:background="@color/shp_rect_fae100_r4"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            android:visibility="gone" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,8 +3,10 @@ package com.ddd.airplane.presenter.signin.view
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
+import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.presenter.base.BaseActivity
+import com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel
 
 /**
  * 로그인
@@ -12,14 +14,13 @@ import com.ddd.airplane.presenter.base.BaseActivity
  */
 class SignInActivity : BaseActivity<SigninActivityBinding>(), View.OnClickListener {
 
-    override fun setLayoutId(): Int {
-        return R.layout.signin_activity
-    }
+    private var vm = SignInViewModel(ContextProvider(this))
+
+    override fun getLayoutId() = R.layout.signin_activity
 
     override fun initDataBinding() {
-        dataBinding.run {
-            lifecycleOwner = this@SignInActivity
-        }
+        super.initDataBinding()
+        dataBinding.vm = vm
     }
 
     override fun initLayout() {
@@ -33,9 +34,7 @@ class SignInActivity : BaseActivity<SigninActivityBinding>(), View.OnClickListen
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_login -> {
-//                val mainIntent = Intent(this, MainActivity::class.java)
-//                mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(mainIntent)
+
             }
         }
     }

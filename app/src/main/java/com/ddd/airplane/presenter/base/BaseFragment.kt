@@ -17,12 +17,7 @@ abstract class BaseFragment<D : ViewDataBinding> : Fragment() {
      * 레이아웃 ID
      */
     @LayoutRes
-    abstract fun setLayoutId(): Int
-
-    /**
-     * 데이터 바인딩 초기화
-     */
-    abstract fun initDataBinding()
+    abstract fun getLayoutId(): Int
 
     /**
      * 레이아웃 초기화
@@ -45,7 +40,7 @@ abstract class BaseFragment<D : ViewDataBinding> : Fragment() {
     ): View? {
         dataBinding = DataBindingUtil.inflate(
             inflater,
-            setLayoutId(),
+            getLayoutId(),
             container,
             false
         )
@@ -57,5 +52,14 @@ abstract class BaseFragment<D : ViewDataBinding> : Fragment() {
         initDataBinding()
         initLayout()
         onCreated(savedInstanceState)
+    }
+
+    /**
+     * 데이터 바인딩 초기화
+     */
+    protected open fun initDataBinding() {
+        dataBinding.run {
+            lifecycleOwner = this@BaseFragment
+        }
     }
 }

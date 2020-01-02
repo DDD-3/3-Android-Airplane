@@ -11,11 +11,12 @@ import com.ddd.airplane.presenter.base.BaseFragment
  */
 class ChatListFragment : BaseFragment<ChatListFragmentBinding>() {
 
-    override fun setLayoutId() = R.layout.chat_list_fragment
+    override fun getLayoutId() = R.layout.chat_list_fragment
 
     override fun initDataBinding() {
+        super.initDataBinding()
         dataBinding.run {
-            lifecycleOwner = this@ChatListFragment
+
         }
     }
 

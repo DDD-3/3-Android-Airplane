@@ -11,11 +11,12 @@ import com.ddd.airplane.presenter.base.BaseFragment
  */
 class SearchFragment : BaseFragment<SearchFragmentBinding>() {
 
-    override fun setLayoutId() = R.layout.search_fragment
+    override fun getLayoutId() = R.layout.search_fragment
 
     override fun initDataBinding() {
+        super.initDataBinding()
         dataBinding.run {
-            lifecycleOwner = this@SearchFragment
+
         }
     }
 
