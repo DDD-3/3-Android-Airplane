@@ -51,7 +51,7 @@ object RetrofitManager {
     private fun okHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder().apply {
             addInterceptor { chain ->
-                header(chain)
+                getHeader(chain)
             }
             addInterceptor(logger())
         }
@@ -64,10 +64,15 @@ object RetrofitManager {
      * @param chain
      * @return
      */
-    private fun header(chain: Interceptor.Chain): Response {
+    private fun getHeader(chain: Interceptor.Chain): Response {
         var request = chain.request()
         request = request.newBuilder()
-            .addHeader("key", "value")
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Authorization", "")
+            .addHeader("VersionName", BuildConfig.VERSION_NAME)
+            .addHeader("VersionCode", BuildConfig.VERSION_CODE.toString())
+            .addHeader("ApplicationId", BuildConfig.APPLICATION_ID)
+            .addHeader("isDebug", BuildConfig.DEBUG.toString())
             .build()
         return chain.proceed(request)
     }
