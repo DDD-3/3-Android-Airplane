@@ -4,22 +4,21 @@ import android.os.Bundle
 import com.ddd.airplane.R
 import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.databinding.SignupActivityBinding
-import com.ddd.airplane.presenter.base.BaseActivity
+import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
 
 /**
  * 회원가입
  * @author jess
  */
-class SignUpActivity : BaseActivity<SignupActivityBinding>() {
+class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>() {
 
-    private var vm = SignUpViewModel(ContextProvider(this))
-
-    override fun getLayoutId() = R.layout.signup_activity
+    override val layoutRes = R.layout.signup_activity
+    override val viewModelClass = SignUpViewModel::class.java
 
     override fun initDataBinding() {
         super.initDataBinding()
-        dataBinding.vm = vm
+
     }
 
     override fun initLayout() {

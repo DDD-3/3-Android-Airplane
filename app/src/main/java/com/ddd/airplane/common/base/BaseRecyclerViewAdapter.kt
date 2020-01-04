@@ -1,4 +1,4 @@
-package com.ddd.airplane.presenter.base
+package com.ddd.airplane.common.base
 
 
 import android.view.LayoutInflater

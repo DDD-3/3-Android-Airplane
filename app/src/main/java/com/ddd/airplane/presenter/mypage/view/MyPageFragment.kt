@@ -6,7 +6,7 @@ import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.databinding.MypageFragmentBinding
-import com.ddd.airplane.presenter.base.BaseFragment
+import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import kotlinx.android.synthetic.main.mypage_fragment.*
@@ -15,15 +15,15 @@ import kotlinx.android.synthetic.main.mypage_fragment.*
  * 마이페이지
  * @author jess
  */
-class MyPageFragment : BaseFragment<MypageFragmentBinding>(), View.OnClickListener {
+class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
+    View.OnClickListener {
 
-    private var vm = MyPageViewModel(ContextProvider(context))
-
-    override fun getLayoutId() = R.layout.mypage_fragment
+    override val layoutRes = R.layout.mypage_fragment
+    override val viewModelClass = MyPageViewModel::class.java
 
     override fun initDataBinding() {
         super.initDataBinding()
-        dataBinding.vm = vm
+
     }
 
     override fun initLayout() {

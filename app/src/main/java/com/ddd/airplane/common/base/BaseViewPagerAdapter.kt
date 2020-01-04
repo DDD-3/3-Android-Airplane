@@ -1,4 +1,4 @@
-package com.ddd.airplane.presenter.base
+package com.ddd.airplane.common.base
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

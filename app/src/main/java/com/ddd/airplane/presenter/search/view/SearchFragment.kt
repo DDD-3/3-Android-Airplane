@@ -3,21 +3,21 @@ package com.ddd.airplane.presenter.search.view
 import android.os.Bundle
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.SearchFragmentBinding
-import com.ddd.airplane.presenter.base.BaseFragment
+import com.ddd.airplane.common.base.BaseFragment
+import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 
 /**
  * 검색
  * @author jess
  */
-class SearchFragment : BaseFragment<SearchFragmentBinding>() {
+class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>() {
 
-    override fun getLayoutId() = R.layout.search_fragment
+    override val layoutRes = R.layout.search_fragment
+    override val viewModelClass = SearchViewModel::class.java
 
     override fun initDataBinding() {
         super.initDataBinding()
-        dataBinding.run {
 
-        }
     }
 
     override fun initLayout() {

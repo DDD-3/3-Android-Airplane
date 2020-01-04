@@ -1,8 +1,7 @@
-package com.ddd.airplane.presenter.signup.viewmodel
+package com.ddd.airplane.presenter.chat.list.viewmodel
 
 import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.common.base.BaseViewModel
 
-class SignUpViewModel : BaseViewModel() {
-
+class ChatRoomViewModel : BaseViewModel() {
 }

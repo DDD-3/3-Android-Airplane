@@ -1,9 +1,5 @@
 package com.ddd.airplane.presenter.mypage.viewmodel
 
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.presenter.base.BaseViewModel
-import com.ddd.airplane.presenter.mypage.view.MyPageFragment
+import com.ddd.airplane.common.base.BaseViewModel
 
-class MyPageViewModel(contextProvider: ContextProvider) : BaseViewModel() {
-
-}
+class MyPageViewModel : BaseViewModel() {}

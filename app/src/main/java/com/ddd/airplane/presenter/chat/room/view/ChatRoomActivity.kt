@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ChatRoomActivityBinding
-import com.ddd.airplane.presenter.base.BaseActivity
+import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.presenter.chat.list.viewmodel.ChatRoomViewModel
 
 /**
  * 채팅
  * @author jess
  */
-class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding>(), View.OnClickListener {
+class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel>(),
+    View.OnClickListener {
 
-    override fun getLayoutId() = R.layout.chat_room_activity
+    override val layoutRes = R.layout.chat_room_activity
+    override val viewModelClass = ChatRoomViewModel::class.java
 
     override fun initDataBinding() {
         super.initDataBinding()
-        dataBinding.run {
 
-        }
     }
 
     override fun initLayout() {

@@ -1,8 +1,7 @@
 package com.ddd.airplane.presenter.home.viewmodel
 
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.presenter.base.BaseViewModel
+import com.ddd.airplane.common.base.BaseViewModel
 
-class HomeViewModel(contextProvider: ContextProvider) : BaseViewModel() {
+class HomeViewModel : BaseViewModel() {
 
 }

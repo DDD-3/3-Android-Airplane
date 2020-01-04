@@ -1,5 +1,6 @@
 package com.ddd.airplane
 
+import com.ddd.airplane.BuildConfig
 import android.app.Application
 import com.ddd.airplane.common.utils.SharedPreferences
 import com.ddd.airplane.common.network.retrofit.RetrofitManager

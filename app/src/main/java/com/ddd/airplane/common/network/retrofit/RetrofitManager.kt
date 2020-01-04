@@ -1,8 +1,6 @@
 package com.ddd.airplane.common.network.retrofit
 
 import com.ddd.airplane.BuildConfig
-import com.ddd.airplane.common.network.config.ServerInfo
-import com.ddd.airplane.common.network.service.TestService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -19,12 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetrofitManager {
 
-    val test: TestService by lazy {
-        create(TestService::class.java, ServerInfo.DOMAIN.REAL.domain)
-    }
-
+//    val test: TestService by lazy {
+//        create(TestService::class.java, ServerInfo.DOMAIN.REAL.domain)
+//    }
+//
     fun init() {
-        test
+//        test
     }
 
     /**
