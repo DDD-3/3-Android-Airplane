@@ -21,4 +21,7 @@
 
     <string name="login">로그인</string>
     <string name="login_kakao">카카오로 로그인</string>
+
+    <string name="sign_up">회원가입</string>
+    <string name="sign_up_info">사바사 계정이 없으세요?</string>
 </resources>

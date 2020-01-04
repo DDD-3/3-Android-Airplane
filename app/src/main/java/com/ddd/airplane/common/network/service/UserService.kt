@@ -20,6 +20,17 @@ interface UserService {
     ): Single<Any>
 
     /**
+     * 토큰발급 (로그인)
+     */
+    @FormUrlEncoded
+    @POST("/oauth/token")
+    fun postToken(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("nickname") nickname: String = "grant_type"
+    ): Single<Any>
+
+    /**
      * 계정조회
      */
     @GET("/api/v1/accounts/{email}")
