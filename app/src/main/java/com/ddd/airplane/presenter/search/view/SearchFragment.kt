@@ -2,8 +2,8 @@ package com.ddd.airplane.presenter.search.view
 
 import android.os.Bundle
 import com.ddd.airplane.R
-import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.common.base.BaseFragment
+import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 
 /**

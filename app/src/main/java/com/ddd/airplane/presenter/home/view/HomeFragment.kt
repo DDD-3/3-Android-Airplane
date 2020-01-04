@@ -2,9 +2,8 @@ package com.ddd.airplane.presenter.home.view
 
 import android.os.Bundle
 import com.ddd.airplane.R
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.databinding.HomeFragmentBinding
 import com.ddd.airplane.common.base.BaseFragment
+import com.ddd.airplane.databinding.HomeFragmentBinding
 import com.ddd.airplane.presenter.home.viewmodel.HomeViewModel
 
 /**

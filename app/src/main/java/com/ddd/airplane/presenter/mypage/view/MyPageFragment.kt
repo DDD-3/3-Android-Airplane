@@ -4,9 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.common.base.BaseFragment
+import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import kotlinx.android.synthetic.main.mypage_fragment.*

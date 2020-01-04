@@ -3,9 +3,8 @@ package com.ddd.airplane.presenter.signin.view
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel
 
 /**

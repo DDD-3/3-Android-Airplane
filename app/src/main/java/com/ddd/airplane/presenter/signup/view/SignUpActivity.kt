@@ -3,11 +3,9 @@ package com.ddd.airplane.presenter.signup.view
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
-import kotlinx.android.synthetic.main.mypage_fragment.*
 import kotlinx.android.synthetic.main.signup_activity.*
 
 /**
@@ -40,7 +38,7 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
         when (v?.id) {
             R.id.bt_sign_up -> {
 //                viewModel.reqSignUp(et_nick_name, et_email, et_password)
-                viewModel.reqSignUp("jess01@test.com", "aaaaaa", et_nick_name.text.toString())
+                viewModel.reqSignUp("jess01@test.com", "aaaaaa", "닉네임01")
             }
         }
     }

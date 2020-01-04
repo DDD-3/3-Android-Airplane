@@ -11,7 +11,8 @@ class SignUpViewModel : BaseViewModel() {
     fun reqSignUp(email: String, password: String, nickName: String) {
 
         RetrofitManager
-            .user.postAccounts(email, password, nickName)
+            .user
+            .postAccounts(email, password, nickName)
             .request(object : OnResponseListener<Any> {
 
                 override fun onSuccess(t: Any) {
@@ -21,7 +22,7 @@ class SignUpViewModel : BaseViewModel() {
                 override fun onError(error: ErrorResponse?) {
 
                 }
-                
+
             }, isProgress, isError)
 
     }

@@ -4,9 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.ddd.airplane.R
-import com.ddd.airplane.common.provider.ContextProvider
-import com.ddd.airplane.databinding.MainActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.databinding.MainActivityBinding
 import com.ddd.airplane.presenter.main.viewmodel.MainViewModel
 import com.ddd.airplane.presenter.signup.view.SignUpActivity
 import kotlinx.android.synthetic.main.main_activity.*

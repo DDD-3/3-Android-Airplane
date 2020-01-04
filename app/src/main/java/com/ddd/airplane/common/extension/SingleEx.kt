@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 fun <T> Single<T>.request(
-    listener: OnResponseListener<T>? = null,
+    listener: OnResponseListener<T>,
     isProgress: MutableLiveData<Boolean>? = null,
     isError: MutableLiveData<String>? = null
 ) {
@@ -32,8 +32,8 @@ fun <T> Single<T>.request(
 
                 // Return
                 t?.let {
-                    listener?.onSuccess(t)
-                } ?: listener?.onError(
+                    listener.onSuccess(t)
+                } ?: listener.onError(
                     ErrorResponse("null", "Data is null")
                 )
 
