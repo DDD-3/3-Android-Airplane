@@ -6,7 +6,6 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
-import kotlinx.android.synthetic.main.edit_text_view.view.*
 import kotlinx.android.synthetic.main.signup_activity.*
 
 /**
