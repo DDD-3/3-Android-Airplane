@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:paddingBottom="9dp"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="제목"
                 tools:visibility="visible" />
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:visibility="gone"
                     tools:text="문구블라블 라블라 블 라 블라 블라 블 라이메일주소문구문구 샤바샤뱟"
                     tools:visibility="visible" />
@@ -85,7 +85,7 @@
                 android:paddingTop="10.5dp"
                 android:paddingBottom="13dp"
                 android:textColor="#4e83f6"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 tools:text="negative" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -99,7 +99,7 @@
                 android:paddingTop="10.5dp"
                 android:paddingBottom="13dp"
                 android:textColor="#4e83f6"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 tools:text="positive" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

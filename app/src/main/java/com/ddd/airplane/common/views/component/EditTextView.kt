@@ -8,6 +8,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -46,6 +47,7 @@ class EditTextView @JvmOverloads constructor(
     }
 
     private var binding = EditTextViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private var mode = Mode.NORMAL
     private var valid = Valid.NORMAL
     private var isPasswordShow = false // 비밀번호 노출 여부
     private var isValid = false // 유효성 여부
@@ -167,8 +169,11 @@ class EditTextView @JvmOverloads constructor(
             })
 
             onFocusChangeListener = OnFocusChangeListener { view, hasFocus ->
-                binding.isFocus = hasFocus
-                focusListener?.invoke(hasFocus)
+                hasFocus.let {
+                    showEditText(it)
+                    binding.isFocus = it
+                    focusListener?.invoke(it)
+                }
             }
 
             setOnEditorActionListener { view, i, keyEvent ->
@@ -181,8 +186,11 @@ class EditTextView @JvmOverloads constructor(
             }
         }
 
-        // 옵션 클릭리스너
-        tv_option.setOnClickListener(this)
+        // 클릭리스너
+        val views = arrayOf(cl_edit_container, tv_option)
+        views.forEach {
+            it.setOnClickListener(this)
+        }
     }
 
     /**
@@ -224,7 +232,7 @@ class EditTextView @JvmOverloads constructor(
      * Input 형태
      */
     private fun setMode(typedValue: TypedArray) {
-        val mode =
+        mode =
             Mode.values()[typedValue.getInt(
                 R.styleable.EditTextView_mode,
                 Mode.NORMAL.ordinal
@@ -344,6 +352,7 @@ class EditTextView @JvmOverloads constructor(
                 isFocusable = true
                 requestFocus()
             }
+            DeviceUtils.hideKeyboard(et_input)
         }
     }
 
@@ -373,6 +382,21 @@ class EditTextView @JvmOverloads constructor(
     }
 
     /**
+     * label 을 작게 만든 후 EditText 활성화
+     */
+    private fun showEditText(isShow: Boolean) {
+        if (isShow) {
+            // 보임
+            cl_input.visibility = View.VISIBLE
+            tv_label.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.dp10))
+        } else {
+            // 숨김
+            cl_input.visibility = View.GONE
+            tv_label.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.dp16))
+        }
+    }
+
+    /**
      * 비밀번호 숨김/보임
      */
     private fun showPassword() {
@@ -395,6 +419,11 @@ class EditTextView @JvmOverloads constructor(
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.cl_edit_container -> {
+                when (mode) {
+                    Mode.NORMAL -> setFocus(true)
+                }
+            }
             R.id.tv_option -> {
                 when (valid) {
                     Valid.PASSWORD -> showPassword()

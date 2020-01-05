@@ -26,7 +26,7 @@
     <string name="login_kakao">카카오로 로그인</string>
 
     <string name="sign_up">회원가입</string>
-    <string name="sign_up_nick_name_change">바꿀래요</string>
+    <string name="sign_up_nick_name_change">바꾸기</string>
     <string name="sign_up_hide">숨기기</string>
     <string name="sign_up_show">보이기</string>
     <string name="sign_up_email_valid">이메일 주소를 확인해주세요</string>
