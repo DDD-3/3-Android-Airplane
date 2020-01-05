@@ -397,11 +397,11 @@ class EditTextView @JvmOverloads constructor(
                 if (isPasswordShow) {
                     // 비밀번호 숨김 설정
                     setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                    R.string.sign_up_hide
+                    R.string.sign_up_show
                 } else {
                     // 비밀번호 숨김 설정
                     setInputType(InputType.TYPE_CLASS_TEXT)
-                    R.string.sign_up_show
+                    R.string.sign_up_hide
                 }
             )
             et_input.setSelection(et_input.length())
