@@ -23,29 +23,29 @@
         <item name="android:background">#5c5c5c</item>
     </style>
 
-    <!-- Font Style -->
-    <style name="font_r">
+    <style name="font">
+        <item name="android:includeFontPadding">false</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Font Style -->
+    <style name="font_r" parent="font">
         <item name="android:fontFamily">@font/notosans_regular</item>
     </style>
 
-    <style name="font_b">
-        <item name="android:background">@android:color/transparent</item>
+    <style name="font_b" parent="font">
         <item name="android:fontFamily">@font/notosans_bold</item>
     </style>
 
-    <style name="font_l">
-        <item name="android:background">@android:color/transparent</item>
+    <style name="font_l" parent="font">
         <item name="android:fontFamily">@font/notosans_light</item>
     </style>
 
-    <style name="font_m">
-        <item name="android:background">@android:color/transparent</item>
+    <style name="font_m" parent="font">
         <item name="android:fontFamily">@font/notosans_medium</item>
     </style>
 
-    <style name="font_t">
-        <item name="android:background">@android:color/transparent</item>
+    <style name="font_t" parent="font">
         <item name="android:fontFamily">@font/notosans_thin</item>
     </style>
 

@@ -66,6 +66,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:includeFontPadding="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
                     android:textColor="#ffffff"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -112,6 +117,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_description"
                 style="@style/font_r"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
