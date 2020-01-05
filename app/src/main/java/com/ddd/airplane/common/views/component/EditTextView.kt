@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import com.ddd.airplane.R
@@ -170,7 +171,7 @@ class EditTextView @JvmOverloads constructor(
 
             onFocusChangeListener = OnFocusChangeListener { view, hasFocus ->
                 hasFocus.let {
-                    showEditText(it)
+                    showEditText(view as EditText, it)
                     binding.isFocus = it
                     focusListener?.invoke(it)
                 }
@@ -258,13 +259,6 @@ class EditTextView @JvmOverloads constructor(
      */
     private fun setEditText(typedValue: TypedArray) {
 
-        setHint(
-            typedValue.getResourceId(
-                R.styleable.EditTextView_android_hint,
-                R.string.empty
-            )
-        )
-
         et_input.maxLines = typedValue.getInt(
             R.styleable.EditTextView_android_maxLines,
             1
@@ -281,13 +275,6 @@ class EditTextView @JvmOverloads constructor(
      */
     private fun setInputType(inputType: Int) {
         et_input.inputType = inputType
-    }
-
-    /**
-     * 힌트
-     */
-    private fun setHint(@StringRes stringRes: Int) = apply {
-        et_input.setText(stringRes)
     }
 
     /**
@@ -384,7 +371,12 @@ class EditTextView @JvmOverloads constructor(
     /**
      * label 을 작게 만든 후 EditText 활성화
      */
-    private fun showEditText(isShow: Boolean) {
+    private fun showEditText(view: EditText, isShow: Boolean) {
+        // 작성된 내용이 있을 경우
+        if (view.text.toString().isNotEmpty()) {
+            return
+        }
+
         if (isShow) {
             // 보임
             cl_input.visibility = View.VISIBLE
