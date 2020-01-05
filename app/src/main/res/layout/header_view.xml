@@ -12,6 +12,7 @@
         android:id="@+id/tb_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_header"
+        android:background="#000000"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         app:contentInsetEnd="0dp"

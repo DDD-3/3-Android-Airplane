@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="isFocus"
+            type="Boolean" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ll_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="@color/color_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shp_rect_33333b_r4"
+            android:background="@{isFocus ? @drawable/shp_rect_4c4c54_r4 : @drawable/shp_rect_33333b_r4}"
+            android:minHeight="48dp"
             android:paddingStart="16dp"
             android:paddingTop="5dp"
             android:paddingEnd="16dp"
             android:paddingBottom="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/shp_rect_4c4c54_r4">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_label"
@@ -37,7 +47,6 @@
                 android:id="@+id/cl_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/tv_option"
@@ -85,6 +94,7 @@
                 style="@style/font_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:textColor="#4e83f6"
                 android:textSize="12sp"

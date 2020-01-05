@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:background="@color/color_black">
 
         <com.ddd.airplane.common.views.component.HeaderView
             android:id="@+id/cv_header"
@@ -23,118 +24,128 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_body"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23.5dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
             app:layout_constraintTop_toBottomOf="@id/cv_header">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_input"
+                android:id="@+id/cl_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginTop="23.5dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp">
 
-                <com.ddd.airplane.common.views.component.EditTextView
-                    android:id="@+id/et_nick_name"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    app:focus="true"
-                    app:label="@string/nick_name"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <com.ddd.airplane.common.views.component.EditTextView
-                    android:id="@+id/et_email"
+                    <com.ddd.airplane.common.views.component.EditTextView
+                        android:id="@+id/et_nick_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:focus="true"
+                        app:label="@string/nick_name"
+                        app:optionText="@string/sign_up_nick_name_change"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <com.ddd.airplane.common.views.component.EditTextView
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:inputType="textEmailAddress"
+                        app:description="@string/sign_up_email_valid"
+                        app:label="@string/email"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/et_nick_name"
+                        app:valid="email" />
+
+                    <com.ddd.airplane.common.views.component.EditTextView
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:inputType="textPassword"
+                        app:description="@string/sign_up_password_valid"
+                        app:label="@string/password"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/et_email"
+                        app:optionText="@string/sign_up_show"
+                        app:valid="password" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bt_sign_up"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginTop="16dp"
-                    android:inputType="textEmailAddress"
-                    app:label="@string/email"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_nick_name" />
-
-                <com.ddd.airplane.common.views.component.EditTextView
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:inputType="textPassword"
-                    app:label="@string/password"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_email"
-                    app:optionText="@string/sign_up_show" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/notosans_bold"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:letterSpacing="0"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                app:backgroundTint="#4e83f6"
-                app:cornerRadius="4dp"
-                app:layout_constraintTop_toBottomOf="@id/cl_input" />
-
-            <!-- 구분선 -->
-            <View
-                android:id="@+id/v_divider_sign_up"
-                style="@style/divider_vertical"
-                android:layout_marginTop="24dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bt_sign_up" />
-
-            <!-- 회원 가입 안내 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_sign_up_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15.5dp"
-                android:background="?attr/selectableItemBackground"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/v_divider_sign_up">
-
-                <TextView
-                    android:id="@+id/tv_info"
-                    style="@style/font_r"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sign_up_info"
-                    android:textColor="#ffffff"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_sign_up"
-                    style="@style/font_b"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:letterSpacing="0"
                     android:text="@string/sign_up"
-                    android:textColor="#4e83f6"
-                    app:layout_constraintLeft_toRightOf="@id/tv_info"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    app:backgroundTint="#4e83f6"
+                    app:cornerRadius="4dp"
+                    app:layout_constraintTop_toBottomOf="@id/cl_input" />
+
+                <!--                &lt;!&ndash; 구분선 &ndash;&gt;-->
+                <!--                <View-->
+                <!--                    android:id="@+id/v_divider_sign_up"-->
+                <!--                    style="@style/divider_vertical"-->
+                <!--                    android:layout_marginTop="24dp"-->
+                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--                    app:layout_constraintRight_toRightOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/bt_sign_up" />-->
+
+                <!--                &lt;!&ndash; 회원 가입 안내 &ndash;&gt;-->
+                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--                    android:id="@+id/cl_sign_up_info"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="15.5dp"-->
+                <!--                    android:background="?attr/selectableItemBackground"-->
+                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--                    app:layout_constraintRight_toRightOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/v_divider_sign_up">-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tv_info"-->
+                <!--                        style="@style/font_r"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/sign_up_info"-->
+                <!--                        android:textColor="#ffffff"-->
+                <!--                        app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tv_sign_up"-->
+                <!--                        style="@style/font_b"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="5dp"-->
+                <!--                        android:text="@string/sign_up"-->
+                <!--                        android:textColor="#4e83f6"-->
+                <!--                        app:layout_constraintLeft_toRightOf="@id/tv_info"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

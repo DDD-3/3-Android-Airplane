@@ -3,11 +3,13 @@ package com.ddd.airplane.common.base
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.airplane.BR
+import com.ddd.airplane.R
 
 /**
  * @author jess
@@ -60,6 +62,12 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
     protected open fun initDataBinding() {
         binding = DataBindingUtil.setContentView(this, layoutRes)
         binding.run {
+            binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@BaseActivity,
+                    R.color.color_black
+                )
+            )
             lifecycleOwner = this@BaseActivity
             setVariable(BR._all, viewModel)
         }
