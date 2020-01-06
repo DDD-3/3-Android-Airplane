@@ -1,9 +1,7 @@
 package com.ddd.airplane.common.repository.network.service
 
-import com.ddd.airplane.data.request.RefreshTokenRequest
-import com.ddd.airplane.data.request.SignInTokenRequest
+import com.ddd.airplane.data.request.*
 import com.ddd.airplane.data.response.TokenResponse
-import com.ddd.airplane.data.request.SignUpRequest
 import com.ddd.airplane.data.response.SignUpResponse
 import io.reactivex.Single
 import retrofit2.http.*
@@ -34,7 +32,7 @@ interface UserService {
     @FormUrlEncoded
     @POST("/oauth/token")
     fun postAccessToken(
-        @Body body: SignInTokenRequest
+        @Body body: AccessTokenRequest
     ): Single<TokenResponse>
 
     /**
@@ -43,7 +41,7 @@ interface UserService {
     @FormUrlEncoded
     @POST("/oauth/token")
     fun postTokenRefresh(
-        @Body body: RefreshTokenRequest
+        @Body body: TokenRefreshRequest
     ): Single<TokenResponse>
 
 }
