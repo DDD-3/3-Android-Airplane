@@ -11,6 +11,7 @@
     <!-- error -->
     <string name="error_network_response_error">네트워크 통신을 실패했어요</string>
     <string name="error_network_response_null">네트워크 통신을 실패했어요</string>
+    <string name="error_network_response_retry">다시 시도해주세요.</string>
 
     <string name="main_navi_home">홈</string>
     <string name="main_navi_schedule">편성표</string>

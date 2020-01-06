@@ -1,5 +1,13 @@
 package com.ddd.airplane.common.manager
 
+import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
+import com.ddd.airplane.common.interfaces.OnResponseListener
+import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.common.repository.network.retrofit.request
+import com.ddd.airplane.data.request.AccessTokenRequest
+import com.ddd.airplane.data.request.TokenRefreshRequest
+import com.ddd.airplane.data.response.ErrorResponse
+import com.ddd.airplane.data.response.TokenResponse
 import timber.log.Timber
 
 /**
@@ -14,7 +22,7 @@ object TokenManager {
     /**
      * Set Token
      */
-    fun set(accessToken: String, refreshToken: String, tokenType: String) {
+    fun set(accessToken: String?, refreshToken: String?, tokenType: String?) {
         PreferencesManager.run {
             putValue(ACCESS_TOKEN, accessToken)
             putValue(REFRESH_TOKEN, refreshToken)
@@ -68,6 +76,65 @@ object TokenManager {
             }
         }
 
+
+    /**
+     * 토큰발급
+     */
+    fun getAccessToken(
+        status: OnNetworkStatusListener?,
+        email: String,
+        password: String,
+        listener: ((Boolean) -> Unit)? = null
+    ) {
+        RetrofitManager
+            .user
+            .postAccessToken(AccessTokenRequest(email, password))
+            .request(status, object : OnResponseListener<TokenResponse> {
+
+                override fun onSuccess(response: TokenResponse) {
+                    response.run {
+                        set(accessToken, refreshToken, tokenType)
+                    }
+                    listener?.invoke(true)
+                }
+
+                override fun onError(error: ErrorResponse) {
+                    listener?.invoke(false)
+                }
+            })
+    }
+
+    /**
+     * 토큰 재발급
+     */
+    fun onTokenRefresh(
+        status: OnNetworkStatusListener?,
+        listener: ((Boolean) -> Unit)? = null
+    ) {
+
+        if (refreshToken.isNullOrEmpty()) {
+            listener?.invoke(false)
+            return
+        }
+
+        RetrofitManager
+            .user
+            .postTokenRefresh(TokenRefreshRequest(refreshToken))
+            .request(status, object : OnResponseListener<TokenResponse> {
+
+                override fun onSuccess(response: TokenResponse) {
+                    response.run {
+                        remove()
+                        set(accessToken, refreshToken, tokenType)
+                    }
+                    listener?.invoke(true)
+                }
+
+                override fun onError(error: ErrorResponse) {
+                    listener?.invoke(false)
+                }
+            })
+    }
 
 
 }

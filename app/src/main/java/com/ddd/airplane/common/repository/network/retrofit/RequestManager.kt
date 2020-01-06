@@ -1,22 +1,26 @@
-package com.ddd.airplane.common.extension
+package com.ddd.airplane.common.repository.network.retrofit
 
+import android.content.Context
 import com.ddd.airplane.R
+import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.utils.NetworkUtils
+import com.ddd.airplane.common.manager.TokenManager
+import com.ddd.airplane.common.repository.network.config.HttpStatus
+import com.ddd.airplane.common.repository.network.retrofit.RequestManager.parseErrorResponse
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.ErrorResponse
+import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 import timber.log.Timber
 
 /**
- * Single
- * @param status
- * @param listener
+ * 네트워크 통신
  */
 fun <T> Single<T>.request(
     status: OnNetworkStatusListener? = null,
@@ -64,19 +68,20 @@ fun <T> Single<T>.request(
                 tryCatch {
                     Timber.e("onError($e)")
 
-                    NetworkUtils.getErrorResponse(e)?.let {
-                        // 네트워크에서 전송한 에러 메세지
-                        listener?.onError(it)
-                        status?.showToast(it.message)
-                    } ?: let {
-                        // 에러파싱 실패
-                        val error = ErrorResponse(
-                            error = "null",
-                            error_description = "Data is null",
-                            message = context?.getString(R.string.error_network_response_null) ?: ""
-                        )
-
-                        error.let {
+                    val error = parseErrorResponse(context, e)
+                    // 에러파싱 실패
+                    error?.let {
+                        if (error.status == HttpStatus.UNAUTHORIZED.code) {
+                            // 토큰 재발급
+                            TokenManager.onTokenRefresh(status) { isRefresh ->
+                                context?.showToast(
+                                    context.getString(
+                                        if (isRefresh) R.string.error_network_response_retry
+                                        else R.string.error_network_response_error
+                                    )
+                                )
+                            }
+                        } else {
                             status?.showToast(it.message)
                             listener?.onError(it)
                         }
@@ -86,5 +91,34 @@ fun <T> Single<T>.request(
                 }
             }
         })
+}
+
+object RequestManager {
+
+    /**
+     * 에러 바디 처리
+     */
+    fun parseErrorResponse(context: Context?, e: Throwable): ErrorResponse? {
+
+        // 에러파싱 실패
+        val error = ErrorResponse(
+            status = 400,
+            error = "error",
+            error_description = "Network is error",
+            message = context?.getString(R.string.error_network_response_error) ?: ""
+        )
+
+        try {
+            val httpException = e as? HttpException ?: return error
+//            val httpCode = httpException.code()
+            val errorBody = httpException.response().errorBody() ?: return error
+            val adapter = Gson().getAdapter(ErrorResponse::class.java)
+            return adapter.fromJson(errorBody.string())
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+
+        return error
+    }
 
 }

@@ -33,16 +33,16 @@ interface UserService {
      */
     @FormUrlEncoded
     @POST("/oauth/token")
-    fun postSignInToken(
+    fun postAccessToken(
         @Body body: SignInTokenRequest
     ): Single<TokenResponse>
 
     /**
-     * 토큰발급, 로그인
+     * 토큰 재발급, 로그인
      */
     @FormUrlEncoded
     @POST("/oauth/token")
-    fun postRefreshToken(
+    fun postTokenRefresh(
         @Body body: RefreshTokenRequest
     ): Single<TokenResponse>
 
