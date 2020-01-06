@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.network.service
+package com.ddd.airplane.common.repository.network.service
 
 import com.ddd.airplane.data.request.RefreshTokenRequest
 import com.ddd.airplane.data.request.SignInTokenRequest

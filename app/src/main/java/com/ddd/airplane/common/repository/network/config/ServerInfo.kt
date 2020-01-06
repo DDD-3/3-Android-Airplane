@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.network.config
+package com.ddd.airplane.common.repository.network.config
 
 /**
  * @author jess

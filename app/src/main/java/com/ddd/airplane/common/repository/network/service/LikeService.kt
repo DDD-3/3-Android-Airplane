@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.network.service
+package com.ddd.airplane.common.repository.network.service
 
 import io.reactivex.Single
 import retrofit2.http.*
@@ -6,25 +6,25 @@ import retrofit2.http.*
 /**
  * @author jess
  */
-interface SubscribeService {
+interface LikeService {
 
     /**
-     * 구독한 채팅방 조회
+     * 좋아요 조회
      * TODO
      */
-    @GET("/api/v1/roomsOfSubscribedSubjects")
-    fun getSubscribe(
+    @GET("/api/v1/subjects/{?}/like")
+    fun getLike(
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int
     ): Single<Any>
 
     /**
-     * 구독
+     * 좋아요
      * TODO
      */
     @FormUrlEncoded
-    @POST("/api/v1/subjects/{?}/subscribe")
-    fun postSubscribe(
+    @POST("/api/v1/subjects/{?}/like")
+    fun postLike(
 
     ): Single<Any>
 
@@ -32,8 +32,8 @@ interface SubscribeService {
      * 구독 취소
      * TODO
      */
-    @DELETE("/api/v1/subjects/{?}/subscribe")
-    fun deleteSubscribe(
+    @DELETE("/api/v1/subjects/{?}/like")
+    fun deleteLike(
 
     ): Single<Any>
 

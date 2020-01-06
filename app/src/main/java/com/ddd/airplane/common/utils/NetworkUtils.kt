@@ -1,6 +1,6 @@
 package com.ddd.airplane.common.utils
 
-import com.ddd.airplane.common.network.config.HttpStatus
+import com.ddd.airplane.common.repository.network.config.HttpStatus
 import com.ddd.airplane.data.response.ErrorResponse
 import com.google.gson.Gson
 import retrofit2.HttpException

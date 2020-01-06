@@ -4,7 +4,7 @@ import android.app.Application
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.extension.request
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.network.retrofit.RetrofitManager
+import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.data.request.SignInTokenRequest
 import com.ddd.airplane.data.response.TokenResponse
 import com.ddd.airplane.data.response.ErrorResponse

@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.room.dao
+package com.ddd.airplane.common.base
 
 import androidx.room.Delete
 import androidx.room.Insert

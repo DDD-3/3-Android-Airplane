@@ -1,9 +1,8 @@
-package com.ddd.airplane.common.network.retrofit
+package com.ddd.airplane.common.repository.network.retrofit
 
 import com.ddd.airplane.BuildConfig
-import com.ddd.airplane.common.network.config.ServerInfo
-import com.ddd.airplane.common.network.service.UserService
-import io.reactivex.Flowable
+import com.ddd.airplane.common.repository.network.config.ServerInfo
+import com.ddd.airplane.common.repository.network.service.UserService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
