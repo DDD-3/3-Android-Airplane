@@ -38,9 +38,9 @@ object RetrofitManager {
      */
     private fun <T> create(classes: Class<T>, baseUrl: String): T {
         val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(baseUrl)
             .client(okHttpClient())
             .build()
         return retrofit.create(classes)
@@ -61,19 +61,19 @@ object RetrofitManager {
 
     /**
      * Header
-     *
+     *q
      * @param chain
      * @return
      */
     private fun getHeader(chain: Interceptor.Chain): Response {
-        var request = chain.request()
-        request = request.newBuilder()
+        val request = chain.request().newBuilder()
             .addHeader("Content-Type", "application/json")
+            .addHeader("Accept", "application/json")
             .addHeader("Authorization", "")
             .addHeader("VersionName", BuildConfig.VERSION_NAME)
             .addHeader("VersionCode", BuildConfig.VERSION_CODE.toString())
             .addHeader("ApplicationId", BuildConfig.APPLICATION_ID)
-            .addHeader("isDebug", BuildConfig.DEBUG.toString())
+            .addHeader("IsDebug", BuildConfig.DEBUG.toString())
             .build()
         return chain.proceed(request)
     }

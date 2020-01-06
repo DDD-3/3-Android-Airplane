@@ -1,29 +1,30 @@
 package com.ddd.airplane.presenter.signup.viewmodel
 
+import android.app.Application
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.extension.request
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.model.ErrorResponse
+import com.ddd.airplane.data.response.ErrorResponse
 import com.ddd.airplane.common.network.retrofit.RetrofitManager
+import com.ddd.airplane.data.request.SignUpRequest
+import com.ddd.airplane.data.response.SignUpResponse
 
-class SignUpViewModel : BaseViewModel() {
+class SignUpViewModel(application: Application) : BaseViewModel(application) {
 
     fun reqSignUp(email: String, password: String, nickName: String) {
-
         RetrofitManager
             .user
-            .postAccounts(email, password, nickName)
-            .request(object : OnResponseListener<Any> {
+            .postAccounts(SignUpRequest("jess@test.com", password, nickName))
+            .request(this, object : OnResponseListener<SignUpResponse> {
 
-                override fun onSuccess(t: Any) {
-
-                }
-
-                override fun onError(error: ErrorResponse?) {
+                override fun onSuccess(response: SignUpResponse) {
 
                 }
 
-            }, isProgress, isError)
+                override fun onError(error: ErrorResponse) {
 
+                }
+
+            })
     }
 }

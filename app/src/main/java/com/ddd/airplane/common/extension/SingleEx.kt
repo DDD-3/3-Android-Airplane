@@ -1,8 +1,11 @@
 package com.ddd.airplane.common.extension
 
-import androidx.lifecycle.MutableLiveData
+import com.ddd.airplane.R
+import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.model.ErrorResponse
+import com.ddd.airplane.common.utils.NetworkUtils
+import com.ddd.airplane.common.utils.tryCatch
+import com.ddd.airplane.data.response.ErrorResponse
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,48 +13,77 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
+/**
+ * Single
+ * @param status
+ * @param listener
+ */
 fun <T> Single<T>.request(
-    listener: OnResponseListener<T>,
-    isProgress: MutableLiveData<Boolean>? = null,
-    isError: MutableLiveData<String>? = null
+    status: OnNetworkStatusListener? = null,
+    listener: OnResponseListener<T>?
 ) {
-    this
-        .retry(3)
+
+    val context = status?.getContext()
+
+    this.retry(3)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(object : SingleObserver<T> {
 
-            override fun onSubscribe(d: Disposable) {
-                Timber.v("onSubscribe($d) ${Thread.currentThread().name}")
-                isProgress?.postValue(true)
+            override fun onSubscribe(disposable: Disposable) {
+                Timber.v("onSubscribe($disposable) ${Thread.currentThread().name}")
+                status?.showProgress(true)
             }
 
-            override fun onSuccess(t: T) {
-                Timber.v("onSuccess($t)")
-                Timber.d("onSuccess(${Thread.currentThread().name})")
+            override fun onSuccess(response: T) {
+                tryCatch {
+                    Timber.v("onSuccess($response)")
 
-                // Return
-                t?.let {
-                    listener.onSuccess(t)
-                } ?: listener.onError(
-                    ErrorResponse("null", "Data is null")
-                )
+                    // Return
+                    response?.let {
+                        listener?.onSuccess(response)
+                    } ?: let {
+                        // response 가 null 인 경우
+                        val error = ErrorResponse(
+                            error = "null",
+                            error_description = "Data is null",
+                            message = context?.getString(R.string.error_network_response_null) ?: ""
+                        )
 
-                isProgress?.postValue(false)
+                        error.let {
+                            status?.showToast(it.message)
+                            listener?.onError(it)
+                        }
+                    }
+
+                    status?.showProgress(false)
+                }
             }
 
             override fun onError(e: Throwable) {
-                Timber.v("onError($e) ${Thread.currentThread().name}")
+                tryCatch {
+                    Timber.e("onError($e)")
 
-//                val errorBody = NetworkUtils.parseErrorBody(e)
-//                Logger.d("Error Body : ${errorBody?.msg.plus("[-${errorBody?.code ?: 0}]")}")
-//
-//                listener?.onResultError(errorBody, contextProvider)
-//                if (isShowLoading) contextProvider?.hideLoading()
+                    NetworkUtils.getErrorResponse(e)?.let {
+                        // 네트워크에서 전송한 에러 메세지
+                        listener?.onError(it)
+                        status?.showToast(it.message)
+                    } ?: let {
+                        // 에러파싱 실패
+                        val error = ErrorResponse(
+                            error = "null",
+                            error_description = "Data is null",
+                            message = context?.getString(R.string.error_network_response_null) ?: ""
+                        )
 
-                isProgress?.postValue(false)
-                isError?.postValue("error message")
+                        error.let {
+                            status?.showToast(it.message)
+                            listener?.onError(it)
+                        }
+                    }
 
+                    status?.showProgress(false)
+                }
             }
         })
 

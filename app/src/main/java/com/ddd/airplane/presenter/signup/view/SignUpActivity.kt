@@ -42,7 +42,12 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
         when (v?.id) {
             R.id.bt_sign_up -> {
 //                viewModel.reqSignUp(et_nick_name, et_email, et_password)
-                viewModel.reqSignUp("jess01@test.com", "aaaaaa", "닉네임01")
+                val ts = System.currentTimeMillis()
+                viewModel.reqSignUp(
+                    "jess$ts@test.com",
+                    "aaaaaa",
+                    "닉네임$ts"
+                )
             }
         }
     }

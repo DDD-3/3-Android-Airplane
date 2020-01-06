@@ -1,15 +1,19 @@
 package com.ddd.airplane.common.base
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.airplane.BR
 import com.ddd.airplane.R
+import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.views.dialog.ProgressDialog
 
 /**
  * @author jess
@@ -43,6 +47,13 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
     abstract fun onCreated(savedInstanceState: Bundle?)
 
     /**
+     * Create AAC ViewModel
+     */
+    private fun <VM : ViewModel> createViewModel(viewModelClass: Class<VM>): VM {
+        return ViewModelProviders.of(this).get(viewModelClass)
+    }
+
+    /**
      * AAC ViewModel
      */
     protected val viewModel by lazy(LazyThreadSafetyMode.NONE) {
@@ -54,14 +65,18 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
         initDataBinding()
         initLayout()
         onCreated(savedInstanceState)
+
+        setNetworkStatus()
     }
 
     /**
      * 데이터 바인딩 초기화
      */
     protected open fun initDataBinding() {
+
         binding = DataBindingUtil.setContentView(this, layoutRes)
         binding.run {
+
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     this@BaseActivity,
@@ -71,12 +86,23 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
             lifecycleOwner = this@BaseActivity
             setVariable(BR._all, viewModel)
         }
+
     }
 
-    /**
-     * Create AAC ViewModel
-     */
-    private fun <VM : ViewModel> createViewModel(viewModelClass: Class<VM>): VM {
-        return ViewModelProviders.of(this).get(viewModelClass)
+    private fun setNetworkStatus() {
+
+        val progressDialog = ProgressDialog(this).apply {
+            setCancelable(false)
+        }
+
+        viewModel.run {
+            isProgress.observe(this@BaseActivity, Observer {
+                if (it) progressDialog.show() else progressDialog.dismiss()
+            })
+
+            toast.observe(this@BaseActivity, Observer {
+                this@BaseActivity.showToast(it)
+            })
+        }
     }
 }
