@@ -1,6 +1,5 @@
 package com.ddd.airplane.common.manager
 
-import com.ddd.airplane.common.utils.SharedPreferences
 import timber.log.Timber
 
 /**
@@ -16,7 +15,7 @@ object TokenManager {
      * Set Token
      */
     fun set(accessToken: String, refreshToken: String, tokenType: String) {
-        SharedPreferences.run {
+        PreferencesManager.run {
             putValue(ACCESS_TOKEN, accessToken)
             putValue(REFRESH_TOKEN, refreshToken)
             putValue(TOKEN_TYPE, tokenType)
@@ -28,7 +27,7 @@ object TokenManager {
      *
      */
     fun remove() {
-        SharedPreferences.run {
+        PreferencesManager.run {
             remove(ACCESS_TOKEN)
             remove(REFRESH_TOKEN)
             remove(TOKEN_TYPE)
@@ -40,7 +39,7 @@ object TokenManager {
      */
     val accessToken: String?
         get() {
-            SharedPreferences.getString(ACCESS_TOKEN).let {
+            PreferencesManager.getString(ACCESS_TOKEN).let {
                 Timber.d("Access Token : $it")
                 return it
             }
@@ -51,7 +50,7 @@ object TokenManager {
      */
     val refreshToken: String?
         get() {
-            SharedPreferences.getString(REFRESH_TOKEN).let {
+            PreferencesManager.getString(REFRESH_TOKEN).let {
                 Timber.d("Refresh Token : $it")
                 return it
             }
@@ -63,7 +62,7 @@ object TokenManager {
      */
     val tokenType: String?
         get() {
-            SharedPreferences.getString(TOKEN_TYPE).let {
+            PreferencesManager.getString(TOKEN_TYPE).let {
                 Timber.d("Token Type : $it")
                 return it
             }

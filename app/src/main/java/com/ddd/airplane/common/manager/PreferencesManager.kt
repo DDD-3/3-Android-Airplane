@@ -1,14 +1,15 @@
-package com.ddd.airplane.common.utils
+package com.ddd.airplane.common.manager
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.ddd.airplane.common.utils.tryCatch
 import timber.log.Timber
 
 /**
- * SharedPreferences
+ * PreferencesManager
  */
-object SharedPreferences {
+object PreferencesManager {
 
     private lateinit var prefs: SharedPreferences
 
@@ -17,7 +18,8 @@ object SharedPreferences {
 
     fun init(context: Context?) {
         context?.let {
-            prefs = context.getSharedPreferences(FILE_NAME, MODE_PRIVATE)
+            prefs = context.getSharedPreferences(
+                FILE_NAME, MODE_PRIVATE)
         }
     }
 

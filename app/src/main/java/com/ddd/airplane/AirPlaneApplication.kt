@@ -1,7 +1,7 @@
 package com.ddd.airplane
 
 import android.app.Application
-import com.ddd.airplane.common.utils.SharedPreferences
+import com.ddd.airplane.common.manager.PreferencesManager
 import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
@@ -66,7 +66,7 @@ class AirPlaneApplication : Application() {
      * SharedPreference
      */
     private fun sharedPreference() {
-        SharedPreferences.init(applicationContext)
+        PreferencesManager.init(applicationContext)
     }
 
     fun getGlobalApplicationContext(): AirPlaneApplication {
