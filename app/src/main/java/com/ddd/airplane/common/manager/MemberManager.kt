@@ -29,6 +29,15 @@ object MemberManager {
     }
 
     /**
+     * 로그아웃
+     */
+    fun signOut(context: Context, listener: (() -> Unit)) {
+        TokenManager.remove()
+        RoomManager.instance.memberDao().deleteAll()
+        listener.invoke()
+    }
+
+    /**
      * 회원정보 조회
      */
     fun getAccount(
@@ -59,12 +68,4 @@ object MemberManager {
                 }
             })
     }
-
-    /**
-     * 회원정보 삭제
-     */
-    fun removeAccount() {
-        RoomManager.instance.memberDao().deleteAll()
-    }
-
 }
