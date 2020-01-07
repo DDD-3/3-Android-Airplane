@@ -1,9 +1,6 @@
 package com.ddd.airplane.common.base
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
 import io.reactivex.Completable
 
 /**

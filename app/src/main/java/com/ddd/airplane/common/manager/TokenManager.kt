@@ -27,7 +27,7 @@ object TokenManager {
     /**
      * Set Token
      */
-    fun set(accessToken: String?, refreshToken: String?, tokenType: String?) {
+    fun setToken(accessToken: String?, refreshToken: String?, tokenType: String?) {
         PreferencesManager.run {
             putValue(ACCESS_TOKEN, accessToken)
             putValue(REFRESH_TOKEN, refreshToken)
@@ -39,7 +39,7 @@ object TokenManager {
      * Remove
      *
      */
-    fun remove() {
+    fun removeToken() {
         PreferencesManager.run {
             remove(ACCESS_TOKEN)
             remove(REFRESH_TOKEN)
@@ -75,6 +75,10 @@ object TokenManager {
         password: String,
         listener: ((Boolean) -> Unit)? = null
     ) {
+
+        // 토큰 지우고 발급
+        removeToken()
+
         RetrofitManager
             .user
             .postAccessToken(email, password, "password")
@@ -83,7 +87,7 @@ object TokenManager {
                 override fun onSuccess(response: TokenResponse) {
                     // 토큰 세팅
                     response.let {
-                        set(it.accessToken, it.refreshToken, it.tokenType)
+                        setToken(it.accessToken, it.refreshToken, it.tokenType)
                     }
                     listener?.invoke(true)
                 }
@@ -102,28 +106,31 @@ object TokenManager {
         listener: ((Boolean) -> Unit)? = null
     ) {
 
-        if (refreshToken.isNullOrEmpty()) {
-            listener?.invoke(false)
-            return
-        }
+        refreshToken?.let { token ->
 
-        RetrofitManager
-            .user
-            .postTokenRefresh(refreshToken!!, "refresh_token")
-            .request(status, object : OnResponseListener<TokenResponse> {
+            // 토큰 지우고 발급
+            removeToken()
 
-                override fun onSuccess(response: TokenResponse) {
-                    response.run {
-                        remove()
-                        set(accessToken, refreshToken, tokenType)
+            RetrofitManager
+                .user
+                .postTokenRefresh(token, "refresh_token")
+                .request(status, object : OnResponseListener<TokenResponse> {
+
+                    override fun onSuccess(response: TokenResponse) {
+                        // 토큰 세팅
+                        response.let {
+                            setToken(it.accessToken, it.refreshToken, it.tokenType)
+                        }
+                        listener?.invoke(true)
                     }
-                    listener?.invoke(true)
-                }
 
-                override fun onError(error: ErrorResponse) {
-                    listener?.invoke(false)
-                }
-            })
+                    override fun onError(error: ErrorResponse) {
+                        listener?.invoke(false)
+                    }
+                })
+        } ?: run {
+            listener?.invoke(false)
+        }
     }
 
 

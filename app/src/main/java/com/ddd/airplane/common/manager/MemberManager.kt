@@ -1,5 +1,6 @@
 package com.ddd.airplane.common.manager
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
@@ -11,11 +12,19 @@ import com.ddd.airplane.common.repository.network.retrofit.request
 import com.ddd.airplane.data.response.AccountResponse
 import com.ddd.airplane.data.response.ErrorResponse
 import com.ddd.airplane.presenter.signin.view.SignInActivity
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 /**
  * 회원정보 관리
  */
 object MemberManager {
+
+    private val memberDao = RoomManager.instance.memberDao()
 
     // 로그인 리스너
     var sigInInListener: ((Boolean) -> Unit)? = null
@@ -29,9 +38,48 @@ object MemberManager {
     }
 
     /**
-     * 회원정보 조회
+     * 로그아웃
      */
-    fun getAccount(
+    fun signOut(context: Context, listener: (() -> Unit)) {
+        TokenManager.removeToken()
+        removeAccount()
+        listener.invoke()
+    }
+
+    /**
+     * 계정정보 삭제
+     *
+     */
+    @SuppressLint("CheckResult")
+    fun removeAccount() {
+        memberDao
+            .deleteAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+
+    /**
+     * 계정정보
+     */
+    @SuppressLint("CheckResult")
+    fun getAccount(listener: ((MemberEntity?) -> Unit)? = null) {
+        memberDao
+            .select()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Timber.d(it.toString())
+                listener?.invoke(it)
+            }, {
+                listener?.invoke(null)
+            })
+    }
+
+    /**
+     * 계정정보 저장
+     */
+    fun setAccount(
         status: OnNetworkStatusListener,
         email: String,
         listener: ((Boolean) -> Unit)? = null
@@ -41,17 +89,34 @@ object MemberManager {
             .getAccounts(email)
             .request(status, object : OnResponseListener<AccountResponse> {
 
+                @SuppressLint("CheckResult")
                 override fun onSuccess(response: AccountResponse) {
 
-                    RoomManager.instance
-                        .memberDao().insert(
-                            MemberEntity(
-                                response.email ?: "",
-                                response.nickname ?: ""
-                            )
+                    // 기존 정보 지우고 새로 삽입
+                    val delete = memberDao.deleteAll()
+                    val insert = memberDao.insert(
+                        MemberEntity(
+                            response.email ?: "",
+                            response.nickname ?: ""
                         )
+                    )
 
-                    listener?.invoke(true)
+                    val tasks = listOf(
+                        delete,
+                        insert
+                    )
+
+                    Observable
+                        .fromIterable(tasks)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            listener?.invoke(true)
+                        }, {
+                            listener?.invoke(false)
+                        })
+
+                    sigInInListener = null
                 }
 
                 override fun onError(error: ErrorResponse) {
@@ -59,12 +124,4 @@ object MemberManager {
                 }
             })
     }
-
-    /**
-     * 회원정보 삭제
-     */
-    fun removeAccount() {
-        RoomManager.instance.memberDao().deleteAll()
-    }
-
 }

@@ -1,17 +1,19 @@
 package com.ddd.airplane.common.repository.database.member
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.ddd.airplane.common.base.BaseDao
+import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
 interface MemberDao : BaseDao<MemberEntity> {
 
-    @Query("SELECT * FROM MemberEntity LIMIT 1")
+    @Query("SELECT * FROM MemberEntity")
     fun select(): Single<MemberEntity>
 
     @Query("DELETE FROM MemberEntity")
-    fun deleteAll()
+    fun deleteAll(): Completable
 
 }
