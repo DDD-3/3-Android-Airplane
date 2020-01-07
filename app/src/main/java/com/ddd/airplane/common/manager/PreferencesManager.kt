@@ -18,8 +18,7 @@ object PreferencesManager {
 
     fun init(context: Context?) {
         context?.let {
-            prefs = context.getSharedPreferences(
-                FILE_NAME, MODE_PRIVATE)
+            prefs = context.getSharedPreferences(FILE_NAME, MODE_PRIVATE)
         }
     }
 

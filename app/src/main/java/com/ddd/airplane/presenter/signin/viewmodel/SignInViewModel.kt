@@ -16,16 +16,21 @@ class SignInViewModel(application: Application) : BaseViewModel(application) {
     fun doSignIn(email: String, password: String) {
         // 토큰 발급
         TokenManager.getAccessToken(this, email, password) {
-            getProfile(email)
+            if (it) {
+                getProfile(email)
+            }
         }
     }
 
     /**
      * 계정 조회
+     *
+     * @param email
      */
     private fun getProfile(email: String) {
-        MemberManager.getAccount(this, email) {
-
+        MemberManager.getAccount(this, email) { isSignIn ->
+            MemberManager.sigInInListener?.invoke(isSignIn)
+            MemberManager.sigInInListener = null
         }
     }
 }

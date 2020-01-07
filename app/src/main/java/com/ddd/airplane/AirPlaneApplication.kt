@@ -1,8 +1,9 @@
 package com.ddd.airplane
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.ddd.airplane.common.manager.PreferencesManager
-import com.ddd.airplane.common.repository.database.room.RoomManager
+import com.ddd.airplane.common.repository.database.RoomManager
 import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
@@ -17,14 +18,18 @@ class AirPlaneApplication : Application() {
         var instance: AirPlaneApplication? = null
     }
 
+    init {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
+        sharedPreference()
         retrofit()
         timber()
         room()
         kakao()
-        sharedPreference()
     }
 
     override fun onTerminate() {

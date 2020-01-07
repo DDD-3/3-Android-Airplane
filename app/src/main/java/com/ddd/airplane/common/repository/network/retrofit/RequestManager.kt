@@ -73,7 +73,7 @@ fun <T> Single<T>.request(
                     error?.let {
                         if (error.status == HttpStatus.UNAUTHORIZED.code) {
                             // 토큰 재발급
-                            TokenManager.onTokenRefresh(status) { isRefresh ->
+                            TokenManager.onRefreshToken(status) { isRefresh ->
                                 context?.showToast(
                                     context.getString(
                                         if (isRefresh) R.string.error_network_response_retry

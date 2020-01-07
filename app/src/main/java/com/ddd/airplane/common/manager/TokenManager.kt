@@ -4,8 +4,6 @@ import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.common.repository.network.retrofit.request
-import com.ddd.airplane.data.request.AccessTokenRequest
-import com.ddd.airplane.data.request.TokenRefreshRequest
 import com.ddd.airplane.data.response.ErrorResponse
 import com.ddd.airplane.data.response.TokenResponse
 import timber.log.Timber
@@ -53,36 +51,20 @@ object TokenManager {
      * Access Token
      */
     val accessToken: String?
-        get() {
-            PreferencesManager.getString(ACCESS_TOKEN).let {
-                Timber.d("Access Token : $it")
-                return it
-            }
-        }
+        get() = PreferencesManager.getString(ACCESS_TOKEN)
 
     /**
      * Access Token
      */
     val refreshToken: String?
-        get() {
-            PreferencesManager.getString(REFRESH_TOKEN).let {
-                Timber.d("Refresh Token : $it")
-                return it
-            }
-        }
+        get() = PreferencesManager.getString(REFRESH_TOKEN)
 
     /**
      * Token Type
      * Authorization 에서 사용
      */
     val tokenType: String?
-        get() {
-            PreferencesManager.getString(TOKEN_TYPE).let {
-                Timber.d("Token Type : $it")
-                return it
-            }
-        }
-
+        get() = PreferencesManager.getString(TOKEN_TYPE)
 
     /**
      * 토큰발급
@@ -95,13 +77,13 @@ object TokenManager {
     ) {
         RetrofitManager
             .user
-            .postAccessToken(AccessTokenRequest(email, password))
+            .postAccessToken(email, password, "password")
             .request(status, object : OnResponseListener<TokenResponse> {
 
                 override fun onSuccess(response: TokenResponse) {
                     // 토큰 세팅
-                    response.run {
-                        set(accessToken, refreshToken, tokenType)
+                    response.let {
+                        set(it.accessToken, it.refreshToken, it.tokenType)
                     }
                     listener?.invoke(true)
                 }
@@ -115,7 +97,7 @@ object TokenManager {
     /**
      * 토큰 재발급
      */
-    fun onTokenRefresh(
+    fun onRefreshToken(
         status: OnNetworkStatusListener?,
         listener: ((Boolean) -> Unit)? = null
     ) {
@@ -127,7 +109,7 @@ object TokenManager {
 
         RetrofitManager
             .user
-            .postTokenRefresh(TokenRefreshRequest(refreshToken))
+            .postTokenRefresh(refreshToken!!, "refresh_token")
             .request(status, object : OnResponseListener<TokenResponse> {
 
                 override fun onSuccess(response: TokenResponse) {

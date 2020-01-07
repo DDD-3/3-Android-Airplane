@@ -12,7 +12,7 @@ data class AccessTokenRequest(
 /**
  * 토큰발급, 로그인
  */
-data class TokenRefreshRequest(
-    val refresh_token: String?,
+data class RefreshTokenRequest(
+    val refresh_token: String,
     val grant_type: String = "refresh_token"
 )

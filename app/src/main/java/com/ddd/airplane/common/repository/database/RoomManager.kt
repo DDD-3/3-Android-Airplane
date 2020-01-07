@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.repository.database.room
+package com.ddd.airplane.common.repository.database
 
 import android.content.Context
 import androidx.room.Database

@@ -29,21 +29,23 @@ interface UserService {
     ): Single<AccountResponse>
 
     /**
-     * 토큰발급, 로그인
+     * 토큰발급
      */
     @FormUrlEncoded
     @POST("/oauth/token")
     fun postAccessToken(
-        @Body body: AccessTokenRequest
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("grant_type") grantType: String
     ): Single<TokenResponse>
 
     /**
-     * 토큰 재발급, 로그인
+     * 토큰 재발급
      */
-    @FormUrlEncoded
     @POST("/oauth/token")
     fun postTokenRefresh(
-        @Body body: TokenRefreshRequest
+        @Field("refresh_token") password: String,
+        @Field("grant_type") grantType: String
     ): Single<TokenResponse>
 
 }

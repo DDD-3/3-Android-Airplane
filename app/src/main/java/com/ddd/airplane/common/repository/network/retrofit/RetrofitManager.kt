@@ -3,7 +3,7 @@ package com.ddd.airplane.common.repository.network.retrofit
 import com.ddd.airplane.BuildConfig
 import com.ddd.airplane.common.manager.TokenManager
 import com.ddd.airplane.common.repository.network.config.ServerInfo
-import com.ddd.airplane.common.repository.network.service.UserService
+import com.ddd.airplane.common.repository.network.service.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -20,16 +20,17 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetrofitManager {
 
-    // service
+    // 일반
+    val general: GeneralService = create(GeneralService::class.java)
+    // 채팅
+    val chat: ChatService = create(ChatService::class.java)
+    // 좋아요
+    val Like: LikeService = create(LikeService::class.java)
+    // 구독
+    val subscribe: SubscribeService = create(SubscribeService::class.java)
+    // 유저
     val user: UserService by lazy {
-        create(UserService::class.java, ServerInfo.DOMAIN.REAL.domain)
-    }
-
-    // 토큰 정보
-    private val token: String = if (TokenManager.isExist()) {
-        "${TokenManager.tokenType} ${TokenManager.accessToken}"
-    } else {
-        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
+        create(UserService::class.java)
     }
 
     fun init() {
@@ -41,12 +42,11 @@ object RetrofitManager {
      *
      * @param T
      * @param classes
-     * @param baseUrl
      * @return
      */
-    private fun <T> create(classes: Class<T>, baseUrl: String): T {
+    private fun <T> create(classes: Class<T>): T {
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(ServerInfo.DOMAIN.REAL.domain)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient())
@@ -77,7 +77,7 @@ object RetrofitManager {
         val request = chain.request().newBuilder()
             .addHeader("Content-Type", "application/json")
             .addHeader("Accept", "application/json")
-            .addHeader("Authorization", token)
+            .addHeader("Authorization", getToken())
             .addHeader("VersionName", BuildConfig.VERSION_NAME)
             .addHeader("VersionCode", BuildConfig.VERSION_CODE.toString())
             .addHeader("ApplicationId", BuildConfig.APPLICATION_ID)
@@ -97,5 +97,12 @@ object RetrofitManager {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
+    }
+
+    // 토큰 정보
+    private fun getToken(): String = if (TokenManager.isExist()) {
+        "${TokenManager.tokenType} ${TokenManager.accessToken}"
+    } else {
+        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
     }
 }
