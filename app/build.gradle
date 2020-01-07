@@ -135,3 +135,8 @@ dependencies {
     def kakao = '1.25.0'
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: kakao
 }
+
+// stomp app
+dependencies {
+    implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.4'
+}

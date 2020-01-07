@@ -42,4 +42,7 @@
     <string name="sign_up_succeed">회원가입을 완료하였어요</string>
 
     <string name="sign_in_info">사바사 계정이 없으세요?</string>
+
+    <string name="send">전송</string>
+    <string name="chat_msg_hint">대화를 입력하세요</string>
 </resources>

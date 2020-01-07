@@ -5,4 +5,8 @@ import com.ddd.airplane.common.provider.ContextProvider
 import com.ddd.airplane.common.base.BaseViewModel
 
 class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
+
+    fun sendChatMessage(msg: String) {
+
+    }
 }
