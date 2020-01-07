@@ -42,6 +42,7 @@ interface UserService {
     /**
      * 토큰 재발급
      */
+    @FormUrlEncoded
     @POST("/oauth/token")
     fun postTokenRefresh(
         @Field("refresh_token") password: String,

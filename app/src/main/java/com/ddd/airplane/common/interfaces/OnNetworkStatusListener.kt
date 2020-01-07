@@ -12,4 +12,5 @@ interface OnNetworkStatusListener {
     fun showErrorDialog(error: ErrorResponse?)
 
     fun showToast(message: String?)
+
 }

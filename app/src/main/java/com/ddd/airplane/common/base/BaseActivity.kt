@@ -97,11 +97,15 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
 
         viewModel.run {
             isProgress.observe(this@BaseActivity, Observer {
-                if (it) progressDialog.show() else progressDialog.dismiss()
+                runOnUiThread {
+                    if (it) progressDialog.show() else progressDialog.dismiss()
+                }
             })
 
             toast.observe(this@BaseActivity, Observer {
-                this@BaseActivity.showToast(it)
+                runOnUiThread {
+                    this@BaseActivity.showToast(it)
+                }
             })
         }
     }
