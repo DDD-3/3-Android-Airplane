@@ -38,6 +38,7 @@
     <string name="sign_up_show">보이기</string>
     <string name="sign_up_email_valid">이메일 주소를 확인해주세요</string>
     <string name="sign_up_password_valid">비밀번호는 4자리 이상이에요</string>
+    <string name="sign_up_succeed">회원가입을 완료하였어요</string>
 
     <string name="sign_in_info">사바사 계정이 없으세요?</string>
 </resources>

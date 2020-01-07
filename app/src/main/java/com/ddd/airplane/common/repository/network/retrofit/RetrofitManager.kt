@@ -1,6 +1,7 @@
 package com.ddd.airplane.common.repository.network.retrofit
 
 import com.ddd.airplane.BuildConfig
+import com.ddd.airplane.common.manager.TokenManager
 import com.ddd.airplane.common.repository.network.config.ServerInfo
 import com.ddd.airplane.common.repository.network.service.UserService
 import okhttp3.Interceptor
@@ -19,8 +20,16 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetrofitManager {
 
+    // service
     val user: UserService by lazy {
         create(UserService::class.java, ServerInfo.DOMAIN.REAL.domain)
+    }
+
+    // 토큰 정보
+    private val token: String = if (TokenManager.isExist()) {
+        "${TokenManager.tokenType} ${TokenManager.accessToken}"
+    } else {
+        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
     }
 
     fun init() {
@@ -68,7 +77,7 @@ object RetrofitManager {
         val request = chain.request().newBuilder()
             .addHeader("Content-Type", "application/json")
             .addHeader("Accept", "application/json")
-            .addHeader("Authorization", "")
+            .addHeader("Authorization", token)
             .addHeader("VersionName", BuildConfig.VERSION_NAME)
             .addHeader("VersionCode", BuildConfig.VERSION_CODE.toString())
             .addHeader("ApplicationId", BuildConfig.APPLICATION_ID)

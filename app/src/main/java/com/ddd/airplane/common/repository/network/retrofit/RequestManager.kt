@@ -27,7 +27,7 @@ fun <T> Single<T>.request(
     listener: OnResponseListener<T>?
 ) {
 
-    val context = status?.getContext()
+    val context = status?.context
 
     this.retry(3)
         .subscribeOn(Schedulers.newThread())

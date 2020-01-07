@@ -1,6 +1,7 @@
 package com.ddd.airplane.common.repository.network.service
 
 import com.ddd.airplane.data.request.*
+import com.ddd.airplane.data.response.AccountResponse
 import com.ddd.airplane.data.response.TokenResponse
 import com.ddd.airplane.data.response.SignUpResponse
 import io.reactivex.Single
@@ -10,6 +11,7 @@ import retrofit2.http.*
  * @author jess
  */
 interface UserService {
+
     /**
      * 계정생성
      */
@@ -24,7 +26,7 @@ interface UserService {
     @GET("/api/v1/accounts/{email}")
     fun getAccounts(
         @Path("email") email: String
-    ): Single<Any>
+    ): Single<AccountResponse>
 
     /**
      * 토큰발급, 로그인

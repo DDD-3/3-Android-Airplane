@@ -2,6 +2,7 @@ package com.ddd.airplane
 
 import android.app.Application
 import com.ddd.airplane.common.manager.PreferencesManager
+import com.ddd.airplane.common.repository.database.room.RoomManager
 import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
@@ -27,7 +28,7 @@ class AirPlaneApplication : Application() {
     }
 
     override fun onTerminate() {
-//        DatabaseManager.close()
+        RoomManager.close()
         instance = null
         super.onTerminate()
     }
@@ -52,7 +53,7 @@ class AirPlaneApplication : Application() {
      * Room
      */
     private fun room() {
-//        DatabaseManager.init(applicationContext)
+        RoomManager.init(applicationContext)
     }
 
     /**

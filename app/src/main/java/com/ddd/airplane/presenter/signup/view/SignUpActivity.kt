@@ -41,13 +41,13 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.bt_sign_up -> {
-//                viewModel.reqSignUp(et_nick_name, et_email, et_password)
-                val ts = System.currentTimeMillis()
-                viewModel.reqSignUp(
-                    "jess$ts@test.com",
-                    "aaaaaa",
-                    "닉네임$ts"
-                )
+                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
+//                val ts = System.currentTimeMillis()
+//                viewModel.doSignUp(
+//                    "jess$ts@test.com",
+//                    "aaaaaa",
+//                    "닉네임$ts"
+//                )
             }
         }
     }

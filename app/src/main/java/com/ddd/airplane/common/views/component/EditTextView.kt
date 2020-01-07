@@ -294,19 +294,16 @@ class EditTextView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 텍스트
-     */
-    fun setText(text: String?) = apply {
-        if (!text.isNullOrEmpty()) {
-            text.let {
-                et_input.setText(it)
-                tv_input.text = it
+    var text: String
+        get() = et_input.text.toString()
+        set(value) {
+            if (value.isNotEmpty()) {
+                value.let {
+                    et_input.setText(it)
+                    tv_input.text = it
+                }
             }
         }
-    }
-
-    fun getText() = et_input.text.toString()
 
     /**
      * 오른쪽 옵션 텍스트

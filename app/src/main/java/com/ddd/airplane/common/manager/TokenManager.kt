@@ -20,6 +20,13 @@ object TokenManager {
     private const val TOKEN_TYPE = "token_type"
 
     /**
+     * 토큰 여부
+     */
+    fun isExist(): Boolean {
+        return !accessToken.isNullOrBlank()
+    }
+
+    /**
      * Set Token
      */
     fun set(accessToken: String?, refreshToken: String?, tokenType: String?) {
@@ -92,6 +99,7 @@ object TokenManager {
             .request(status, object : OnResponseListener<TokenResponse> {
 
                 override fun onSuccess(response: TokenResponse) {
+                    // 토큰 세팅
                     response.run {
                         set(accessToken, refreshToken, tokenType)
                     }

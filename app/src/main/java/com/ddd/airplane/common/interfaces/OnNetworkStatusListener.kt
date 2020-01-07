@@ -5,7 +5,7 @@ import com.ddd.airplane.data.response.ErrorResponse
 
 interface OnNetworkStatusListener {
 
-    fun getContext(): Context
+    val context: Context
 
     fun showProgress(isProgress: Boolean)
 

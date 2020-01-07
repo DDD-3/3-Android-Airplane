@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>(), View.On
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        startActivity(Intent(this, SignUpActivity::class.java))
+//        startActivity(Intent(this, SignUpActivity::class.java))
     }
 
     override fun onClick(v: View?) {

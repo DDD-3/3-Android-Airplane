@@ -2,6 +2,8 @@ package com.ddd.airplane.presenter.signin.viewmodel
 
 import android.app.Application
 import com.ddd.airplane.common.base.BaseViewModel
+import com.ddd.airplane.common.manager.MemberManager
+import com.ddd.airplane.common.manager.TokenManager
 
 class SignInViewModel(application: Application) : BaseViewModel(application) {
 
@@ -11,8 +13,19 @@ class SignInViewModel(application: Application) : BaseViewModel(application) {
      * @param email
      * @param password
      */
-    fun reqSignIn(email: String, password: String) {
-
+    fun doSignIn(email: String, password: String) {
+        // 토큰 발급
+        TokenManager.getAccessToken(this, email, password) {
+            getProfile(email)
+        }
     }
 
+    /**
+     * 계정 조회
+     */
+    private fun getProfile(email: String) {
+        MemberManager.getAccount(this, email) {
+
+        }
+    }
 }
