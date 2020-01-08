@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_sender"
+            style="@style/font_b"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/chat_msg_background"
+            android:textSize="14sp"
+            android:text="아이디"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_msg_divider"
+            style="@style/font_b"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/chat_msg_background"
+            android:textSize="14sp"
+            android:text=" : "
+            app:layout_constraintLeft_toRightOf="@+id/tv_sender"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_msg_content"
+            style="@style/font_b"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/chat_msg_background"
+            android:textSize="14sp"
+            android:text="블라블ㄹ라ㅏ라라"
+            app:layout_constraintLeft_toRightOf="@+id/tv_msg_divider"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
