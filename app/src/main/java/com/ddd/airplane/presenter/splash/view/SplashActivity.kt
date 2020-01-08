@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.SplashActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.presenter.main.view.MainActivity
+import com.ddd.airplane.presenter.signin.view.SignInActivity
 import com.ddd.airplane.presenter.splash.viewmodel.SplashViewModel
 
 /**
@@ -20,9 +22,17 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
     override fun initDataBinding() {
         super.initDataBinding()
         viewModel.run {
-            doInitFlow {
+            doInitFlow { isSignIn ->
                 this@SplashActivity.finish()
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                if (isSignIn) {
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                } else {
+                    MemberManager.signIn(this@SplashActivity) {
+                        if (it) {
+                            startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
+                        }
+                    }
+                }
             }
         }
     }

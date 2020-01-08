@@ -16,18 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
  */
 @Suppress("UNCHECKED_CAST")
 abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
-    @LayoutRes private val layoutId: Int = -1
+    @LayoutRes private val layoutId: Int = 0
 ) : RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder>() {
 
     private val list = mutableListOf<T>()
 
-    abstract fun onBind(position: Int, model: T, dataBinding: D)
+    abstract fun onBindData(position: Int, model: T, dataBinding: D)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        if (layoutId < 0) {
-            throw IllegalArgumentException("Empty Layout Resource")
-        }
+        require(layoutId > 0) { "Empty Layout Resource" }
 
         val dataBinding =
             DataBindingUtil.inflate<ViewDataBinding>(
@@ -40,7 +38,7 @@ abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        onBind(position, list[position], holder.dataBinding as D)
+        onBindData(position, list[position], holder.dataBinding as D)
     }
 
     override fun getItemCount(): Int {

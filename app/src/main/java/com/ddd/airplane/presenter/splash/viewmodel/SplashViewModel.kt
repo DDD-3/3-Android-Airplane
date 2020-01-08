@@ -8,23 +8,21 @@ import com.ddd.airplane.common.manager.TokenManager
 
 class SplashViewModel(application: Application) : BaseViewModel(application) {
 
-    private var listener: (() -> Unit)? = null
+    private var listener: ((Boolean) -> Unit)? = null
 
     /**
      * Init Flow
      *
      * @param listener
      */
-    fun doInitFlow(listener: (() -> Unit)) {
+    fun doInitFlow(listener: ((Boolean) -> Unit)) {
         this.listener = listener
-
         // 토큰갱신
         refreshToken()
     }
 
     /**
      * 토큰갱신
-     *
      */
     private fun refreshToken() {
         if (TokenManager.isExist()) {
@@ -34,10 +32,10 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
                     // 토큰 갱신 실패시 로그아웃 처리
                     MemberManager.signOut()
                 }
-                listener?.invoke()
+                listener?.invoke(true)
             }
         } else {
-            listener?.invoke()
+            listener?.invoke(false)
         }
     }
 }

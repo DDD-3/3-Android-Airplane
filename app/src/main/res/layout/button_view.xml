@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+<!--        <variable-->
+<!--            name="text"-->
+<!--            type="String" />-->
+
+<!--        <variable-->
+<!--            name="textColor"-->
+<!--            type="int" />-->
+
+<!--        <variable-->
+<!--            name="bgColor"-->
+<!--            type="int" />-->
+
+<!--        <variable-->
+<!--            name="strokeColor"-->
+<!--            type="int" />-->
+
+<!--        <variable-->
+<!--            name="strokeWidth"-->
+<!--            type="int" />-->
+
+    </data>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/notosans_bold"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:letterSpacing="0"
+        android:textAllCaps="false"
+        app:cornerRadius="4dp"
+        tools:backgroundTint="#4e83f6"
+        tools:text="버튼"
+        tools:textColor="#ffffff" />
+
+</layout>

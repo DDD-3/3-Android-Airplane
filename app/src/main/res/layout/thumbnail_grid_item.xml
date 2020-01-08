@@ -6,24 +6,29 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.mypage.viewmodel.SubscribeViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="27dp">
+        android:paddingBottom="27dp"
+        tools:background="@color/color_black">
 
         <com.ddd.airplane.common.views.component.ImageLoadView
-        android:id="@+id/iv_thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:corner="5dp"
-        app:layout_constraintCircleRadius="5dp"
-        app:layout_constraintDimensionRatio="h, 148:208"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="#ff0000" />
+            android:id="@+id/iv_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:corner="5dp"
+            app:layout_constraintCircleRadius="5dp"
+            app:layout_constraintDimensionRatio="h, 148:208"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="#ff0000" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -33,6 +38,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{viewModel.description}"
             android:textColor="#ffffff"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
@@ -48,7 +54,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-            <include layout="@layout/subscribe_view" />
+            <include
+                layout="@layout/subscribe_view"
+                bind:subscribeCount="@{viewModel.subscribeCount}"
+                bind:userCount="@{viewModel.userCount}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

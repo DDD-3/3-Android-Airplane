@@ -10,10 +10,19 @@ package com.ddd.airplane.data.response.chat
  */
 data class ChatRoomData(
     val roomId: Int?,
-    val subject: SubjectData?,
-    val userCount: Int?
+    val userCount: Int?,
+    val subject: SubjectData?
 )
 
+/**
+ * 프그램의 주제
+ *
+ * @property subjectId
+ * @property name
+ * @property description
+ * @property scheduleList
+ * @property subscribeCount
+ */
 data class SubjectData(
     val subjectId: Int,
     val name: String?,

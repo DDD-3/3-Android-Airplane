@@ -14,8 +14,7 @@ interface SubscribeService {
      */
     @GET("/api/v1/roomsOfSubscribedSubjects")
     fun getSubscribe(
-        @Query("pageNum") pageNum: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageNum") pageNum: Int
     ): Single<SubscribeData>
 
     /**

@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel" />
@@ -76,37 +78,50 @@
                                 tools:text="비행기팀" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!-- 구분선 -->
-                        <View
-                            android:id="@+id/v_divider_profile"
-                            style="@style/divider_vertical"
-                            android:layout_marginTop="24dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cl_profile" />
-
+                        <!-- 구독 방송 리스트 -->
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_subscribe_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
+                            android:visibility="@{viewModel.subscribeList.size() > 0 ? View.VISIBLE : View.GONE}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/v_divider_profile">
+                            app:layout_constraintTop_toBottomOf="@id/cl_profile"
+                            tools:visibility="visible">
 
-                            <include layout="@layout/content_title_view" />
+                            <!-- 구분선 -->
+                            <View
+                                android:id="@+id/v_divider_profile"
+                                style="@style/divider_vertical"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_subscribe_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="24dp"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/v_divider_profile">
+
+                                <include layout="@layout/content_title_view" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- 구독 리스트 -->
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_subscribe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:layout_constraintTop_toBottomOf="@id/cl_subscribe_list"
+                                app:spanCount="2"
+                                bind:items="@{viewModel.subscribeList}"
+                                tools:itemCount="10"
+                                tools:listitem="@layout/thumbnail_grid_item" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <!-- 구독 리스트 -->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_subscribe"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:layout_constraintTop_toBottomOf="@id/cl_subscribe_list"
-                            app:spanCount="2"
-                            tools:listitem="@layout/thumbnail_grid_item" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.core.widget.NestedScrollView>
