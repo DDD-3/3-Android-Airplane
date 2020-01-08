@@ -5,9 +5,8 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
-import com.ddd.airplane.data.response.ErrorResponse
+import com.ddd.airplane.data.response.ErrorData
 
 abstract class BaseViewModel(application: Application) :
     AndroidViewModel(application),
@@ -18,8 +17,8 @@ abstract class BaseViewModel(application: Application) :
     val isProgress: LiveData<Boolean> = _isProgress
 
     // error
-    private val _isErrorDialog = MutableLiveData<ErrorResponse>()
-    val isErrorDialog: LiveData<ErrorResponse> = _isErrorDialog
+    private val _isErrorDialog = MutableLiveData<ErrorData>()
+    val isErrorDialog: LiveData<ErrorData> = _isErrorDialog
 
     // toast
     private val _toast = MutableLiveData<String>()
@@ -42,7 +41,7 @@ abstract class BaseViewModel(application: Application) :
      *
      * @param error
      */
-    override fun showErrorDialog(error: ErrorResponse?) {
+    override fun showErrorDialog(error: ErrorData?) {
 
     }
 

@@ -3,8 +3,8 @@ package com.ddd.airplane
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.ddd.airplane.common.manager.PreferencesManager
-import com.ddd.airplane.common.repository.database.RoomManager
-import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.repository.database.RoomManager
+import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
 import timber.log.Timber

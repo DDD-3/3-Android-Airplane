@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.repository.database.member
+package com.ddd.airplane.repository.database.member
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

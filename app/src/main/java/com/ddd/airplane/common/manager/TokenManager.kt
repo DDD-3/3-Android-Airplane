@@ -2,10 +2,10 @@ package com.ddd.airplane.common.manager
 
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.common.repository.network.retrofit.request
-import com.ddd.airplane.data.response.ErrorResponse
-import com.ddd.airplane.data.response.TokenResponse
+import com.ddd.airplane.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.repository.network.retrofit.request
+import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.data.response.user.TokenData
 import timber.log.Timber
 
 /**
@@ -82,9 +82,9 @@ object TokenManager {
         RetrofitManager
             .user
             .postAccessToken(email, password, "password")
-            .request(status, object : OnResponseListener<TokenResponse> {
+            .request(status, object : OnResponseListener<TokenData> {
 
-                override fun onSuccess(response: TokenResponse) {
+                override fun onSuccess(response: TokenData) {
                     // 토큰 세팅
                     response.let {
                         setToken(it.accessToken, it.refreshToken, it.tokenType)
@@ -92,7 +92,7 @@ object TokenManager {
                     listener?.invoke(true)
                 }
 
-                override fun onError(error: ErrorResponse) {
+                override fun onError(error: ErrorData) {
                     listener?.invoke(false)
                 }
             })
@@ -115,9 +115,9 @@ object TokenManager {
             RetrofitManager
                 .user
                 .postTokenRefresh(token, "refresh_token")
-                .request(status, object : OnResponseListener<TokenResponse> {
+                .request(status, object : OnResponseListener<TokenData> {
 
-                    override fun onSuccess(response: TokenResponse) {
+                    override fun onSuccess(response: TokenData) {
                         // 토큰 세팅
                         response.let {
                             setToken(it.accessToken, it.refreshToken, it.tokenType)
@@ -125,7 +125,7 @@ object TokenManager {
                         listener?.invoke(true)
                     }
 
-                    override fun onError(error: ErrorResponse) {
+                    override fun onError(error: ErrorData) {
                         listener?.invoke(false)
                     }
                 })

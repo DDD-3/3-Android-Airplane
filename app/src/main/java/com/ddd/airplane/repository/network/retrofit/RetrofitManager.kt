@@ -1,9 +1,9 @@
-package com.ddd.airplane.common.repository.network.retrofit
+package com.ddd.airplane.repository.network.retrofit
 
 import com.ddd.airplane.BuildConfig
 import com.ddd.airplane.common.manager.TokenManager
-import com.ddd.airplane.common.repository.network.config.ServerInfo
-import com.ddd.airplane.common.repository.network.service.*
+import com.ddd.airplane.repository.network.config.ServerInfo
+import com.ddd.airplane.repository.network.service.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

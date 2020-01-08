@@ -1,5 +1,6 @@
-package com.ddd.airplane.common.repository.network.service
+package com.ddd.airplane.repository.network.service
 
+import com.ddd.airplane.data.response.SubscribeData
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -10,13 +11,12 @@ interface SubscribeService {
 
     /**
      * 구독한 채팅방 조회
-     * TODO
      */
     @GET("/api/v1/roomsOfSubscribedSubjects")
     fun getSubscribe(
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int
-    ): Single<Any>
+    ): Single<SubscribeData>
 
     /**
      * 구독

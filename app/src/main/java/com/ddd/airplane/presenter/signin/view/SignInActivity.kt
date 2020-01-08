@@ -46,7 +46,7 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.bt_sign_in -> {
-                viewModel.doSignIn("jess@test.com", "aaaaaa")
+                viewModel.doSignIn("ghi@gmail.com", "password")
 //                viewModel.doSignIn(et_email.text, et_password.text)
             }
 
