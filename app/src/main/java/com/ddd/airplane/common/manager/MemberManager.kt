@@ -40,10 +40,10 @@ object MemberManager {
     /**
      * 로그아웃
      */
-    fun signOut(context: Context, listener: (() -> Unit)) {
+    fun signOut(listener: (() -> Unit)? = null) {
         TokenManager.removeToken()
         removeAccount()
-        listener.invoke()
+        listener?.invoke()
     }
 
     /**
