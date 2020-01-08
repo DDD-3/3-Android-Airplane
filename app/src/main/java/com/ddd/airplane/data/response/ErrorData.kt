@@ -3,7 +3,7 @@ package com.ddd.airplane.data.response
 /**
  * 통신 에러
  */
-data class ErrorResponse(
+data class ErrorData(
     val timestamp: String? = null,
     val status: Int? = 0,
     val error: String? = null,

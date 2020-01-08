@@ -1,14 +1,14 @@
-package com.ddd.airplane.common.repository.network.retrofit
+package com.ddd.airplane.repository.network.retrofit
 
 import android.content.Context
 import com.ddd.airplane.R
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
-import com.ddd.airplane.common.repository.network.config.HttpStatus
-import com.ddd.airplane.common.repository.network.retrofit.RequestManager.parseErrorResponse
+import com.ddd.airplane.repository.network.config.HttpStatus
+import com.ddd.airplane.repository.network.retrofit.RequestManager.parseErrorResponse
 import com.ddd.airplane.common.utils.tryCatch
-import com.ddd.airplane.data.response.ErrorResponse
+import com.ddd.airplane.data.response.ErrorData
 import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -47,7 +47,7 @@ fun <T> Single<T>.request(
                         listener?.onSuccess(response)
                     } ?: let {
                         // response 가 null 인 경우
-                        val error = ErrorResponse(
+                        val error = ErrorData(
                             error = "null",
                             error_description = "Data is null",
                             message = context?.getString(R.string.error_network_response_null) ?: ""
@@ -97,10 +97,10 @@ object RequestManager {
     /**
      * 에러 바디 처리
      */
-    fun parseErrorResponse(context: Context?, e: Throwable): ErrorResponse? {
+    fun parseErrorResponse(context: Context?, e: Throwable): ErrorData? {
 
         // 에러파싱 실패
-        val error = ErrorResponse(
+        val error = ErrorData(
             status = 400,
             error = "error",
             error_description = "Network is error",
@@ -111,7 +111,7 @@ object RequestManager {
             val httpException = e as? HttpException ?: return error
 //            val httpCode = httpException.code()
             val errorBody = httpException.response().errorBody() ?: return error
-            val adapter = Gson().getAdapter(ErrorResponse::class.java)
+            val adapter = Gson().getAdapter(ErrorData::class.java)
             return adapter.fromJson(errorBody.string())
         } catch (e: Exception) {
             Timber.e(e)

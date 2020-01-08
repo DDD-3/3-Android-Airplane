@@ -1,6 +1,5 @@
-package com.ddd.airplane.common.repository.database.member
+package com.ddd.airplane.repository.database.member
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.ddd.airplane.common.base.BaseDao

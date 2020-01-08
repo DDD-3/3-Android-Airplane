@@ -1,11 +1,11 @@
-package com.ddd.airplane.common.repository.database
+package com.ddd.airplane.repository.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ddd.airplane.common.repository.database.member.MemberDao
-import com.ddd.airplane.common.repository.database.member.MemberEntity
+import com.ddd.airplane.repository.database.member.MemberDao
+import com.ddd.airplane.repository.database.member.MemberEntity
 
 @Database(entities = [MemberEntity::class], version = 1)
 abstract class RoomManager : RoomDatabase() {

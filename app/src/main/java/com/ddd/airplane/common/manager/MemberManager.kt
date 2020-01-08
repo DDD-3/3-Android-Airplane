@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.Intent
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.repository.database.member.MemberEntity
-import com.ddd.airplane.common.repository.database.RoomManager
-import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.common.repository.network.retrofit.request
-import com.ddd.airplane.data.response.AccountResponse
-import com.ddd.airplane.data.response.ErrorResponse
+import com.ddd.airplane.repository.database.member.MemberEntity
+import com.ddd.airplane.repository.database.RoomManager
+import com.ddd.airplane.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.repository.network.retrofit.request
+import com.ddd.airplane.data.response.user.AccountData
+import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +24,7 @@ object MemberManager {
     private val memberDao = RoomManager.instance.memberDao()
 
     // 로그인 리스너
-    var sigInInListener: ((Boolean) -> Unit)? = null
+    private var sigInInListener: ((Boolean) -> Unit)? = null
 
     /**
      * 로그인
@@ -61,7 +61,6 @@ object MemberManager {
         memberDao
             .deleteAll()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -78,6 +77,7 @@ object MemberManager {
                 Timber.d(it.toString())
                 listener?.invoke(it)
             }, {
+                Timber.e(it)
                 listener?.invoke(null)
             })
     }
@@ -93,10 +93,10 @@ object MemberManager {
         RetrofitManager
             .user
             .getAccounts(email)
-            .request(status, object : OnResponseListener<AccountResponse> {
+            .request(status, object : OnResponseListener<AccountData> {
 
                 @SuppressLint("CheckResult")
-                override fun onSuccess(response: AccountResponse) {
+                override fun onSuccess(response: AccountData) {
 
                     // 기존 정보 지우고 새로 삽입
                     val delete = memberDao.deleteAll()
@@ -114,11 +114,12 @@ object MemberManager {
                         .subscribe({
                             listener?.invoke(true)
                         }, {
+                            Timber.e(it)
                             listener?.invoke(false)
                         })
                 }
 
-                override fun onError(error: ErrorResponse) {
+                override fun onError(error: ErrorData) {
                     listener?.invoke(false)
                 }
             })

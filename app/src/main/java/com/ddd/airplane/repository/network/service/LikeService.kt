@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.repository.network.service
+package com.ddd.airplane.repository.network.service
 
 import io.reactivex.Single
 import retrofit2.http.*

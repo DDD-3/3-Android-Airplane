@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.common.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.common.repository.network.retrofit.request
+import com.ddd.airplane.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.repository.network.retrofit.request
 import com.ddd.airplane.data.request.SignUpRequest
-import com.ddd.airplane.data.response.ErrorResponse
-import com.ddd.airplane.data.response.SignUpResponse
+import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.data.response.user.SignUpData
 
 /**
  * 회원가입 ViewModel
@@ -42,13 +42,13 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
         RetrofitManager
             .user
             .postAccounts(SignUpRequest(email, password, nickName))
-            .request(this, object : OnResponseListener<SignUpResponse> {
+            .request(this, object : OnResponseListener<SignUpData> {
 
-                override fun onSuccess(response: SignUpResponse) {
+                override fun onSuccess(response: SignUpData) {
                     _isSucceed.postValue(true)
                 }
 
-                override fun onError(error: ErrorResponse) {
+                override fun onError(error: ErrorData) {
                     _isSucceed.postValue(false)
                 }
 

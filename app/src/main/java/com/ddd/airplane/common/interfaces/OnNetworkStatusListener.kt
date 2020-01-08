@@ -1,7 +1,7 @@
 package com.ddd.airplane.common.interfaces
 
 import android.content.Context
-import com.ddd.airplane.data.response.ErrorResponse
+import com.ddd.airplane.data.response.ErrorData
 
 interface OnNetworkStatusListener {
 
@@ -9,7 +9,7 @@ interface OnNetworkStatusListener {
 
     fun showProgress(isProgress: Boolean)
 
-    fun showErrorDialog(error: ErrorResponse?)
+    fun showErrorDialog(error: ErrorData?)
 
     fun showToast(message: String?)
 
