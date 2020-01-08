@@ -2,7 +2,6 @@ package com.ddd.airplane.common.repository.network.retrofit
 
 import android.content.Context
 import com.ddd.airplane.R
-import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager

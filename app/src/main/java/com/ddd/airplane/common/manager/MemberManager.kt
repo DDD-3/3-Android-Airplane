@@ -12,9 +12,6 @@ import com.ddd.airplane.common.repository.network.retrofit.request
 import com.ddd.airplane.data.response.AccountResponse
 import com.ddd.airplane.data.response.ErrorResponse
 import com.ddd.airplane.presenter.signin.view.SignInActivity
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -32,18 +29,27 @@ object MemberManager {
     /**
      * 로그인
      */
-    fun signIn(context: Context, sigInInListener: ((Boolean) -> Unit)) {
+    fun signIn(context: Context?, sigInInListener: ((Boolean) -> Unit)? = null) {
         this.sigInInListener = sigInInListener
-        context.startActivity(Intent(context, SignInActivity::class.java))
+        context?.startActivity(Intent(context, SignInActivity::class.java))
+    }
+
+    /**
+     * 로그인 결과
+     */
+    fun signInResult(signIn: Boolean) {
+        // listener 있으면 리턴 없으면 postValue
+        sigInInListener?.invoke(signIn)
+        sigInInListener = null
     }
 
     /**
      * 로그아웃
      */
-    fun signOut(context: Context, listener: (() -> Unit)) {
+    fun signOut(listener: (() -> Unit)? = null) {
         TokenManager.removeToken()
         removeAccount()
-        listener.invoke()
+        listener?.invoke()
     }
 
     /**
@@ -101,13 +107,8 @@ object MemberManager {
                         )
                     )
 
-                    val tasks = listOf(
-                        delete,
-                        insert
-                    )
-
-                    Observable
-                        .fromIterable(tasks)
+                    delete
+                        .concatWith(insert)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
@@ -115,8 +116,6 @@ object MemberManager {
                         }, {
                             listener?.invoke(false)
                         })
-
-                    sigInInListener = null
                 }
 
                 override fun onError(error: ErrorResponse) {

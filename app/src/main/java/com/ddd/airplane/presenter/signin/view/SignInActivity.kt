@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel
 import com.ddd.airplane.presenter.signup.view.SignUpActivity
@@ -24,8 +25,9 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
     override fun initDataBinding() {
         super.initDataBinding()
         viewModel.run {
+            // 로그인 성공 여부
             isSucceed.observe(this@SignInActivity, Observer {
-
+                if (it) finish() else this@SignInActivity.showToast(R.string.sign_in_failed)
             })
         }
     }

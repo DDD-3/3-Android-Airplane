@@ -9,7 +9,6 @@ import com.ddd.airplane.common.manager.TokenManager
 
 class SignInViewModel(application: Application) : BaseViewModel(application) {
 
-    // 로그인 성공여부
     private val _isSucceed = MutableLiveData<Boolean>()
     val isSucceed: LiveData<Boolean> = _isSucceed
 
@@ -24,10 +23,8 @@ class SignInViewModel(application: Application) : BaseViewModel(application) {
         TokenManager.getAccessToken(this, email, password) { isToken ->
             if (isToken) {
                 MemberManager.setAccount(this, email) { isSignIn ->
-                    isSignIn.let {
-                        // listener 있으면 리턴 없으면 postValue
-                        MemberManager.sigInInListener?.invoke(it) ?: _isSucceed.postValue(it)
-                    }
+                    _isSucceed.postValue(isSignIn)
+                    MemberManager.signInResult(isSignIn)
                 }
             }
         }
