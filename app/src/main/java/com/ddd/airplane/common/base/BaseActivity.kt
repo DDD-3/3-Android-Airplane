@@ -84,7 +84,7 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
                 )
             )
             lifecycleOwner = this@BaseActivity
-            setVariable(BR._all, viewModel)
+            setVariable(BR.viewModel, viewModel)
         }
 
     }

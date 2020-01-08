@@ -21,6 +21,7 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
         super.initDataBinding()
         viewModel.run {
             doInitFlow {
+                this@SplashActivity.finish()
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             }
         }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3b15df3f0c0288f6367dcea77a5b8d00",
+    "identityHash": "9aa75a33f79dad0243e03fcc32671122",
     "entities": [
       {
         "tableName": "MemberEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`email` TEXT NOT NULL, `nickName` TEXT, PRIMARY KEY(`email`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`email` TEXT NOT NULL, `nickName` TEXT NOT NULL, PRIMARY KEY(`email`))",
         "fields": [
           {
             "fieldPath": "email",
@@ -18,7 +18,7 @@
             "fieldPath": "nickName",
             "columnName": "nickName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -34,7 +34,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3b15df3f0c0288f6367dcea77a5b8d00')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9aa75a33f79dad0243e03fcc32671122')"
     ]
   }
 }

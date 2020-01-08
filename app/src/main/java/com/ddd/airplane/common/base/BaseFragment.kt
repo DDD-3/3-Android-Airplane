@@ -63,7 +63,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
 
         binding.run {
             lifecycleOwner = this@BaseFragment
-            setVariable(BR._all, viewModel)
+            setVariable(BR.viewModel, viewModel)
         }
         return binding.root
     }

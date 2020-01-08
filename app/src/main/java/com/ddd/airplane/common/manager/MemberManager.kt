@@ -24,7 +24,7 @@ object MemberManager {
     private val memberDao = RoomManager.instance.memberDao()
 
     // 로그인 리스너
-    var sigInInListener: ((Boolean) -> Unit)? = null
+    private var sigInInListener: ((Boolean) -> Unit)? = null
 
     /**
      * 로그인
@@ -61,7 +61,6 @@ object MemberManager {
         memberDao
             .deleteAll()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -78,6 +77,7 @@ object MemberManager {
                 Timber.d(it.toString())
                 listener?.invoke(it)
             }, {
+                Timber.e(it)
                 listener?.invoke(null)
             })
     }
@@ -114,6 +114,7 @@ object MemberManager {
                         .subscribe({
                             listener?.invoke(true)
                         }, {
+                            Timber.e(it)
                             listener?.invoke(false)
                         })
                 }
