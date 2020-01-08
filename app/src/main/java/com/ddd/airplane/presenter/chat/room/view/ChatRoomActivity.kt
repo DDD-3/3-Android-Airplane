@@ -3,6 +3,7 @@ package com.ddd.airplane.presenter.chat.room.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
@@ -17,7 +18,7 @@ import ua.naiksoftware.stomp.dto.StompHeader
  * @author jess
  */
 class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel>(),
-    View.OnClickListener {
+    View.OnClickListener, View.OnFocusChangeListener {
 
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
@@ -28,7 +29,13 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     }
 
     override fun initLayout() {
-        tv_chat_msg.setOnClickListener(this)
+        tv_send_msg.setOnClickListener(this)
+        et_chat_msg.onFocusChangeListener = this
+        val llm = LinearLayoutManager(this)
+        llm.stackFromEnd = true
+        llm.reverseLayout = false
+
+        rv_chat.layoutManager = llm
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -54,9 +61,20 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_chat_msg -> {
+            R.id.tv_send_msg -> {
                 viewModel.sendChatMessage(et_chat_msg.text.toString())
             }
         }
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if(hasFocus) {
+            tv_send_msg.visibility = View.VISIBLE
+            btn_room_like.visibility = View.GONE
+        } else {
+            tv_send_msg.visibility = View.GONE
+            btn_room_like.visibility = View.VISIBLE
+        }
+
     }
 }

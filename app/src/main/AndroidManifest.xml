@@ -55,6 +55,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".presenter.chat.room.view.ChatRoomActivity"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- 카카오 앱 키 사용 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
