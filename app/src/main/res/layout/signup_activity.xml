@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -52,11 +53,11 @@
                         android:inputType="text"
                         app:focus="true"
                         app:label="@string/nick_name"
-                        app:optionText="@string/sign_up_nick_name_change"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:optionText="@string/sign_up_nick_name_change" />
 
                     <com.ddd.airplane.common.views.component.EditTextView
                         android:id="@+id/et_email"
@@ -86,23 +87,17 @@
                         app:valid="password" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.button.MaterialButton
+                <com.ddd.airplane.common.views.component.ButtonView
                     android:id="@+id/bt_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/notosans_bold"
                     android:insetLeft="0dp"
                     android:insetTop="0dp"
                     android:insetRight="0dp"
                     android:insetBottom="0dp"
-                    android:letterSpacing="0"
-                    android:text="@string/sign_up"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
-                    app:backgroundTint="#4e83f6"
-                    app:cornerRadius="4dp"
-                    app:layout_constraintTop_toBottomOf="@id/cl_input" />
+                    app:layout_constraintTop_toBottomOf="@id/cl_input"
+                    bind:text="@{@string/sign_up}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

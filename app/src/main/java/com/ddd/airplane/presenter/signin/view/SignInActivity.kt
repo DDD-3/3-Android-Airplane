@@ -11,6 +11,7 @@ import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel
 import com.ddd.airplane.presenter.signup.view.SignUpActivity
 import kotlinx.android.synthetic.main.signin_activity.*
+import timber.log.Timber
 
 /**
  * 로그인
@@ -33,10 +34,26 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
     }
 
     override fun initLayout() {
+
         val views = arrayOf(bt_sign_in, cl_sign_up_info)
         views.forEach {
             it.setOnClickListener(this)
         }
+
+        bt_sign_in.isEnabled = false
+
+        et_email.setOnValidListener { b ->
+            onCheckValid()
+        }
+
+        et_password.setOnValidListener { b ->
+            onCheckValid()
+        }
+
+        // test
+        et_email.text = "ghi@gmail.com"
+        et_password.text = "password"
+
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -46,13 +63,21 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.bt_sign_in -> {
-                viewModel.doSignIn("ghi@gmail.com", "password")
-//                viewModel.doSignIn(et_email.text, et_password.text)
+                viewModel.doSignIn(et_email.text, et_password.text)
             }
 
             R.id.cl_sign_up_info -> {
                 startActivity(Intent(this, SignUpActivity::class.java))
             }
         }
+    }
+
+    /**
+     * 유효성 체크후 버튼 활성화
+     */
+    private fun onCheckValid() {
+        Timber.d("Email Valid ${et_email.isValid}")
+        Timber.d("Password Valid ${et_password.isValid}")
+        bt_sign_in.isEnabled = et_email.isValid && et_password.isValid
     }
 }

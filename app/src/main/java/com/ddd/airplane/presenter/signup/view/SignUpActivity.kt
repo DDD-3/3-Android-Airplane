@@ -9,6 +9,7 @@ import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.signup_activity.*
+import timber.log.Timber
 
 /**
  * 회원가입
@@ -35,10 +36,27 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
     }
 
     override fun initLayout() {
+
         val views = arrayOf(bt_sign_up)
         views.forEach {
             it.setOnClickListener(this)
         }
+
+        bt_sign_up.isEnabled = false
+
+        et_email.setOnValidListener { b ->
+            onCheckValid()
+        }
+
+        et_password.setOnValidListener { b ->
+            onCheckValid()
+        }
+
+        // test
+        val ts = System.currentTimeMillis()
+        et_nick_name.text = "닉네임$ts"
+        et_email.text = "jess$ts@test.com"
+        et_password.text = "aaaaaa"
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -52,14 +70,17 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.bt_sign_up -> {
-//                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
-                val ts = System.currentTimeMillis()
-                viewModel.doSignUp(
-                    "jess$ts@test.com",
-                    "aaaaaa",
-                    "닉네임$ts"
-                )
+                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
             }
         }
+    }
+
+    /**
+     * 유효성 체크후 버튼 활성화
+     */
+    private fun onCheckValid() {
+        Timber.d("Email Valid ${et_email.isValid}")
+        Timber.d("Password Valid ${et_password.isValid}")
+        bt_sign_up.isEnabled = et_email.isValid && et_password.isValid
     }
 }

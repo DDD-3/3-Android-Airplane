@@ -23,13 +23,13 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
         super.initDataBinding()
         viewModel.run {
             doInitFlow { isSignIn ->
-                this@SplashActivity.finish()
                 if (isSignIn) {
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    this@SplashActivity.finish()
+                    goMain()
                 } else {
                     MemberManager.signIn(this@SplashActivity) {
                         if (it) {
-                            startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
+                            goMain()
                         }
                     }
                 }
@@ -43,5 +43,9 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
 
     override fun onCreated(savedInstanceState: Bundle?) {
 
+    }
+
+    private fun goMain() {
+        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
     }
 }

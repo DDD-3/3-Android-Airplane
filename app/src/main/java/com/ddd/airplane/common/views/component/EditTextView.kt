@@ -51,14 +51,15 @@ class EditTextView @JvmOverloads constructor(
     private var mode = Mode.NORMAL
     private var valid = Valid.NORMAL
     private var isPasswordShow = false // 비밀번호 노출 여부
-    private var isValid = false // 유효성 여부
+    var isValid = false // 유효성 여부
+        private set
 
     // 리스너
     private var doneListener: (() -> Unit)? = null
     private var changedListener: (() -> Unit)? = null
     private var optionClickListener: (() -> Unit)? = null
     private var focusListener: ((Boolean) -> Unit)? = null
-    private var validListener: ((View, Boolean) -> Unit)? = null
+    private var validListener: ((Boolean) -> Unit)? = null
 
     init {
         initLayout(attrs, defStyleAttr)
@@ -218,7 +219,7 @@ class EditTextView @JvmOverloads constructor(
     /**
      * 검증 리스너
      */
-    fun setOnValidListener(listener: ((View, Boolean) -> Unit)?) {
+    fun setOnValidListener(listener: ((Boolean) -> Unit)?) {
         this.validListener = listener
     }
 
@@ -353,7 +354,7 @@ class EditTextView @JvmOverloads constructor(
     fun checkValidEmail(char: CharSequence) {
         isValid = char.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(char).matches()
         cl_info.visibility = if (isValid) View.GONE else View.VISIBLE
-        validListener?.invoke(cl_info, isValid)
+        validListener?.invoke(isValid)
     }
 
     /**
@@ -362,7 +363,7 @@ class EditTextView @JvmOverloads constructor(
     fun checkValidPassword(char: CharSequence) {
         isValid = char.length >= 4
         cl_info.visibility = if (isValid) View.GONE else View.VISIBLE
-        validListener?.invoke(cl_info, isValid)
+        validListener?.invoke(isValid)
     }
 
     /**

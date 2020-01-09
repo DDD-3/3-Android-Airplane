@@ -15,6 +15,7 @@
         android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:layout_height="71dp"
         tools:background="@color/color_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout

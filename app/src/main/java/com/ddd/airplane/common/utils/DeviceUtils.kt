@@ -1,8 +1,11 @@
 package com.ddd.airplane.common.utils
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import kotlin.math.roundToInt
+
 
 object DeviceUtils {
 
@@ -33,5 +36,15 @@ object DeviceUtils {
                 InputMethodManager.HIDE_IMPLICIT_ONLY
             )
         }
+    }
+
+    fun dpToPx(context: Context, dp: Int): Int {
+        val px = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            context.resources.displayMetrics
+        )
+        return px.roundToInt()
+
     }
 }
