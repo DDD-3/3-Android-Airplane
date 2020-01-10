@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import com.ddd.airplane.R
+import com.ddd.airplane.databinding.EditTextViewBinding
+import com.ddd.airplane.databinding.HeaderViewBinding
 import kotlinx.android.synthetic.main.header_view.view.*
 
 
@@ -21,10 +24,9 @@ class HeaderView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    enum class FinishType { BACK, CLOSE }
+    private var binding = HeaderViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.header_view, this, true)
         intLayout(attrs, defStyleAttr)
     }
 
@@ -42,42 +44,45 @@ class HeaderView @JvmOverloads constructor(
                 0
             )
 
-            // 종료형태
-            setFinishType(typedValue)
-
             // 타이틀
-            tv_title.text = typedValue.getString(R.styleable.HeaderView_title)
+            setTitle(typedValue.getString(R.styleable.HeaderView_title))
 
-            // 옵션 텍스트
-            tv_text_option.text = typedValue.getString(R.styleable.HeaderView_textOption)
+//            // 옵션 텍스트
+//            tv_text_option.text = typedValue.getString(R.styleable.HeaderView_textOption)
+//
+//            // 왼쪽 옵션 이미지
+//            iv_left_option.setImageDrawable(typedValue.getDrawable(R.styleable.HeaderView_leftOption))
+//
+//            // 왼쪽 옵션 이미지
+//            iv_right_option.setImageDrawable(typedValue.getDrawable(R.styleable.HeaderView_rightOption))
+        }
+    }
 
-            // 왼쪽 옵션 이미지
-            iv_left_option.setImageDrawable(typedValue.getDrawable(R.styleable.HeaderView_leftOption))
-
-            // 왼쪽 옵션 이미지
-            iv_right_option.setImageDrawable(typedValue.getDrawable(R.styleable.HeaderView_rightOption))
+    /**
+     * 타이틀
+     */
+    fun setTitle(title: String?) {
+        title?.let {
+            tv_title.run {
+                visibility = View.VISIBLE
+                text = it
+            }
         }
     }
 
     /**
      * 종료형태
      */
-    private fun setFinishType(typedValue: TypedArray) {
-        val finishType = FinishType.values()[typedValue.getInt(
-            R.styleable.HeaderView_finishType,
-            FinishType.BACK.ordinal
-        )]
-
-        val icon = when (finishType) {
-            FinishType.CLOSE -> {
-                R.drawable.ic_sample
-            }
-            else -> {
-                R.drawable.ic_sample
-            }
+    private fun setBack(isBack: Boolean) {
+        iv_finish.run {
+            visibility = View.VISIBLE
+            setImageResource(
+                if (isBack) {
+                    R.drawable.ic_sample
+                } else {
+                    R.drawable.ic_sample
+                }
+            )
         }
-
-        iv_finish.setImageResource(icon)
-
     }
 }

@@ -10,6 +10,7 @@ import com.ddd.airplane.common.utils.tryCatch
  */
 object BindingAdapterEx {
 
+    @JvmStatic
     @BindingAdapter(value = ["items", "isClear"], requireAll = false)
     fun RecyclerView.addAllItem(
         items: List<Any>?,

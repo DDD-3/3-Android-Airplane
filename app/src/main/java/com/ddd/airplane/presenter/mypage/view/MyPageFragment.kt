@@ -61,9 +61,7 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.cl_profile -> { // 로그인화면 (임시)
-//                MemberManager.signIn(context) {
-//
-//                }
+
             }
         }
     }

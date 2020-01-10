@@ -21,9 +21,9 @@
             android:id="@+id/cv_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:finishType="back"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:title="@{@string/mypage_title}" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

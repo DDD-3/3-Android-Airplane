@@ -21,9 +21,9 @@
             <enum name="back" value="0" />
             <enum name="close" value="1" />
         </attr>
-        <attr name="textOption" format="string" />
-        <attr name="leftOption" format="reference" />
-        <attr name="rightOption" format="reference" />
+<!--        <attr name="textOption" format="string" />-->
+<!--        <attr name="leftOption" format="reference" />-->
+<!--        <attr name="rightOption" format="reference" />-->
     </declare-styleable>
 
     <!-- 에디트 -->
