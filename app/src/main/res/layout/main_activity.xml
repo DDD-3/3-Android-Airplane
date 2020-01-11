@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:itemIconSize="24dp"
-                app:itemIconTint="@drawable/selector_ff0000_00ffff"
+                app:itemIconTint="@drawable/selector_brand_white_8e8e8e"
                 app:itemTextAppearanceActive="@style/font_b"
                 app:itemTextAppearanceInactive="@style/font_b"
                 app:itemTextColor="@color/brand_white"
