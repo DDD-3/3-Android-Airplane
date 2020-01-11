@@ -47,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
-                android:textColor="#ffffff"
+                android:textColor="@color/brand_white"
                 android:textSize="24dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

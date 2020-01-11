@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_room_info"
@@ -58,7 +58,7 @@
                     android:gravity="left"
                     android:maxLines="1"
                     android:text="채팅방 이름"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/brand_white"
                     android:textSize="16sp"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -134,7 +134,7 @@
             android:id="@+id/cl_chat_personal"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:background="@color/color_black"
+            android:background="@color/brand_black"
             android:paddingStart="16dp"
             android:paddingTop="7dp"
             android:paddingEnd="16dp"

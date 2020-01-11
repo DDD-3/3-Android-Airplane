@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="27dp"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black">
 
         <com.ddd.airplane.common.views.component.ImageLoadView
             android:id="@+id/iv_thumbnail"
@@ -39,7 +39,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{viewModel.description}"
-            android:textColor="#ffffff"
+            android:textColor="@color/brand_white"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
             app:layout_constraintStart_toStartOf="@id/iv_thumbnail"

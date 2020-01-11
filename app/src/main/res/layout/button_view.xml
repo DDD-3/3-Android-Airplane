@@ -40,8 +40,8 @@
         android:letterSpacing="0"
         android:textAllCaps="false"
         app:cornerRadius="4dp"
-        tools:backgroundTint="#4e83f6"
+        tools:backgroundTint="@color/brand_blue"
         tools:text="버튼"
-        tools:textColor="#ffffff" />
+        tools:textColor="@color/brand_white" />
 
 </layout>
