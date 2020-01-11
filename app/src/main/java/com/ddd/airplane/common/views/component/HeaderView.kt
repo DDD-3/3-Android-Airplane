@@ -2,13 +2,11 @@ package com.ddd.airplane.common.views.component
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.ddd.airplane.R
-import com.ddd.airplane.databinding.EditTextViewBinding
 import com.ddd.airplane.databinding.HeaderViewBinding
 import kotlinx.android.synthetic.main.header_view.view.*
 

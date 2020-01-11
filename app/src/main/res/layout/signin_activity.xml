@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black">
 
         <com.ddd.airplane.common.views.component.HeaderView
             android:id="@+id/cv_header"
@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sign_up_info"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/brand_white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="@string/sign_up"
-                        android:textColor="#4e83f6"
+                        android:textColor="@color/brand_blue"
                         app:layout_constraintLeft_toRightOf="@id/tv_info"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

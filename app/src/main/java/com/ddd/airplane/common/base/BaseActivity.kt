@@ -64,9 +64,8 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
         super.onCreate(savedInstanceState)
         initDataBinding()
         initLayout()
+        initNetworkStatus()
         onCreated(savedInstanceState)
-
-        setNetworkStatus()
     }
 
     /**
@@ -80,7 +79,7 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     this@BaseActivity,
-                    R.color.color_black
+                    R.color.brand_black
                 )
             )
             lifecycleOwner = this@BaseActivity
@@ -89,7 +88,10 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
 
     }
 
-    private fun setNetworkStatus() {
+    /**
+     * 네트워크 UI 처리
+     */
+    private fun initNetworkStatus() {
 
         val progressDialog = ProgressDialog(this).apply {
             setCancelable(false)

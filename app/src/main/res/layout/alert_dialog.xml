@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shp_rect_33333b_r8"
+        android:background="@drawable/shp_rect_grey700_r8"
         android:orientation="vertical">
 
         <!-- 바디 컨테이너 -->
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="9dp"
-                android:textColor="#ffffff"
+                android:textColor="@color/brand_white"
                 android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="제목"
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/brand_white"
                     android:textSize="14dp"
                     android:visibility="gone"
                     tools:text="문구블라블 라블라 블 라 블라 블라 블 라이메일주소문구문구 샤바샤뱟"
@@ -84,7 +84,7 @@
                 android:paddingTop="10.5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="13dp"
-                android:textColor="#4e83f6"
+                android:textColor="@color/brand_blue"
                 android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="negative"
@@ -102,7 +102,7 @@
                 android:paddingTop="10.5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="13dp"
-                android:textColor="#4e83f6"
+                android:textColor="@color/brand_blue"
                 android:textSize="16dp"
                 android:visibility="gone"
                 tools:text="positive"

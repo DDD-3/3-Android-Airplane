@@ -6,12 +6,16 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.schedule.viewmodel.ScheduleMainViewModel" />
+
     </data>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/common_header"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         app:contentInsetEnd="0dp"
@@ -20,7 +24,8 @@
         app:contentInsetStart="0dp"
         app:layout_collapseMode="pin"
         app:theme="@null"
-        app:title="">
+        app:title=""
+        tools:background="@color/brand_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,10 +39,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/schedule_broadcast"
-                android:textColor="#ffffff"
+                android:textColor="@{viewModel.position == 0 ? @color/brand_white : @color/color_888888}"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:textColor="@color/brand_white" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_channel"
@@ -46,21 +52,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="@string/schedule_channel"
-                android:textColor="#ffffff"
+                android:textColor="@{viewModel.position == 1 ? @color/brand_white : @color/color_888888}"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toRightOf="@id/tv_broadcast"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_right_option"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="#ff0000"
-                tools:srcCompat="@drawable/ic_sample" />
+                tools:textColor="@color/color_888888" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 </layout>

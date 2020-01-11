@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.airplane.BR
+import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.views.dialog.ProgressDialog
 
 abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
@@ -37,6 +40,13 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
      * onCreate 종료
      */
     abstract fun onCreated(savedInstanceState: Bundle?)
+
+    /**
+     * Create AAC ViewModel
+     */
+    private fun <VM : ViewModel> createViewModel(viewModelClass: Class<VM>): VM {
+        return ViewModelProviders.of(this).get(viewModelClass)
+    }
 
     /**
      * AAC ViewModel
@@ -83,9 +93,31 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     /**
-     * Create AAC ViewModel
+     * 네트워크 UI 처리
      */
-    private fun <VM : ViewModel> createViewModel(viewModelClass: Class<VM>): VM {
-        return ViewModelProviders.of(this).get(viewModelClass)
+    private fun initNetworkStatus() {
+
+        var progressDialog: ProgressDialog? = null
+        context?.let {
+            progressDialog = ProgressDialog(it).apply {
+                setCancelable(false)
+            }
+        }
+
+        viewModel.run {
+            isProgress.observe(this@BaseFragment, Observer {
+                activity?.runOnUiThread {
+                    progressDialog?.run {
+                        if (it) show() else dismiss()
+                    }
+                }
+            })
+
+            toast.observe(this@BaseFragment, Observer {
+                activity?.runOnUiThread {
+                    context.showToast(it)
+                }
+            })
+        }
     }
 }
