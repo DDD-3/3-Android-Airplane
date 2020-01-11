@@ -11,11 +11,12 @@ package com.ddd.airplane.data.response.chat
 data class ChatRoomData(
     val roomId: Int?,
     val userCount: Int?,
-    val subject: SubjectData?
+    val subject: SubjectData?,
+    val liked: Boolean?
 )
 
 /**
- * 프그램의 주제
+ * 프로그램의 주제
  *
  * @property subjectId
  * @property name
@@ -27,7 +28,18 @@ data class SubjectData(
     val subjectId: Int,
     val name: String?,
     val description: String?,
-    val scheduleList: ArrayList<Any>?, // TODO Any 타입 지정해야함 (API 에서 확인 불가능했음)
+    val scheduleList: ArrayList<Schedule>?,
     val subscribeCount: Int?
+)
+
+/**
+ * 프로그램 스케줄
+ *
+ * @property startAt
+ * @property endAt
+ */
+data class Schedule(
+    val startAt: Long,
+    val endAt: Long
 )
 

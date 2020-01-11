@@ -19,21 +19,19 @@ interface SubscribeService {
 
     /**
      * 구독
-     * TODO
      */
     @FormUrlEncoded
-    @POST("/api/v1/subjects/{?}/subscribe")
+    @POST("/api/v1/subjects/{subjectId}/subscribe")
     fun postSubscribe(
-
+        @Path("subjectId") subjectId: Int
     ): Single<Any>
 
     /**
      * 구독 취소
-     * TODO
      */
-    @DELETE("/api/v1/subjects/{?}/subscribe")
+    @DELETE("/api/v1/subjects/{subjectId}/subscribe")
     fun deleteSubscribe(
-
+        @Path("subjectId") subjectId: Int
     ): Single<Any>
 
 

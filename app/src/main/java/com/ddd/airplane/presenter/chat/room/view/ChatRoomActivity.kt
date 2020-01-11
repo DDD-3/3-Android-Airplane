@@ -22,47 +22,51 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
+    //TODO 리스트에서 id 받아서 set
+    private var roomId = 2
 
     override fun initDataBinding() {
         super.initDataBinding()
-
     }
 
     override fun initLayout() {
         tv_send_msg.setOnClickListener(this)
+        ib_hold_info.setOnClickListener(this)
+        tv_subscribe_room.setOnClickListener(this)
+        tv_subscribe_cancel_room.setOnClickListener(this)
         et_chat_msg.onFocusChangeListener = this
         val llm = LinearLayoutManager(this)
         llm.stackFromEnd = true
         llm.reverseLayout = false
-
         rv_chat.layoutManager = llm
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        val headerList: List<StompHeader> = listOf(StompHeader("access-token", "32c0ec88-3069-475e-9eaa-60e207c10b31"))
-
-        val client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://13.209.77.249/ws/websocket")
-        client.connect(headerList)
-
-        client.topic("/topic/room/1").subscribe { topicMessage ->
-            Log.d("TEST", topicMessage.payload)
-        }
-
-
-        client.lifecycle().subscribe(fun(it: LifecycleEvent) {
-            when (it.type) {
-                LifecycleEvent.Type.OPENED -> Log.d("TEST", "Stomp connection opened")
-                LifecycleEvent.Type.ERROR -> Log.d("TEST", "Error", it.exception)
-                LifecycleEvent.Type.CLOSED -> Log.d("TEST", "Stomp connection closed")
-            }
-        })
-
+        viewModel.getChatRoomInfo(roomId)
+        viewModel.connectChatClient()
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getChatMessages()
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_send_msg -> {
                 viewModel.sendChatMessage(et_chat_msg.text.toString())
+            }
+            R.id.ib_hold_info -> {
+                cl_info_second.visibility = if(cl_info_second.visibility == View.GONE) View.VISIBLE else View.GONE
+                cl_info_third.visibility = if(cl_info_third.visibility == View.GONE) View.VISIBLE else View.GONE
+            }
+            R.id.tv_subscribe_room -> {
+                viewModel.postSubscribe()
+            }
+            R.id.tv_subscribe_cancel_room -> {
+                viewModel.deleteSubscribe()
             }
         }
     }

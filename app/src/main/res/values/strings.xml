@@ -12,6 +12,7 @@
     <string name="error_network_response_error">네트워크 통신을 실패했어요</string>
     <string name="error_network_response_null">네트워크 통신을 실패했어요</string>
     <string name="error_network_response_retry">다시 시도해주세요.</string>
+    <string name="error_info">정보를 불러올 수 없습니다.</string>
 
     <string name="main_navi_home">홈</string>
     <string name="main_navi_schedule">편성표</string>
@@ -49,4 +50,7 @@
     <string name="send">전송</string>
     <string name="chat_msg_hint">대화를 입력하세요.</string>
     <string name="chat_live">LIVE</string>
+    <string name="room_schedule_label">방송날짜 및 시간 : </string>
+    <string name="subscribe">구독하기</string>
+    <string name="subscribe_cancel">구독취소</string>
 </resources>
