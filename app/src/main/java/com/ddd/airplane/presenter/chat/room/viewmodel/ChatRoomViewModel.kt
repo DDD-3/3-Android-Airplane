@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.interfaces.OnResponseListener
+import com.ddd.airplane.common.manager.TokenManager
 import com.ddd.airplane.common.utils.Utils
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.Schedule
+import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import ua.naiksoftware.stomp.Stomp
@@ -45,12 +47,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
     fun connectChatClient() {
         val headerList: List<StompHeader> =
-            listOf(StompHeader("access-token", "206e69b5-ecf1-4436-b25d-abd18eef289a"))
-
-        val client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://15.164.213.75/ws/websocket")
+            listOf(StompHeader("access-token", getToken()))
+        val client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, ServerInfo.webSocket)
         client.connect(headerList)
 
-        client.topic("/topic/room/1").subscribe { topicMessage ->
+        client.topic("/topic/room/" + _roomId.value).subscribe { topicMessage ->
             Log.d("TEST", topicMessage.payload)
         }
 
@@ -62,6 +63,12 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                 LifecycleEvent.Type.CLOSED -> Log.d("TEST", "Stomp connection closed")
             }
         })
+    }
+
+    private fun getToken(): String = if (TokenManager.isExist()) {
+        "${TokenManager.tokenType} ${TokenManager.accessToken}"
+    } else {
+        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
     }
 
     fun getChatRoomInfo(roomId: Int) {
