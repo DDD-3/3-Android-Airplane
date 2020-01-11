@@ -3,14 +3,16 @@ package com.ddd.airplane.common.base
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Base ViewPager Adapter
  */
-abstract class BaseViewPagerAdapter(fragmentActivity: FragmentActivity) :
+class BaseViewPagerAdapter : FragmentStateAdapter {
 
-    FragmentStateAdapter(fragmentActivity) {
+    constructor(fragment: Fragment) : super(fragment)
+
+    constructor(fragmentActivity: FragmentActivity) : super(fragmentActivity)
 
     private val fragments = ArrayList<Fragment>()
 

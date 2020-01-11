@@ -9,7 +9,7 @@ import com.ddd.airplane.common.extension.replace
 import com.ddd.airplane.presenter.chat.list.view.ChatListFragment
 import com.ddd.airplane.presenter.home.view.HomeFragment
 import com.ddd.airplane.presenter.mypage.view.MyPageFragment
-import com.ddd.airplane.presenter.schedule.view.ScheduleFragment
+import com.ddd.airplane.presenter.schedule.view.ScheduleMainFragment
 import com.ddd.airplane.presenter.search.view.SearchFragment
 
 /**
@@ -37,7 +37,7 @@ class BottomNavigationView @JvmOverloads constructor(
     }
 
     private val scheduleFragment: Fragment by lazy {
-        ScheduleFragment()
+        ScheduleMainFragment()
     }
 
     private val chatFragment: Fragment by lazy {
