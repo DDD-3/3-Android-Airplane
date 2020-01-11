@@ -12,7 +12,7 @@
         android:id="@+id/cl_schedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black">
 
         <com.ddd.airplane.common.views.component.ImageLoadView
             android:id="@+id/tv_thumbnail"

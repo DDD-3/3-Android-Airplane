@@ -15,13 +15,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="type"
-            android:textColor="@color/color_white" />
+            android:textColor="@color/brand_white" />
     </FrameLayout>
 </layout>

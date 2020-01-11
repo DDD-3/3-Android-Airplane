@@ -79,7 +79,7 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
             binding.root.setBackgroundColor(
                 ContextCompat.getColor(
                     this@BaseActivity,
-                    R.color.color_black
+                    R.color.brand_black
                 )
             )
             lifecycleOwner = this@BaseActivity

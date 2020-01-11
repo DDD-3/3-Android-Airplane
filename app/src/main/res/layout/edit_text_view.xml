@@ -15,14 +15,14 @@
         android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_height="71dp"
-        tools:background="@color/color_black">
+        tools:background="@color/brand_black"
+        tools:layout_height="71dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_edit_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{isFocus ? @drawable/shp_rect_4c4c54_r4 : @drawable/shp_rect_33333b_r4}"
+            android:background="@{isFocus ? @drawable/shp_rect_grey600_r4 : @drawable/shp_rect_grey700_r4}"
             android:minHeight="48dp"
             android:paddingStart="16dp"
             android:paddingTop="5dp"
@@ -30,7 +30,7 @@
             android:paddingBottom="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@drawable/shp_rect_4c4c54_r4">
+            tools:background="@drawable/shp_rect_grey600_r4">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_edit"
@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/brand_white"
                         android:textSize="16dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +97,7 @@
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/brand_white"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:textColor="#4e83f6"
+                android:textColor="@color/brand_blue"
                 android:textSize="12dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -157,7 +157,6 @@
                 app:layout_constraintTop_toBottomOf="@id/v_divider"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="이메일 주소를 정확히 입력해주세요." />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

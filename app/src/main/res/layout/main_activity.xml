@@ -58,7 +58,7 @@
                 app:itemIconTint="@drawable/selector_ff0000_00ffff"
                 app:itemTextAppearanceActive="@style/font_b"
                 app:itemTextAppearanceInactive="@style/font_b"
-                app:itemTextColor="#ffffff"
+                app:itemTextColor="@color/brand_white"
                 app:labelVisibilityMode="labeled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
