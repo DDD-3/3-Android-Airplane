@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.ddd.airplane.presenter.chat.list.viewmodel.ChatRoomViewModel" />
+            type="com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,17 +1,13 @@
 package com.ddd.airplane.presenter.chat.room.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
-import com.ddd.airplane.presenter.chat.list.viewmodel.ChatRoomViewModel
+import com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel
 import kotlinx.android.synthetic.main.chat_room_activity.*
-import ua.naiksoftware.stomp.Stomp
-import ua.naiksoftware.stomp.dto.LifecycleEvent
-import ua.naiksoftware.stomp.dto.StompHeader
 
 /**
  * 채팅

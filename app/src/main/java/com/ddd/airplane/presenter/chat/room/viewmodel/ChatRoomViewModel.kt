@@ -1,4 +1,4 @@
-package com.ddd.airplane.presenter.chat.list.viewmodel
+package com.ddd.airplane.presenter.chat.room.viewmodel
 
 import android.app.Application
 import android.util.Log
@@ -143,10 +143,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    fun getChatMessages(baseMsgId: Int) {
+    fun getChatMessages() {
+        //TODO baseMsg, size 정의
         RetrofitManager
             .chat
-            .getRoomMessages(_roomId.value!!, baseMsgId, 20, "BACKWARD")
+            .getRoomMessages(_roomId.value!!, 0, 20, "BACKWARD")
             .request(this, object : OnResponseListener<ChatMessageData> {
                 override fun onSuccess(response: ChatMessageData) {
                     TODO("메시지 목록에 추가")
