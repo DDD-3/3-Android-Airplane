@@ -4,7 +4,6 @@ package com.ddd.airplane.data.response.chat
  * 채팅방 메세지 목록
  */
 data class ChatMessageData(
-    val roomId: Int?,
     val messages: ArrayList<MessageData>?
 )
 

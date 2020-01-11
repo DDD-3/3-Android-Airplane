@@ -10,17 +10,21 @@ import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
 import com.ddd.airplane.common.utils.Utils
 import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.Schedule
 import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import ua.naiksoftware.stomp.Stomp
+import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
 import ua.naiksoftware.stomp.dto.StompHeader
 import java.util.ArrayList
 
 class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
+    private lateinit var client: StompClient
+
     private val _roomName = MutableLiveData<String>()
     val roomName: LiveData<String> = _roomName
 
@@ -45,10 +49,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     private val _roomId = MutableLiveData<Int>()
     private val _subjectId = MutableLiveData<Int>()
 
+    //TODO chat api const 분리
     fun connectChatClient() {
         val headerList: List<StompHeader> =
             listOf(StompHeader("access-token", getToken()))
-        val client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, ServerInfo.webSocket)
+        client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, ServerInfo.DOMAIN.REAL.domain + "/ws/websocket")
         client.connect(headerList)
 
         client.topic("/topic/room/" + _roomId.value).subscribe { topicMessage ->
@@ -65,10 +70,13 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         })
     }
 
-    private fun getToken(): String = if (TokenManager.isExist()) {
-        "${TokenManager.tokenType} ${TokenManager.accessToken}"
-    } else {
-        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
+    fun disconnectChatClient() {
+        client.disconnect()
+    }
+
+    fun sendChatMessage(msg: String) {
+        val chatContent = "{type: 'CHAT', content: $msg}"
+        client.send(ServerInfo.DOMAIN.REAL.domain + "/app/room/" + _roomId.value + "chat", chatContent)
     }
 
     fun getChatRoomInfo(roomId: Int) {
@@ -135,11 +143,26 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    fun getChatMessages() {
+    fun getChatMessages(baseMsgId: Int) {
+        RetrofitManager
+            .chat
+            .getRoomMessages(_roomId.value!!, baseMsgId, 20, "BACKWARD")
+            .request(this, object : OnResponseListener<ChatMessageData> {
+                override fun onSuccess(response: ChatMessageData) {
+                    TODO("메시지 목록에 추가")
+                }
 
+                override fun onError(error: ErrorData) {
+                    TODO("오류처리")
+                }
+
+            })
     }
 
-    fun sendChatMessage(msg: String) {
-
+    private fun getToken(): String = if (TokenManager.isExist()) {
+        "${TokenManager.tokenType} ${TokenManager.accessToken}"
+    } else {
+        "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"
     }
+
 }

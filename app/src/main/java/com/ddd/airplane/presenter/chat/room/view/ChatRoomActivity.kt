@@ -52,6 +52,11 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         viewModel.getChatMessages()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        viewModel.disconnectChatClient()
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
