@@ -1,0 +1,60 @@
+package com.ddd.airplane.presenter.schedule.viewmodel
+
+import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.ddd.airplane.common.base.BaseViewModel
+import com.ddd.airplane.data.response.ScheduleData
+
+class ScheduleViewModel(application: Application) : BaseViewModel(application) {
+
+    private val _scheduleList = MutableLiveData<ArrayList<ScheduleData>>()
+    val scheduleList: LiveData<ArrayList<ScheduleData>> = _scheduleList
+
+    private val _position = MutableLiveData<Int>()
+    val position: LiveData<Int> = _position
+
+    init {
+        getCategory()
+    }
+
+    /**
+     * 스케줄 카테고리
+     */
+    private fun getCategory() {
+
+        val list = ArrayList<ScheduleData>()
+        list.add(ScheduleData("방송별"))
+        list.add(ScheduleData("주제별"))
+        _scheduleList.value = list
+
+
+//        val bundleList = ArrayList<Bundle>()
+//        bundleList.run {
+//
+//            // 방송사
+//            add(
+//                Bundle().apply {
+//                    putSerializable(Schedule.CATEGORY, "broadCast")
+//                }
+//            )
+//
+//            // 주제
+//            add(
+//                Bundle().apply {
+//                    putSerializable(Schedule.CATEGORY, "subject")
+//                }
+//            )
+//        }
+//
+//        _category.value = bundleList
+
+    }
+
+    /**
+     * 현재 보고있는 페이지 Position
+     */
+    fun setCurrentPage(position: Int) {
+        _position.value = position
+    }
+}

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.ddd.airplane.presenter.schedule.viewmodel.ScheduleMainViewModel" />
+            type="com.ddd.airplane.presenter.schedule.viewmodel.ScheduleViewModel" />
 
     </data>
 
