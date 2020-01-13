@@ -32,29 +32,15 @@ class TabLayoutView @JvmOverloads constructor(
             }
 
             override fun onTabSelected(tab: Tab?) {
-                setTextAppearance(true, tab)
+                tab?.let {
+                    setScrollPosition(it.position, 0f, true)
+                }
             }
 
             override fun onTabUnselected(tab: Tab?) {
-                setTextAppearance(false, tab)
+
             }
         })
-    }
-
-    private fun setTextAppearance(isSelected: Boolean, tab: Tab?) {
-        val views = arrayListOf<View>()
-        tab?.run {
-            view.findViewsWithText(views, tab.text, View.FIND_VIEWS_WITH_TEXT)
-            views.forEach { view ->
-                if (view is TextView) {
-                    if (isSelected) {
-                        TextViewCompat.setTextAppearance(view, R.style.tab_selected)
-                    } else {
-                        TextViewCompat.setTextAppearance(view, R.style.tab_unselected)
-                    }
-                }
-            }
-        }
     }
 
 }

@@ -34,8 +34,8 @@
                     android:fillViewport="true">
 
                     <!-- 1 Depth Tab -->
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/vp_schedule_main"
+                    <com.ddd.airplane.common.views.component.ViewPagerInterceptView
+                        android:id="@+id/vp_schedule_depth1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         bind:items="@{viewModel.scheduleList}" />

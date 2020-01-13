@@ -25,7 +25,7 @@ class ScheduleViewModel(application: Application) : BaseViewModel(application) {
 
 
         val typeList = ArrayList<ScheduleData.Type>()
-        for (i in 1..10) {
+        for (i in 1..5) {
             typeList.add(ScheduleData.Type("TYPE$i"))
         }
 

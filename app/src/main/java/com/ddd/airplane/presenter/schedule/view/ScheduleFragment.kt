@@ -1,13 +1,12 @@
 package com.ddd.airplane.presenter.schedule.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
-import com.ddd.airplane.common.views.DividerItemSpace
+import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.ScheduleData
 import com.ddd.airplane.databinding.ScheduleFragmentBinding
 import com.ddd.airplane.databinding.ScheduleHeaderItemBinding
@@ -79,7 +78,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                         // 헤더 클릭
                         it.root.tv_broadcast.setOnClickListener {
-                            vp_schedule_main.setCurrentItem(position, false)
+                            vp_schedule_depth1.viewPager2.setCurrentItem(position, false)
                         }
                     }
                 }
@@ -95,7 +94,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
      */
     private fun set1DepthViewPager() {
         // 1 depth pager
-        vp_schedule_main.apply {
+        vp_schedule_depth1.viewPager2.apply {
             adapter = object :
 
                 BaseRecyclerViewAdapter<ScheduleData, ScheduleTypeItemBinding>(R.layout.schedule_type_item) {
@@ -136,15 +135,10 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
         val view = dataBinding.root
         val tabLayout = view.tl_type
-        val viewPager = view.vp_schedule_type
+        val viewPager = view.vp_schedule_depth2
 
-        // tab 추가
-        list.forEach {
-            val tab = tabLayout.newTab().apply {
-                text = it.name
-            }
-            tabLayout.addTab(tab)
-        }
+        // 부모 viewPager 에게 childViewPager 세팅
+        vp_schedule_depth1.setChildView(viewPager)
 
         // tab
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -180,8 +174,30 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    Timber.d("position : $position")
+                    Timber.d("positionOffset : $positionOffset")
+                    Timber.d("positionOffsetPixels : $positionOffsetPixels")
+                    tabLayout.setScrollPosition(position, positionOffset, true)
+                }
+
                 override fun onPageSelected(position: Int) {
                     Timber.d("onPageSelected : $position")
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                    when (state) {
+                        ViewPager2.SCROLL_STATE_IDLE -> Timber.d("state : SCROLL_STATE_IDLE")
+                        ViewPager2.SCROLL_STATE_DRAGGING -> Timber.d("state : SCROLL_STATE_DRAGGING")
+                        ViewPager2.SCROLL_STATE_SETTLING -> Timber.d("state : SCROLL_STATE_SETTLING")
+                    }
                 }
             })
         }

@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.views
+package com.ddd.airplane.common.views.decoration
 
 import android.content.Context
 import android.graphics.Canvas

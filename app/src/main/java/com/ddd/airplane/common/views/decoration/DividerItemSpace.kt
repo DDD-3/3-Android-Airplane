@@ -1,4 +1,4 @@
-package com.ddd.airplane.common.views
+package com.ddd.airplane.common.views.decoration
 
 import android.graphics.Rect
 import androidx.recyclerview.widget.LinearLayoutManager
