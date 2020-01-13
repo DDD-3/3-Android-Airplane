@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.utils.tryCatch
+import com.google.android.material.tabs.TabLayout
 
 /**
  * 데이터 바인딩 어댑터
@@ -60,5 +61,4 @@ object BindingAdapterEx {
             }
         }
     }
-
 }

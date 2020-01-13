@@ -23,31 +23,16 @@ class ScheduleViewModel(application: Application) : BaseViewModel(application) {
      */
     private fun getCategory() {
 
+
+        val typeList = ArrayList<ScheduleData.Type>()
+        for (i in 1..10) {
+            typeList.add(ScheduleData.Type("TYPE$i"))
+        }
+
         val list = ArrayList<ScheduleData>()
-        list.add(ScheduleData("방송별"))
-        list.add(ScheduleData("주제별"))
+        list.add(ScheduleData("방송별", typeList))
+        list.add(ScheduleData("주제별", typeList))
         _scheduleList.value = list
-
-
-//        val bundleList = ArrayList<Bundle>()
-//        bundleList.run {
-//
-//            // 방송사
-//            add(
-//                Bundle().apply {
-//                    putSerializable(Schedule.CATEGORY, "broadCast")
-//                }
-//            )
-//
-//            // 주제
-//            add(
-//                Bundle().apply {
-//                    putSerializable(Schedule.CATEGORY, "subject")
-//                }
-//            )
-//        }
-//
-//        _category.value = bundleList
 
     }
 

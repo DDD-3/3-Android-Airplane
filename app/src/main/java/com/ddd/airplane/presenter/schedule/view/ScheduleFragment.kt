@@ -1,6 +1,7 @@
 package com.ddd.airplane.presenter.schedule.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.R
@@ -10,11 +11,16 @@ import com.ddd.airplane.common.views.DividerItemSpace
 import com.ddd.airplane.data.response.ScheduleData
 import com.ddd.airplane.databinding.ScheduleFragmentBinding
 import com.ddd.airplane.databinding.ScheduleHeaderItemBinding
+import com.ddd.airplane.databinding.ScheduleRoomItemBinding
 import com.ddd.airplane.databinding.ScheduleTypeItemBinding
+import com.ddd.airplane.presenter.schedule.viewmodel.ScheduleTypeViewModel
 import com.ddd.airplane.presenter.schedule.viewmodel.ScheduleViewModel
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.schedule_fragment.*
 import kotlinx.android.synthetic.main.schedule_header.*
+import kotlinx.android.synthetic.main.schedule_header_item.view.*
 import kotlinx.android.synthetic.main.schedule_type_item.view.*
+import timber.log.Timber
 
 /**
  * 편성표
@@ -34,15 +40,18 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
     }
 
     override fun initLayout() {
+        setHeader()
+        set1DepthViewPager()
+    }
 
-        vp_schedule_main.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                viewModel.setCurrentPage(position)
-            }
-        })
+    override fun onCreated(savedInstanceState: Bundle?) {
 
+    }
+
+    private fun setHeader() {
         // header
         rv_header_item.apply {
+
             addItemDecoration( // 간격
                 DividerItemSpace(
                     DividerItemSpace.HORIZONTAL,
@@ -67,17 +76,17 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                         viewModel.position.observe(this@ScheduleFragment, Observer { position ->
                             it.current = position
                         })
+
+                        // 헤더 클릭
+                        it.root.tv_broadcast.setOnClickListener {
+                            vp_schedule_main.setCurrentItem(position, false)
+                        }
                     }
                 }
             }
         }
-
-        set1DepthViewPager()
     }
 
-    override fun onCreated(savedInstanceState: Bundle?) {
-
-    }
 
     /**
      * 1 Depth ViewPager
@@ -96,12 +105,16 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                     model: ScheduleData,
                     dataBinding: ScheduleTypeItemBinding
                 ) {
-                    val view = dataBinding.root
-
                     // 주제별 viewPager 삽입
-                    set2DepthViewPager(view.vp_schedule_type)
+                    set2DepthViewPager(dataBinding, model.typeList)
                 }
             }
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    viewModel.setCurrentPage(position)
+                }
+            })
         }
     }
 
@@ -110,10 +123,67 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
      *
      * 방송사별 : SBS, KBS, MBC ...
      * 주제별 : 종편/뉴스, 연예오락, 영화/시리즈 ...
-     *
-     * @param view
      */
-    private fun set2DepthViewPager(view: ViewPager2) {
+    private fun set2DepthViewPager(
+        dataBinding: ScheduleTypeItemBinding,
+        list: List<ScheduleData.Type>
+    ) {
 
+        // viewModel
+        dataBinding.viewModel = ScheduleTypeViewModel().apply {
+            setData(list)
+        }
+
+        val view = dataBinding.root
+        val tabLayout = view.tl_type
+        val viewPager = view.vp_schedule_type
+
+        // tab 추가
+        list.forEach {
+            val tab = tabLayout.newTab().apply {
+                text = it.name
+            }
+            tabLayout.addTab(tab)
+        }
+
+        // tab
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                Timber.d("onTabSelected : ${tab?.position}")
+                val position = tab?.position ?: 0
+                viewPager.setCurrentItem(position, false)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                Timber.d("onTabUnselected : ${tab?.position}")
+            }
+        })
+
+        // viewPager
+        viewPager.apply {
+            adapter = object :
+
+                BaseRecyclerViewAdapter<ScheduleData.Type, ScheduleRoomItemBinding>(R.layout.schedule_room_item) {
+
+                override fun onBindData(
+                    position: Int,
+                    model: ScheduleData.Type,
+                    dataBinding: ScheduleRoomItemBinding
+                ) {
+                    dataBinding.position = position
+                }
+            }
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    Timber.d("onPageSelected : $position")
+                }
+            })
+        }
     }
 }

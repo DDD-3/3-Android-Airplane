@@ -7,21 +7,30 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.ddd.airplane.presenter.schedule.viewmodel.ScheduleViewModel" />
+            name="position"
+            type="int" />
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="@color/brand_black">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_room"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="10"
+            tools:listitem="@layout/thumbnail_grid_item" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="item"
+            android:text="@{String.valueOf(position)}"
             android:textColor="@color/brand_white" />
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

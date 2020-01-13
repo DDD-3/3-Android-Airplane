@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="#ff0000" />
+            app:srcCompat="@drawable/ic_followers" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_subscribe"
@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_subscribe"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="#ff0000" />
+            app:srcCompat="@drawable/ic_viewers" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_live"

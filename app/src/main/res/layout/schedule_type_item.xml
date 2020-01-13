@@ -6,14 +6,20 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.schedule.viewmodel.ScheduleTypeViewModel" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:background="@color/brand_black">
 
-        <com.google.android.material.tabs.TabLayout
+        <!-- tab -->
+        <com.ddd.airplane.common.views.component.TabLayoutView
             android:id="@+id/tl_type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -22,18 +28,27 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="#0cbfff"
+            app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/brand_white"
             app:tabTextColor="#828181" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_schedule_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_type" />
+        <!-- 구분선 -->
+        <View
+            android:id="@+id/v_divider"
+            style="@style/divider_vertical" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_schedule_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                bind:items="@{viewModel.typeList}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
