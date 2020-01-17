@@ -4,12 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import com.ddd.airplane.R
-import com.jaeger.library.StatusBarUtil
 import kotlin.math.roundToInt
 
 object DeviceUtils {
