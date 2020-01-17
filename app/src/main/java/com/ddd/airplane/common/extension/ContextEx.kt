@@ -2,14 +2,17 @@ package com.ddd.airplane.common.extension
 
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 
 /**
  * Toast
  *
- * @param resId
+ * @param stringRes
  */
-fun Context.showToast(resId: Int) {
-    Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
+fun Context.showToast(@StringRes stringRes: Int) {
+    Toast.makeText(this, stringRes, Toast.LENGTH_SHORT).show()
 }
 
 /**

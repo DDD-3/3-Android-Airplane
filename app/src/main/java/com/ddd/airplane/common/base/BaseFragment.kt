@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.airplane.BR
+import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.views.dialog.ProgressDialog
 
 abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment() {
@@ -64,6 +66,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(
             inflater,
             layoutRes,
@@ -75,14 +78,20 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
             lifecycleOwner = this@BaseFragment
             setVariable(BR.viewModel, viewModel)
         }
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initStatusBarColor()
         initDataBinding()
         initLayout()
         onCreated(savedInstanceState)
+    }
+
+    private fun initStatusBarColor() {
+        DeviceUtils.setStatusBarColor(activity, R.color.brand_black)
     }
 
     /**

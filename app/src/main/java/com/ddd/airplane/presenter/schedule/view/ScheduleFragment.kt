@@ -108,41 +108,6 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                     set2DepthViewPager(dataBinding, model.typeList)
                 }
             }
-
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
-
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-
-                }
-
-                override fun onPageSelected(position: Int) {
-                    viewModel.setCurrentPage(position)
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-//                    when (state) {
-//                        ViewPager2.SCROLL_STATE_IDLE, ViewPager2.SCROLL_STATE_DRAGGING -> {
-//                            vp_schedule_depth2.run {
-//                                if (canScrollHorizontally(-1) || canScrollHorizontally(1)) {
-//                                    vp_schedule_depth1.isUserInputEnabled = false
-//                                }
-//                            }
-//                        }
-////                        ViewPager2.SCROLL_STATE_DRAGGING -> Timber.d("state : SCROLL_STATE_DRAGGING")
-//                        ViewPager2.SCROLL_STATE_SETTLING -> Timber.d("state : SCROLL_STATE_SETTLING")
-//                    }
-//
-//                    Timber.d("parent canScrollHorizontally ${canScrollHorizontally(-1)}")
-//                    Timber.d("parent canScrollHorizontally ${canScrollHorizontally(1)}")
-                }
-            })
         }
     }
 
@@ -207,13 +172,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                     positionOffsetPixels: Int
                 ) {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//                    Timber.d("position : $position")
-//                    Timber.d("positionOffset : $positionOffset")
-//                    Timber.d("positionOffsetPixels : $positionOffsetPixels")
                     tabLayout.setScrollPosition(position, positionOffset, true)
-
-//                    vp_schedule_depth1.isUserInputEnabled =
-//                        !canScrollHorizontally(-1) || !canScrollHorizontally(1)
                 }
 
                 override fun onPageSelected(position: Int) {
@@ -222,22 +181,6 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
-//                    when (state) {
-//                        ViewPager2.SCROLL_STATE_IDLE -> {
-//                            Timber.d("state : SCROLL_STATE_IDLE")
-////                            vp_schedule_depth1.isUserInputEnabled =
-////                                !canScrollHorizontally(-1) || !canScrollHorizontally(1)
-//                        }
-////                        ViewPager2.SCROLL_STATE_DRAGGING -> Timber.d("state : SCROLL_STATE_DRAGGING")
-//                        ViewPager2.SCROLL_STATE_SETTLING -> {
-//                            Timber.d("state : SCROLL_STATE_SETTLING")
-//                            vp_schedule_depth1.isUserInputEnabled =
-//                                !canScrollHorizontally(-1) || !canScrollHorizontally(1)
-//                        }
-//                    }
-//
-//                    Timber.d("child canScrollHorizontally ${canScrollHorizontally(-1)}")
-//                    Timber.d("child canScrollHorizontally ${canScrollHorizontally(1)}")
                 }
             })
         }

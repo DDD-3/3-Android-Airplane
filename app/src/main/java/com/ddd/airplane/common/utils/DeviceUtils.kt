@@ -1,11 +1,16 @@
 package com.ddd.airplane.common.utils
 
+import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import com.ddd.airplane.R
+import com.jaeger.library.StatusBarUtil
 import kotlin.math.roundToInt
-
 
 object DeviceUtils {
 
@@ -38,6 +43,13 @@ object DeviceUtils {
         }
     }
 
+    /**
+     * dp value px
+     *
+     * @param context
+     * @param dp
+     * @return
+     */
     fun dpToPx(context: Context, dp: Int): Int {
         val px = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -45,6 +57,65 @@ object DeviceUtils {
             context.resources.displayMetrics
         )
         return px.roundToInt()
-
     }
+
+    /**
+     * Status Bar Color
+     *
+     * @param activity
+     * @param color
+     */
+    fun setStatusBarColor(activity: Activity?, @ColorRes color: Int) {
+        activity?.let {
+            it.window?.statusBarColor =
+                ContextCompat.getColor(it, color)
+        }
+    }
+
+    /**
+     * 스크린 너비
+     *
+     * @param context
+     * @param percent 비율 (스크린의 비율 만큼 리턴)
+     * @return
+     */
+    fun getScreenWidth(
+        context: Context?,
+        percent: Int = 0
+    ): Int {
+        context?.let {
+            val metrics = context.resources.displayMetrics
+            return if (percent > 0) {
+                metrics.widthPixels * percent / 100
+            }
+            else {
+                metrics.widthPixels
+            }
+        }
+        return 0
+    }
+
+    /**
+     * 스크린 높이
+     *
+     * @param context
+     * @param percent 비율 (스크린의 비율 만큼 리턴)
+     * @return
+     */
+    fun getScreenHeight(
+        context: Context?,
+        percent: Int = 0
+    ): Int {
+        context?.let {
+            val metrics = context.resources.displayMetrics
+            return if (percent > 0) {
+                metrics.heightPixels * percent / 100
+            }
+            else {
+                metrics.heightPixels
+            }
+        }
+        return 0
+    }
+
 }

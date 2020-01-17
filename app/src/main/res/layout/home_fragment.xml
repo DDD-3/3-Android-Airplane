@@ -12,44 +12,51 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_home"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/abl_header"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintVertical_weight="1" />
+    </FrameLayout>
 
-            <!-- 헤더 -->
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/abl_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@id/rv_home"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+    <!--        android:id="@+id/cdl_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
 
-                <com.ddd.airplane.common.views.component.HeaderView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/home_title" />
-            </com.google.android.material.appbar.AppBarLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!--        &lt;!&ndash; 원래 높이 483dp &ndash;&gt;-->
+    <!--        <FrameLayout-->
+    <!--            android:id="@+id/fl_behind"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@color/color_0cbfff">-->
+
+    <!--            <androidx.viewpager2.widget.ViewPager2-->
+    <!--                android:id="@+id/vp_home"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content" />-->
+    <!--        </FrameLayout>-->
+
+    <!--        <FrameLayout-->
+    <!--            android:id="@+id/fl_sheet"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@drawable/shp_rect_brand_black_r12_r12"-->
+    <!--            android:clickable="true"-->
+    <!--            app:behavior_hideable="false"-->
+    <!--            app:behavior_peekHeight="256dp"-->
+    <!--            app:layout_behavior="@string/bottom_sheet_behavior">-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/rv_home"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent" />-->
+    <!--        </FrameLayout>-->
+    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </layout>

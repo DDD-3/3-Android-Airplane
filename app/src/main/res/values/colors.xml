@@ -36,5 +36,6 @@
 
     <!-- 컬러 리소스 정의되지 않음 -->
     <color name="color_888888">#888888</color>
+    <color name="color_0cbfff">#0cbfff</color>
 
 </resources>
