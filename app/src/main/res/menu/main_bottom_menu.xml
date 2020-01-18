@@ -5,21 +5,26 @@
     <item
         android:id="@+id/main_navi_item_home"
         android:icon="@android:drawable/ic_menu_call"
-        android:title="@string/main_navi_home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/main_navi_item_schedule"
         android:icon="@android:drawable/ic_menu_camera"
-        android:title="@string/main_navi_schedule" />
+        android:title="@string/schedule" />
+
+    <item
+        android:id="@+id/main_navi_item_search"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/search" />
 
     <item
         android:id="@+id/main_navi_item_chat"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/main_navi_chat" />
+        android:title="@string/chatting" />
 
     <item
         android:id="@+id/main_navi_item_mypage"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/main_navi_mypage" />
+        android:title="@string/mypage" />
 
 </menu>

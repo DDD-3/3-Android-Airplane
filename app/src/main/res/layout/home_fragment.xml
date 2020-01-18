@@ -12,10 +12,11 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -46,56 +47,20 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <FrameLayout
+                android:id="@+id/fl_behavior"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_0cbfff"
+                android:layout_height="match_parent"
+                android:background="@color/brand_white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <androidx.core.widget.NestedScrollView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/shp_rect_brand_black_r12_r12">
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="1" />
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="2" />
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="3" />
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="4" />
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:text="5" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                </androidx.core.widget.NestedScrollView>
-
-                <!--            <androidx.recyclerview.widget.RecyclerView-->
-                <!--                android:id="@+id/rv_home"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="match_parent"-->
-                <!--                android:orientation="vertical"-->
-                <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+                    android:background="@drawable/shp_rect_brand_black_r12_r12"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </FrameLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </FrameLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

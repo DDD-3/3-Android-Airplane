@@ -2,10 +2,12 @@ package com.ddd.airplane.common.utils
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import kotlin.math.roundToInt
 
@@ -84,8 +86,7 @@ object DeviceUtils {
             val metrics = context.resources.displayMetrics
             return if (percent > 0) {
                 metrics.widthPixels * percent / 100
-            }
-            else {
+            } else {
                 metrics.widthPixels
             }
         }
@@ -107,12 +108,33 @@ object DeviceUtils {
             val metrics = context.resources.displayMetrics
             return if (percent > 0) {
                 metrics.heightPixels * percent / 100
-            }
-            else {
+            } else {
                 metrics.heightPixels
             }
         }
         return 0
     }
 
+    /**
+     * StatusBar 컬러 변경
+     *
+     * @param activity
+     * @param isLight
+     */
+    fun setLightStatusBar(activity: Activity?, isLight: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            activity?.let {
+                val view = it.window.decorView
+                if (isLight) {
+                    it.window.addFlags(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+//                    view.systemUiVisibility =
+//                        view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                } else {
+//                    view.systemUiVisibility =
+//                        view.systemUiVisibility xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    it.window.clearFlags(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                }
+            }
+        }
+    }
 }

@@ -12,10 +12,9 @@
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         tools:background="@color/brand_black">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -46,8 +45,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_header"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical">
+                android:fitsSystemWindows="true">
 
                 <!-- 헤더 Tab -->
                 <include
@@ -59,5 +57,5 @@
             </com.google.android.material.appbar.AppBarLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </FrameLayout>
 </layout>

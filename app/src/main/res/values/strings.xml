@@ -7,6 +7,14 @@
     <string name="name">이름</string>
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
+    <string name="chatting">채팅</string>
+    <string name="mypage">마이페이지</string>
+    <string name="search">검색</string>
+    <string name="schedule">편성표</string>
+    <string name="home">홈</string>
+    <string name="more">더보기</string>
+    <string name="live">LIVE</string>
+    <string name="send">전송</string>
 
     <!-- error -->
     <string name="error_network_response_error">네트워크 통신을 실패했어요</string>
@@ -14,21 +22,11 @@
     <string name="error_network_response_retry">다시 시도해주세요.</string>
     <string name="error_info">정보를 불러올 수 없습니다.</string>
 
-    <string name="main_navi_home">홈</string>
-    <string name="main_navi_schedule">편성표</string>
-    <string name="main_navi_chat">채팅</string>
-    <string name="main_navi_search">검색</string>
-    <string name="main_navi_mypage">마이페이지</string>
-
-    <string name="home_title">홈</string>
-    <string name="home_more">더보기</string>
-    <string name="home_recent_live">LIVE</string>
-
     <string name="schedule_broadcast">방송사별</string>
     <string name="schedule_channel">주제별</string>
 
-    <string name="mypage_title">마이페이지</string>
     <string name="mypage_profile_label">프로필 이름</string>
+    <string name="mypage_subscribe_list">구독방송 리스트</string>
 
     <string name="sign_in">로그인</string>
     <string name="sign_in_already_account">이미 사바사 계정이 있으세요?</string>
@@ -47,7 +45,6 @@
 
     <string name="sign_in_info">사바사 계정이 없으세요?</string>
 
-    <string name="send">전송</string>
     <string name="chat_msg_hint">대화를 입력하세요.</string>
     <string name="chat_live">LIVE</string>
     <string name="room_schedule_label">방송날짜 및 시간 : </string>

@@ -15,6 +15,7 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.views.dialog.ProgressDialog
+import com.jaeger.library.StatusBarUtil
 
 abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
@@ -91,6 +92,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     private fun initStatusBarColor() {
+        DeviceUtils.setLightStatusBar(activity, false)
         DeviceUtils.setStatusBarColor(activity, R.color.brand_black)
     }
 

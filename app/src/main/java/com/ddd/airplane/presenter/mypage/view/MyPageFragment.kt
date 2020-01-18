@@ -5,6 +5,7 @@ import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.views.decoration.DividerItemGrid
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.databinding.ThumbnailGridItemBinding
@@ -38,6 +39,12 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
         // adapter
         rv_subscribe.apply {
             setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemGrid(
+                    2,
+                    context.resources.getDimensionPixelSize(R.dimen.dp16)
+                )
+            )
             adapter = object :
                 BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
 
