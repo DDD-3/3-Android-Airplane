@@ -2,6 +2,7 @@ package com.ddd.airplane.presenter.chat.room.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.R
@@ -12,8 +13,10 @@ import com.ddd.airplane.common.utils.Utils
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.MessageData
 import com.ddd.airplane.data.response.chat.Schedule
 import com.ddd.airplane.repository.network.config.ServerInfo
+import com.ddd.airplane.repository.network.config.ServerUrl
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import ua.naiksoftware.stomp.Stomp
@@ -46,6 +49,9 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     private val _subscribed = MutableLiveData<Boolean>(false)
     val subscribed: LiveData<Boolean> = _subscribed
 
+    private val _msgList = MutableLiveData<ArrayList<MessageData>>()
+    val msgList: LiveData<ArrayList<MessageData>> = _msgList
+
     private val _roomId = MutableLiveData<Int>()
     private val _subjectId = MutableLiveData<Int>()
 
@@ -53,10 +59,10 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     fun connectChatClient() {
         val headerList: List<StompHeader> =
             listOf(StompHeader("access-token", getToken()))
-        client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, ServerInfo.DOMAIN.REAL.domain + "/ws/websocket")
+        client = Stomp.over(Stomp.ConnectionProvider.OKHTTP, ServerInfo.DOMAIN.REAL.domain + ServerUrl.WEB_SOCKET)
         client.connect(headerList)
 
-        client.topic("/topic/room/" + _roomId.value).subscribe { topicMessage ->
+        client.topic(ServerUrl.SUBSCRIBE_ROOM + _roomId.value).subscribe { topicMessage ->
             Log.d("TEST", topicMessage.payload)
         }
 
@@ -76,7 +82,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
     fun sendChatMessage(msg: String) {
         val chatContent = "{type: 'CHAT', content: $msg}"
-        client.send(ServerInfo.DOMAIN.REAL.domain + "/app/room/" + _roomId.value + "chat", chatContent)
+        client.send(ServerInfo.DOMAIN.REAL.domain + ServerUrl.SEND_MSG + _roomId.value + "chat", chatContent)
     }
 
     fun getChatRoomInfo(roomId: Int) {
@@ -144,20 +150,26 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
 
     fun getChatMessages() {
+        //testData
+        val testMsgList = ArrayList<MessageData>()
+        testMsgList.add(MessageData(0, 2, "id1", "content1", "createAt"))
+        testMsgList.add(MessageData(0, 2, "id2", "content2", "createAt"))
+        _msgList.value = testMsgList
+
         //TODO baseMsg, size 정의
-        RetrofitManager
-            .chat
-            .getRoomMessages(_roomId.value!!, 0, 20, "BACKWARD")
-            .request(this, object : OnResponseListener<ChatMessageData> {
-                override fun onSuccess(response: ChatMessageData) {
-                    TODO("메시지 목록에 추가")
-                }
-
-                override fun onError(error: ErrorData) {
-                    TODO("오류처리")
-                }
-
-            })
+//        RetrofitManager
+//            .chat
+//            .getRoomMessages(_roomId.value!!, 0, 20, "BACKWARD")
+//            .request(this, object : OnResponseListener<ChatMessageData> {
+//                override fun onSuccess(response: ChatMessageData) {
+//                    TODO("메시지 목록에 추가")
+//                }
+//
+//                override fun onError(error: ErrorData) {
+//                    TODO("오류처리")
+//                }
+//
+//            })
     }
 
     private fun getToken(): String = if (TokenManager.isExist()) {
