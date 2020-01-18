@@ -53,9 +53,9 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
                     model: ChatRoomData,
                     dataBinding: ThumbnailGridItemBinding
                 ) {
-                    dataBinding.viewModel = SubscribeViewModel().apply {
-                        setData(model)
-                    }
+//                    dataBinding.viewModel = SubscribeViewModel().apply {
+//                        setData(model)
+//                    }
                 }
             }
         }

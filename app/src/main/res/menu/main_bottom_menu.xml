@@ -12,10 +12,10 @@
         android:icon="@android:drawable/ic_menu_camera"
         android:title="@string/schedule" />
 
-    <item
-        android:id="@+id/main_navi_item_search"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/search" />
+<!--    <item-->
+<!--        android:id="@+id/main_navi_item_search"-->
+<!--        android:icon="@android:drawable/ic_menu_edit"-->
+<!--        android:title="@string/search" />-->
 
     <item
         android:id="@+id/main_navi_item_chat"

@@ -2,6 +2,7 @@ package com.ddd.airplane.common.base
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -15,15 +16,17 @@ import androidx.recyclerview.widget.RecyclerView
  * @since 2019-06-07
  */
 @Suppress("UNCHECKED_CAST")
-abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
+internal abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
     @LayoutRes private val layoutId: Int = 0
-) : RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder>() {
-
-    private val list = mutableListOf<T>()
+) : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     abstract fun onBindData(position: Int, model: T, dataBinding: D)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private val list = mutableListOf<T>()
+
+    private var itemClickListener: ((View, T) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
 
         require(layoutId > 0) { "Empty Layout Resource" }
 
@@ -34,11 +37,13 @@ abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
                 parent,
                 false
             )
-        return ViewHolder(dataBinding)
+
+        return createViewHolder(dataBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        onBindData(position, list[position], holder.dataBinding as D)
+    override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
+        holder.onBind(getItem(position))
+        onBindData(position, list[position], holder.viewDataBinding as D)
     }
 
     override fun getItemCount(): Int {
@@ -71,11 +76,11 @@ abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>(
         return list[position]
     }
 
-    fun getItmes(): List<T> {
+    fun getItems(): List<T> {
         return list
     }
 
-    class ViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        var dataBinding: ViewDataBinding = binding
+    open fun createViewHolder(dataBinding: ViewDataBinding): BaseViewHolder<T> {
+        return BaseViewHolder(dataBinding)
     }
 }
