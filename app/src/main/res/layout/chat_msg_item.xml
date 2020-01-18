@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.chat.room.viewmodel.ChatMsgViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,9 +23,10 @@
             android:layout_height="match_parent"
             android:textColor="@color/brand_white"
             android:textSize="14sp"
-            android:text="아이디"
+            android:text="@{viewModel.senderId}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="아이디"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_msg_divider"
@@ -32,7 +35,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/brand_white"
             android:textSize="14sp"
-            android:text=" : "
+            android:text="@string/msg_divider"
             app:layout_constraintLeft_toRightOf="@+id/tv_sender"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -43,9 +46,10 @@
             android:layout_height="match_parent"
             android:textColor="@color/brand_white"
             android:textSize="14sp"
-            android:text="블라블ㄹ라ㅏ라라"
+            android:text="@{viewModel.content}"
             app:layout_constraintLeft_toRightOf="@+id/tv_msg_divider"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="블라블라라ㅏㅏ"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
