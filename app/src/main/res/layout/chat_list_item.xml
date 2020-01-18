@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        tools:background="@color/brand_black">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"

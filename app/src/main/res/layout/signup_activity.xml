@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:title="@{@string/mypage_title}" />
+            bind:title="@{@string/sign_up}" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

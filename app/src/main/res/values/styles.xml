@@ -2,8 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/brand_black</item>
+        <item name="colorPrimaryDark">@color/brand_black</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -33,17 +33,32 @@
         <item name="android:textSize">14dp</item>
     </style>
 
-    <!-- TabLayout UnSelected -->
+    <!-- BottomNavigationView Selected -->
     <style name="tab_unselected">
-        <item name="android:textColor">#828181</item>
+        <item name="android:textColor">@color/color_828181</item>
         <item name="android:fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">14dp</item>
+    </style>
+
+    <!-- BottomNavigationView Selected -->
+    <style name="navigation_selected" parent="font_b">
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:layout_marginTop">1.5dp</item>
+        <item name="android:textColor">@color/brand_white</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <!-- BottomNavigationView UnSelected -->
+    <style name="navigation_unselected" parent="font_b">
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:layout_marginTop">1.5dp</item>
+        <item name="android:textColor">@color/color_8e8e8e</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
 
     <style name="font">
         <item name="android:includeFontPadding">false</item>
-        <!--        <item name="android:background">@android:color/transparent</item>-->
     </style>
 
     <!-- Font Style -->

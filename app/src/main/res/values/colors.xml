@@ -31,10 +31,14 @@
     <color name="grey600">#4c4c54</color>
     <color name="grey500">#66666b</color>
     <color name="grey400">#7f7f84</color>
+    <color name="grey300">#99999d</color>
     <color name="grey200">#ccccce</color>
     <color name="grey100">#e5e5e7</color>
 
     <!-- 컬러 리소스 정의되지 않음 -->
     <color name="color_888888">#888888</color>
+    <color name="color_8e8e8e">#8e8e8e</color>
+    <color name="color_0cbfff">#0cbfff</color>
+    <color name="color_828181">#828181</color>
 
 </resources>

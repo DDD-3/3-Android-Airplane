@@ -42,7 +42,7 @@
                 android:paddingEnd="6dp"
                 android:paddingBottom="3dp"
                 style="@style/font_r"
-                android:text="@string/home_recent_live"
+                android:text="@string/live"
                 android:textColor="@color/brand_white"
                 android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"

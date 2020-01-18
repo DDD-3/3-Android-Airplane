@@ -2,23 +2,23 @@ package com.ddd.airplane.common.views.component
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatImageView
+import android.view.LayoutInflater
+import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.ddd.airplane.R
-import com.ddd.airplane.common.utils.tryCatch
+import com.ddd.airplane.databinding.ImageLoadViewBinding
+import kotlinx.android.synthetic.main.image_load_view.view.*
 
 /**
- * ImageLoadView
+ *
+ * ImageLoaderView
  *
  * @author jess
  */
@@ -26,7 +26,9 @@ class ImageLoadView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : AppCompatImageView(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
+
+    private var binding = ImageLoadViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     enum class Style { NORMAL, CIRCLE, ROUND }
 
@@ -51,6 +53,12 @@ class ImageLoadView @JvmOverloads constructor(
                 0
             )
 
+            val url = typedValue.getString(R.styleable.ImageLoadView_url)
+            if (url.isNullOrEmpty()) {
+                binding.isLoaded = false
+                return
+            }
+
             glide.load(typedValue.getString(R.styleable.ImageLoadView_url)).run {
 
                 // 플레이스 홀더
@@ -63,22 +71,13 @@ class ImageLoadView @JvmOverloads constructor(
                 transition(DrawableTransitionOptions.withCrossFade())
 
                 // Request Options
-                apply(getRequestOptions(typedValue))
+//                apply(getRequestOptions(typedValue))
 
                 // 이미지
-                into(this@ImageLoadView)
+                into(iv_succeed)
 
                 // 리스너
                 listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-
-                        return false
-                    }
 
                     override fun onResourceReady(
                         resource: Drawable?,
@@ -87,28 +86,39 @@ class ImageLoadView @JvmOverloads constructor(
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
+
                         return false
+                    }
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.isLoaded = false
+                        return true
                     }
                 })
             }
         }
     }
 
-    /**
-     * Options
-     */
-    private fun getRequestOptions(typedValue: TypedArray): RequestOptions {
-
-        var result = RequestOptions().centerCrop()
-
-        tryCatch {
-
-            // 스타일
-            val style = Style.values()[typedValue.getInt(
-                R.styleable.ImageLoadView_style,
-                Style.NORMAL.ordinal
-            )]
-
+//    /**
+//    //     * Options
+//    //     */
+//    private fun getRequestOptions(typedValue: TypedArray): RequestOptions {
+//
+//        var result = RequestOptions().centerCrop()
+//
+//        tryCatch {
+//
+//            // 스타일
+//            val style = Style.values()[typedValue.getInt(
+//                R.styleable.ImageLoadView_style,
+//                Style.NORMAL.ordinal
+//            )]
+//
 //            val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
 //
 //            result = when (style) {
@@ -124,8 +134,8 @@ class ImageLoadView @JvmOverloads constructor(
 //                    RequestOptions().centerCrop()
 //                }
 //            }
-        }
-
-        return result
-    }
+//        }
+//
+//        return result
+//    }
 }
