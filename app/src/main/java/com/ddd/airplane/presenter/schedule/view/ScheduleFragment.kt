@@ -64,11 +64,11 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                 override fun onBindData(
                     position: Int,
-                    model: ScheduleData,
+                    data: ScheduleData,
                     dataBinding: ScheduleHeaderItemBinding
                 ) {
                     dataBinding.let {
-                        it.model = model
+                        it.model = data
                         it.position = position
 
                         // 현재 포지션

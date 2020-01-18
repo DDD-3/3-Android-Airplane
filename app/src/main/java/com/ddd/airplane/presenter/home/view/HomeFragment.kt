@@ -21,31 +21,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     }
 
     override fun initLayout() {
-//        abl_home.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-//            if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
-//                setStatusBarColor(false)
-//            } else {
-//                setStatusBarColor(true)
-//            }
-//        })
+
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-//        setStatusBarColor(true)
+
     }
-
-//    private fun setStatusBarColor(isExpended: Boolean) {
-//        activity?.let {
-//            // TODO 작동을 제대로 안하는 듯
-////            DeviceUtils.setLightStatusBar(activity, !isExpended)
-//            val color = if (isExpended) {
-//                R.color.brand_white
-//            } else {
-//                R.color.brand_black
-//            }
-//            DeviceUtils.setStatusBarColor(it, color)
-//            fl_behavior.setBackgroundColor(ContextCompat.getColor(it, color))
-//        }
-//    }
-
 }

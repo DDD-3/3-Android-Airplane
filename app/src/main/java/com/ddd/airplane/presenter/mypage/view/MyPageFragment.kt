@@ -1,6 +1,7 @@
 package com.ddd.airplane.presenter.mypage.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
@@ -10,8 +11,8 @@ import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.databinding.ThumbnailGridItemBinding
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
-import com.ddd.airplane.presenter.mypage.viewmodel.SubscribeViewModel
 import kotlinx.android.synthetic.main.mypage_fragment.*
+import timber.log.Timber
 
 /**
  * 마이페이지
@@ -25,9 +26,6 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
     override fun initDataBinding() {
         super.initDataBinding()
-        viewModel.run {
-
-        }
     }
 
     override fun initLayout() {
@@ -47,15 +45,9 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
             )
             adapter = object :
                 BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
-
-                override fun onBindData(
-                    position: Int,
-                    model: ChatRoomData,
-                    dataBinding: ThumbnailGridItemBinding
-                ) {
-//                    dataBinding.viewModel = SubscribeViewModel().apply {
-//                        setData(model)
-//                    }
+            }.apply {
+                setOnItemClickListener { v, data ->
+                    Timber.d(data.toString())
                 }
             }
         }

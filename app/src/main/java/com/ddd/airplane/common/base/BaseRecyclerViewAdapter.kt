@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.ddd.airplane.BR
 
 /**
  * Base RecyclerView Adapter for DataBinding
@@ -20,11 +22,9 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>
     @LayoutRes private val layoutId: Int = 0
 ) : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
-    abstract fun onBindData(position: Int, model: T, dataBinding: D)
-
     private val list = mutableListOf<T>()
-
     private var itemClickListener: ((View, T) -> Unit)? = null
+    var itemViewModel: BaseItemViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
 
@@ -38,11 +38,23 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>
                 false
             )
 
-        return createViewHolder(dataBinding)
+        val viewHolder = createViewHolder(dataBinding, viewType)
+
+        // OnClick
+        dataBinding.root.setOnClickListener {
+            if (viewHolder.adapterPosition != RecyclerView.NO_POSITION && itemClickListener != null) {
+                itemClickListener?.invoke(it, list[viewHolder.adapterPosition])
+            }
+        }
+
+        // Item ViewModel
+        dataBinding.setVariable(BR.viewModel, itemViewModel)
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(list[position])
         onBindData(position, list[position], holder.viewDataBinding as D)
     }
 
@@ -80,7 +92,21 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, in D : ViewDataBinding>
         return list
     }
 
-    open fun createViewHolder(dataBinding: ViewDataBinding): BaseViewHolder<T> {
+    /**
+     * 아이템 클릭 리스너
+     *
+     * @param listener
+     */
+    open fun setOnItemClickListener(listener: ((View, T) -> Unit)?) = apply {
+        this.itemClickListener = listener
+    }
+
+    open fun createViewHolder(dataBinding: ViewDataBinding, viewType: Int): BaseViewHolder<T> {
         return BaseViewHolder(dataBinding)
     }
+
+    open fun onBindData(position: Int, data: T, dataBinding: D) {
+
+    }
+
 }

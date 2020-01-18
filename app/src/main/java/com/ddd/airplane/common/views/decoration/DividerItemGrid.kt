@@ -27,9 +27,6 @@ class DividerItemGrid(private val spanCount: Int = 2, private val space: Int) :
         val row = position / spanCount
         val lastRow = (maxCount - 1) / spanCount
 
-        Timber.d("jess : column $column")
-        Timber.d("jess : row $row")
-
         outRect.left = column * space / spanCount
         outRect.right = space - (column + 1) * space / spanCount
 

@@ -85,16 +85,10 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        initStatusBarColor()
         initDataBinding()
         initLayout()
         onCreated(savedInstanceState)
     }
-
-//    private fun initStatusBarColor() {
-//        DeviceUtils.setLightStatusBar(activity, false)
-//        DeviceUtils.setStatusBarColor(activity, R.color.brand_black)
-//    }
 
     /**
      * 데이터 바인딩 초기화
