@@ -37,7 +37,7 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
 
     override fun initLayout() {
 
-        val views = arrayOf(bt_sign_up)
+        val views = arrayOf(cl_already, cl_back, bt_sign_up)
         views.forEach {
             it.setOnClickListener(this)
         }
@@ -69,6 +69,10 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.cl_back, R.id.cl_already -> {
+                finish()
+            }
+
             R.id.bt_sign_up -> {
                 viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
             }

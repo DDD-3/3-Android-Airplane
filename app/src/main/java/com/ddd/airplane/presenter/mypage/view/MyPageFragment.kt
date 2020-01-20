@@ -22,19 +22,37 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
     override val layoutRes = R.layout.mypage_fragment
     override val viewModelClass = MyPageViewModel::class.java
 
+
     override fun initDataBinding() {
         super.initDataBinding()
-        viewModel.run {
-            pagedList.observe(this@MyPageFragment, Observer {
-                pagedAdapter.submitList(it)
-            })
-        }
+
     }
 
     override fun initLayout() {
         val views = arrayOf(cl_profile)
         views.forEach {
             it.setOnClickListener(this)
+        }
+
+        setPagedList()
+    }
+
+    override fun onCreated(savedInstanceState: Bundle?) {
+
+    }
+
+    /**
+     * Paged List 설정
+     */
+    private fun setPagedList() {
+        /**
+         * PagedList Adapter
+         */
+        val pagedAdapter = object : BasePagedListAdapter<ChatRoomData>(
+            R.layout.thumbnail_grid_item,
+            viewModel.diffCallback
+        ) {
+
         }
 
         // adapter
@@ -46,8 +64,13 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
                     context.resources.getDimensionPixelSize(R.dimen.dp16)
                 )
             )
+
             adapter = pagedAdapter
         }
+
+        viewModel.pagedList.observe(this@MyPageFragment, Observer {
+            pagedAdapter.submitList(it)
+        })
 
         pagedAdapter.run {
             setOnItemClickListener { view, chatRoomData ->
@@ -56,25 +79,11 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
         }
     }
 
-    override fun onCreated(savedInstanceState: Bundle?) {
-
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.cl_profile -> { // 로그인화면 (임시)
 
             }
         }
-    }
-
-    /**
-     * PagedList Adapter
-     */
-    private val pagedAdapter = object : BasePagedListAdapter<ChatRoomData>(
-        R.layout.thumbnail_grid_item,
-        viewModel.diffCallback
-    ) {
-
     }
 }

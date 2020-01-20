@@ -34,7 +34,7 @@
     <string name="sign_in_kakao">카카오로 로그인</string>
 
     <string name="sign_up">회원가입</string>
-    <string name="sign_up_info">사바사 계정이 없으세요?</string>
+    <string name="sign_up_info">이미 사바사 계정이 있으세요?</string>
     <string name="sign_up_nick_name_change">바꾸기</string>
     <string name="sign_up_hide">숨기기</string>
     <string name="sign_up_show">보이기</string>

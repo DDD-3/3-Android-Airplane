@@ -47,21 +47,21 @@ class HeaderView @JvmOverloads constructor(
             // 타이틀
             setTitle(typedValue.getString(R.styleable.HeaderView_title))
 
-            // 배경
-            setBackground(
-                typedValue.getColor(
-                    R.styleable.HeaderView_android_background,
-                    ContextCompat.getColor(context, R.color.brand_black)
-                )
-            )
+//            // 배경
+//            setBackground(
+//                typedValue.getColor(
+//                    R.styleable.HeaderView_android_background,
+//                    ContextCompat.getColor(context, R.color.brand_black)
+//                )
+//            )
 
-            // 텍스트컬러
-            setTextColor(
-                typedValue.getColor(
-                    R.styleable.HeaderView_android_textColor,
-                    ContextCompat.getColor(context, R.color.brand_white)
-                )
-            )
+//            // 텍스트컬러
+//            setTextColor(
+//                typedValue.getColor(
+//                    R.styleable.HeaderView_android_textColor,
+//                    ContextCompat.getColor(context, R.color.brand_white)
+//                )
+//            )
 
 //            // 옵션 텍스트
 //            tv_text_option.text = typedValue.getString(R.styleable.HeaderView_textOption)
@@ -74,23 +74,23 @@ class HeaderView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 배경
-     *
-     * @param color
-     */
-    private fun setBackground(color: Int) {
-        tb_header.setBackgroundColor(color)
-    }
-
-    /**
-     * 텍스트컬러
-     *
-     * @param color
-     */
-    private fun setTextColor(color: Int) {
-        tv_title.setTextColor(color)
-    }
+//    /**
+//     * 배경
+//     *
+//     * @param color
+//     */
+//    private fun setBackground(color: Int) {
+//        tb_header.setBackgroundColor(color)
+//    }
+//
+//    /**
+//     * 텍스트컬러
+//     *
+//     * @param color
+//     */
+//    private fun setTextColor(color: Int) {
+//        tv_title.setTextColor(color)
+//    }
 
     /**
      * 타이틀
@@ -104,19 +104,19 @@ class HeaderView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 종료형태
-     */
-    private fun setBack(isBack: Boolean) {
-        iv_finish.run {
-            visibility = View.VISIBLE
-            setImageResource(
-                if (isBack) {
-                    R.drawable.ic_sample
-                } else {
-                    R.drawable.ic_sample
-                }
-            )
-        }
-    }
+//    /**
+//     * 종료형태
+//     */
+//    private fun setBack(isBack: Boolean) {
+//        iv_finish.run {
+//            visibility = View.VISIBLE
+//            setImageResource(
+//                if (isBack) {
+//                    R.drawable.ic_sample
+//                } else {
+//                    R.drawable.ic_sample
+//                }
+//            )
+//        }
+//    }
 }

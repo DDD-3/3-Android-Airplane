@@ -11,11 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.ddd.airplane.BR
-import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.showToast
-import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.views.dialog.ProgressDialog
-import com.jaeger.library.StatusBarUtil
 
 abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 

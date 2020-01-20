@@ -27,6 +27,7 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
                     this@SplashActivity.finish()
                     goMain()
                 } else {
+                    finish()
                     MemberManager.signIn(this@SplashActivity) {
                         if (it) {
                             goMain()
