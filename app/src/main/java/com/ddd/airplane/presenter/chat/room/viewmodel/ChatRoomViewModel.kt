@@ -2,7 +2,6 @@ package com.ddd.airplane.presenter.chat.room.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.R
@@ -13,8 +12,7 @@ import com.ddd.airplane.common.utils.Utils
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatRoomData
-import com.ddd.airplane.data.response.chat.MessageData
-import com.ddd.airplane.data.response.chat.Schedule
+import com.ddd.airplane.data.response.chat.ScheduleData
 import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.config.ServerUrl
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
@@ -23,7 +21,7 @@ import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
 import ua.naiksoftware.stomp.dto.StompHeader
-import java.util.ArrayList
+import java.util.*
 
 class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     private lateinit var client: StompClient
@@ -49,11 +47,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     private val _subscribed = MutableLiveData<Boolean>(false)
     val subscribed: LiveData<Boolean> = _subscribed
 
-    private val _msgList = MutableLiveData<ArrayList<MessageData>>()
-    val msgList: LiveData<ArrayList<MessageData>> = _msgList
+    private val _msgList = MutableLiveData<ArrayList<ChatMessageData.MessageData>>()
+    val msgList: LiveData<ArrayList<ChatMessageData.MessageData>> = _msgList
 
-    private val _roomId = MutableLiveData<Int>()
-    private val _subjectId = MutableLiveData<Int>()
+    private val _roomId = MutableLiveData<Long>()
+    private val _subjectId = MutableLiveData<Long>()
 
     //TODO chat api const 분리
     fun connectChatClient() {
@@ -85,7 +83,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         client.send(ServerInfo.DOMAIN.REAL.domain + ServerUrl.SEND_MSG + _roomId.value + "chat", chatContent)
     }
 
-    fun getChatRoomInfo(roomId: Int) {
+    fun getChatRoomInfo(roomId: Long) {
         RetrofitManager
             .chat
             .getRoom(roomId)
@@ -110,7 +108,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
             })
     }
 
-    private fun parseRoomSchedule(scheduleList: ArrayList<Schedule>?): String? {
+    private fun parseRoomSchedule(scheduleList: List<ScheduleData>?): String? {
         //TODO start ~ end time 디자인 확인해서 넣기
         val startAt = scheduleList?.get(0)?.startAt
         return if (startAt != null) Utils.convertLongToTime(startAt) else R.string.error_info.toString()
@@ -151,9 +149,9 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
     fun getChatMessages() {
         //testData
-        val testMsgList = ArrayList<MessageData>()
-        testMsgList.add(MessageData(0, 2, "id1", "content1", "createAt"))
-        testMsgList.add(MessageData(0, 2, "id2", "content2", "createAt"))
+        val testMsgList = ArrayList<ChatMessageData.MessageData>()
+        testMsgList.add(ChatMessageData.MessageData(0, 2, "id1", "content1", "createAt"))
+        testMsgList.add(ChatMessageData.MessageData(0, 2, "id2", "content2", "createAt"))
         _msgList.value = testMsgList
 
         //TODO baseMsg, size 정의

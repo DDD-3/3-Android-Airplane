@@ -19,7 +19,7 @@ interface ChatService {
      */
     @GET(ServerUrl.GET_ROOM_INFO)
     fun getRoom(
-        @Path("roomId") roomId: Int
+        @Path("roomId") roomId: Long
     ): Single<ChatRoomData>
 
     /**
@@ -27,7 +27,7 @@ interface ChatService {
      */
     @GET(ServerUrl.GET_ROOM_MESSAGE)
     fun getRoomMessages(
-        @Path("roomId") roomId: Int,
+        @Path("roomId") roomId: Long,
         @Query("baseMessageId") baseMessageId: Int,
         @Query("size") size: Int,
         @Query("direction") direction: String

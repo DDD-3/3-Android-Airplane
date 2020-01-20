@@ -1,18 +1,16 @@
 package com.ddd.airplane.presenter.mypage.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
-import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.base.BasePagedListAdapter
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.databinding.MypageFragmentBinding
-import com.ddd.airplane.databinding.ThumbnailGridItemBinding
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import kotlinx.android.synthetic.main.mypage_fragment.*
-import timber.log.Timber
 
 /**
  * 마이페이지
@@ -26,6 +24,11 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
     override fun initDataBinding() {
         super.initDataBinding()
+        viewModel.run {
+            pagedList.observe(this@MyPageFragment, Observer {
+                pagedAdapter.submitList(it)
+            })
+        }
     }
 
     override fun initLayout() {
@@ -43,12 +46,12 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
                     context.resources.getDimensionPixelSize(R.dimen.dp16)
                 )
             )
-            adapter = object :
-                BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
-            }.apply {
-                setOnItemClickListener { v, data ->
-                    Timber.d(data.toString())
-                }
+            adapter = pagedAdapter
+        }
+
+        pagedAdapter.run {
+            setOnItemClickListener { view, chatRoomData ->
+
             }
         }
     }
@@ -63,5 +66,15 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
             }
         }
+    }
+
+    /**
+     * PagedList Adapter
+     */
+    private val pagedAdapter = object : BasePagedListAdapter<ChatRoomData>(
+        R.layout.thumbnail_grid_item,
+        viewModel.diffCallback
+    ) {
+
     }
 }

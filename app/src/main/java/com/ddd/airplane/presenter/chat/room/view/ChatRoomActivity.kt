@@ -8,7 +8,6 @@ import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.data.response.chat.ChatMessageData
-import com.ddd.airplane.data.response.chat.MessageData
 import com.ddd.airplane.databinding.ChatMsgItemBinding
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatMsgViewModel
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel
@@ -24,7 +23,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
     //TODO 리스트에서 id 받아서 set
-    private var roomId = 2
+    private var roomId: Long = 2
 
     override fun initDataBinding() {
         super.initDataBinding()
@@ -46,11 +45,11 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         rv_chat.apply {
             setHasFixedSize(true)
             adapter = object :
-                BaseRecyclerViewAdapter<MessageData, ChatMsgItemBinding>(R.layout.chat_msg_item) {
+                BaseRecyclerViewAdapter<ChatMessageData.MessageData, ChatMsgItemBinding>(R.layout.chat_msg_item) {
 
                 override fun onBindData(
                     position: Int,
-                    model: MessageData,
+                    model: ChatMessageData.MessageData,
                     dataBinding: ChatMsgItemBinding
                 ) {
                     dataBinding.viewModel = ChatMsgViewModel().apply {
@@ -85,8 +84,10 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 viewModel.sendChatMessage(et_chat_msg.text.toString())
             }
             R.id.ib_hold_info -> {
-                cl_info_second.visibility = if(cl_info_second.visibility == View.GONE) View.VISIBLE else View.GONE
-                cl_info_third.visibility = if(cl_info_third.visibility == View.GONE) View.VISIBLE else View.GONE
+                cl_info_second.visibility =
+                    if (cl_info_second.visibility == View.GONE) View.VISIBLE else View.GONE
+                cl_info_third.visibility =
+                    if (cl_info_third.visibility == View.GONE) View.VISIBLE else View.GONE
             }
             R.id.tv_subscribe_room -> {
                 viewModel.postSubscribe()
@@ -98,7 +99,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if(hasFocus) {
+        if (hasFocus) {
             tv_send_msg.visibility = View.VISIBLE
             btn_room_like.visibility = View.GONE
         } else {

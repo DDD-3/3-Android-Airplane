@@ -23,7 +23,7 @@ interface SubscribeService {
     @FormUrlEncoded
     @POST("/api/v1/subjects/{subjectId}/subscribe")
     fun postSubscribe(
-        @Path("subjectId") subjectId: Int
+        @Path("subjectId") subjectId: Long
     ): Single<Any>
 
     /**
@@ -31,7 +31,7 @@ interface SubscribeService {
      */
     @DELETE("/api/v1/subjects/{subjectId}/subscribe")
     fun deleteSubscribe(
-        @Path("subjectId") subjectId: Int
+        @Path("subjectId") subjectId: Long
     ): Single<Any>
 
 

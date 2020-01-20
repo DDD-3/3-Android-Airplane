@@ -1,6 +1,7 @@
 package com.ddd.airplane.common.extension
 
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
@@ -25,7 +26,7 @@ object BindingAdapterEx {
         isClear: Boolean = true
     ) {
         tryCatch {
-            (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.run {
+            (this.adapter as? BaseRecyclerViewAdapter<Any, ViewDataBinding>)?.run {
                 if (isClear) {
                     this.clear()
                 }
@@ -50,7 +51,7 @@ object BindingAdapterEx {
         isClear: Boolean = true
     ) {
         tryCatch {
-            (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.run {
+            (this.adapter as? BaseRecyclerViewAdapter<Any, ViewDataBinding>)?.run {
                 if (isClear) {
                     this.clear()
                 }

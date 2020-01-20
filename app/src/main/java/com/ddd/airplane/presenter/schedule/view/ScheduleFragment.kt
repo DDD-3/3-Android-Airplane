@@ -60,7 +60,9 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
             adapter = object :
 
-                BaseRecyclerViewAdapter<ScheduleData, ScheduleHeaderItemBinding>(R.layout.schedule_header_item) {
+                BaseRecyclerViewAdapter<ScheduleData, ScheduleHeaderItemBinding>(
+                    R.layout.schedule_header_item
+                ) {
 
                 override fun onBindData(
                     position: Int,
