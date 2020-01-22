@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.data.response.home.HomeData
+import com.ddd.airplane.data.response.home.SwipeData
 
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
@@ -20,21 +21,22 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         val homeList = ArrayList<HomeData>()
 
         // swipe
-        val swipeBanner = ArrayList<HomeData.SwipeData>()
+        val swipeBanner = ArrayList<SwipeData>()
         // 상단 배너
         for (i in 1..10) {
-            swipeBanner.add(HomeData.SwipeData("banner test $i"))
+            swipeBanner.add(SwipeData("banner test $i"))
         }
-//        homeList.add(HomeData(Home.Type.SWIPE_BANNER, swipeBanner))
+
+        homeList.add(HomeData(Home.Type.SWIPE_BANNER, swipeBanner))
 
         _homeList.value = homeList
     }
 
-//    /**
-//     * 아이템 타입
-//     *
-//     * @param position
-//     */
-//    fun getItemViewType(position: Int) = _homeList.value?.get(position)?.type?.ordinal ?: 99
+    /**
+     * 아이템 타입
+     *
+     * @param position
+     */
+    fun getItemViewType(position: Int) = _homeList.value?.get(position)?.type?.ordinal ?: 99
 
 }
