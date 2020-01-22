@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.BR
 
@@ -29,8 +28,8 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
 
         require(layoutId > 0) { "Empty Layout Resource" }
 
-        val dataBinding = createViewDataBinding(parent)
-        val viewHolder = createViewHolder(dataBinding, viewType)
+        val dataBinding = createViewDataBinding(parent, layoutId)
+        val viewHolder = createViewHolder(dataBinding)
 
         // OnClick
         dataBinding.run {
@@ -92,11 +91,11 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         this.itemClickListener = listener
     }
 
-    open fun createViewHolder(dataBinding: ViewDataBinding, viewType: Int): BaseViewHolder<T> {
+    open fun createViewHolder(dataBinding: ViewDataBinding): BaseViewHolder<T> {
         return BaseViewHolder(dataBinding)
     }
 
-    open fun createViewDataBinding(parent: ViewGroup): ViewDataBinding {
+    open fun createViewDataBinding(parent: ViewGroup, layoutId: Int): ViewDataBinding {
         return DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             layoutId,

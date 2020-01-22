@@ -1,7 +1,8 @@
 package com.ddd.airplane.common.consts
 
-object Schedule {
-
-    const val CATEGORY = "category"
-
+object Constants {
+    object Schedule {
+        const val CATEGORY = "category"
+    }
 }
+

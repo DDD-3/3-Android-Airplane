@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.home.viewmodel.HomeViewModel" />
+
     </data>
 
     <FrameLayout
@@ -29,7 +33,8 @@
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    bind:items="@{viewModel.homeList}" />
             </FrameLayout>
 
             <!-- 헤더 -->

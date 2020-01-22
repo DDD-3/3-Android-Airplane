@@ -51,7 +51,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
     /**
      * AAC ViewModel
      */
-    protected val viewModel by lazy(LazyThreadSafetyMode.NONE) {
+    protected val viewModel by lazy {
         createViewModel(viewModelClass)
     }
 

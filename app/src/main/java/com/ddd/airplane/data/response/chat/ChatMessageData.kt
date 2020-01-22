@@ -1,7 +1,5 @@
 package com.ddd.airplane.data.response.chat
 
-import com.ddd.airplane.data.BaseItemData
-
 /**
  * 채팅방 메세지 목록
  */
