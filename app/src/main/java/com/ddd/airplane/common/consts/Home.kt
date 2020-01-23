@@ -5,8 +5,9 @@ object Home {
     /**
      * 홈 스타일
      */
-    enum class Style(val type: String) {
-        SWIPE_BANNER("swipeBanner"),
+    enum class Style(val style: String) {
+        MAIN_SWIPE_BANNER("mainSwipeBanner"),
+        HORIZONTAL("horizontal"),
         EMPTY("empty")
     }
 }

@@ -3,75 +3,76 @@ package com.ddd.airplane.presenter.home.view.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
 import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.common.utils.tryCatch
-import com.ddd.airplane.data.response.home.HomeData.ItemData
-import com.ddd.airplane.presenter.home.view.viewholder.SwipeViewHolder
+import com.ddd.airplane.data.response.home.HomeData
+import com.ddd.airplane.presenter.home.view.viewholder.HorizontalViewHolder
+import com.ddd.airplane.presenter.home.view.viewholder.MainSwipeViewHolder
 
-/**
- * 홈 어뎁터
- */
-class HomeAdapter(
-    @NonNull private val context: Context?,
-    @NonNull private val list: ArrayList<ItemData<Any>> = ArrayList()
+class HomeAdapter constructor(
+    private val context: Context?
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+    val list = arrayListOf<HomeData.ItemData<Any>>()
+
+    private fun getStyle(viewType: Int) = Home.Style.values()[viewType]
+
+    fun addAllItem(items: ArrayList<HomeData.ItemData<Any>>?) = apply {
+        items?.let {
+            list.addAll(it)
+            notifyDataSetChanged()
+        }
+    }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private fun createViewDataBinding(parent: ViewGroup, layoutId: Int): ViewDataBinding {
+        return DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            layoutId,
+            parent,
+            false
+        )
     }
 
     override fun getItemViewType(position: Int): Int {
         return list[position].style.ordinal
     }
 
-    private fun getType(viewType: Int) = Home.Style.values()[viewType]
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        val type = getType(viewType)
-        val layoutId = when (type) {
-            Home.Style.SWIPE_BANNER -> R.layout.home_swipe_banner
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val style = getStyle(viewType)
+        val layoutId = when (style) {
+            Home.Style.MAIN_SWIPE_BANNER -> R.layout.home_swipe_banner
+            Home.Style.HORIZONTAL -> R.layout.home_horizontal
             else -> {
                 R.layout.empty_view
             }
         }
-
-        val dataBinding = DataBindingUtil.inflate<ViewDataBinding>(
-            LayoutInflater.from(parent.context),
-            layoutId,
-            parent,
-            false
-        )
-
-        return ViewHolder(dataBinding, type)
+        return ViewHolder(createViewDataBinding(parent, layoutId), style)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         tryCatch {
-
             val item = list[position]
-            when (getType(getItemViewType(position))) {
-                Home.Style.SWIPE_BANNER -> {
-                    holder.swipe?.onBind(item)
-                }
-
+            when (getStyle(getItemViewType(position))) {
+                Home.Style.MAIN_SWIPE_BANNER -> holder.swipe?.onBind(item)
+                Home.Style.HORIZONTAL -> holder.horizontal?.onBind(item)
                 else -> {
 
                 }
             }
-        }
-    }
-
-    fun addAllItem(items: ArrayList<ItemData<Any>>?) {
-        items?.let {
-            list.addAll(it)
-            notifyDataSetChanged()
         }
     }
 
@@ -80,21 +81,25 @@ class HomeAdapter(
      */
     inner class ViewHolder(
         viewDataBinding: ViewDataBinding,
-        type: Home.Style
+        style: Home.Style = Home.Style.EMPTY
     ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
-        var swipe: SwipeViewHolder? = null
+        var swipe: MainSwipeViewHolder? = null
+        var horizontal: HorizontalViewHolder? = null
 
         init {
-            when (type) {
-                Home.Style.SWIPE_BANNER -> {
-                    swipe = SwipeViewHolder(context, viewDataBinding)
+            when (style) {
+                Home.Style.MAIN_SWIPE_BANNER -> {
+                    swipe = MainSwipeViewHolder(viewDataBinding)
                 }
-
+                Home.Style.HORIZONTAL -> {
+                    horizontal = HorizontalViewHolder(context, viewDataBinding)
+                }
                 else -> {
 
                 }
             }
         }
     }
+
 }

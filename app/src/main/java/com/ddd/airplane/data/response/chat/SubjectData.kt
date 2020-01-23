@@ -10,9 +10,10 @@ package com.ddd.airplane.data.response.chat
  * @property subscribeCount
  */
 data class SubjectData(
-    val subjectId: Long,
-    val name: String?,
-    val description: String?,
-    val scheduleList: List<ScheduleData>?,
-    val subscribeCount: Int?
+    val subjectId: Long = 0,
+    val name: String? = null,
+    val description: String? = null,
+    val scheduleList: List<ScheduleData>? = arrayListOf(),
+    val subscribeCount: Int? = 0,
+    val thumbnail: String? = null
 )

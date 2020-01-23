@@ -1,32 +1,39 @@
 package com.ddd.airplane.presenter.home.view.viewholder
 
-import android.content.Context
 import android.os.Handler
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.ViewCompat
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
-import com.ddd.airplane.common.base.BaseViewHolder
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
+import com.ddd.airplane.databinding.HomeSwipeBannerBinding
 import com.ddd.airplane.databinding.HomeSwipeBannerItemBinding
 import kotlinx.android.synthetic.main.home_swipe_banner.view.*
 import timber.log.Timber
 
-
-class SwipeViewHolder(
-    private val context: Context?,
+/**
+ * 메인 상단 ViewPager 배너
+ *
+ * @author jess
+ * @since 2020.01.23
+ */
+class MainSwipeViewHolder(
     viewDataBinding: ViewDataBinding
-) : BaseViewHolder<HomeData.ItemData<Any>>(viewDataBinding) {
+) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
+    private val context = viewDataBinding.root.context
+    private val view = viewDataBinding.root
+    private val binding = viewDataBinding as HomeSwipeBannerBinding
     private val bannerList = ArrayList<BannerData>()
 
-    override fun onBind(item: HomeData.ItemData<Any>?) {
+    fun onBind(item: HomeData.ItemData<Any>?) {
         tryCatch {
             initData(item)
             initLayout()
@@ -36,10 +43,7 @@ class SwipeViewHolder(
     private fun initData(item: HomeData.ItemData<Any>?) {
         tryCatch {
             item?.let {
-                val list = it.item as ArrayList<BannerData>
-                bannerList.run {
-                    addAll(list)
-                }
+                bannerList.addAll(it.item as ArrayList<BannerData>)
                 Timber.d(bannerList.toString())
             }
         }

@@ -11,6 +11,7 @@ data class HomeData(
 
     data class ItemData<T>(
         var style: Home.Style = Home.Style.EMPTY,
+        var title: String? = null,
         var item: T? = null
     )
 }

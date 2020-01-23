@@ -1,18 +1,18 @@
 package com.ddd.airplane
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.multidex.MultiDexApplication
 import com.ddd.airplane.common.manager.PreferencesManager
+import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.ddd.airplane.repository.database.RoomManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
 import com.kakao.auth.KakaoSDK
 import timber.log.Timber
 
 /**
  * @author jess
  */
-class AirPlaneApplication : Application() {
+class AirPlaneApplication : MultiDexApplication() {
 
     companion object {
         var instance: AirPlaneApplication? = null

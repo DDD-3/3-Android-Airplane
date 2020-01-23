@@ -6,25 +6,30 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.ddd.airplane.data.response.chat.ChatRoomData" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_item"
-        android:layout_marginRight="12dp"
+        android:id="@+id/cl_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        bind:ratioWidth="@{37}"
+        tools:background="@color/brand_black"
+        tools:layout_width="match_parent">
 
         <com.ddd.airplane.common.views.component.ImageLoadView
             android:id="@+id/iv_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:corner="5dp"
-            app:layout_constraintCircleRadius="5dp"
-            app:layout_constraintDimensionRatio="h, 135:192"
+            app:layout_constraintDimensionRatio="1:1.42"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_width="135dp"
-            tools:background="#ff0000" />
+            app:url="@{item.subject.thumbnail}"
+            tools:background="#ff0000"
+            tools:layout_height="500dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
@@ -34,10 +39,11 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@{item.subject.description}"
             android:textColor="@color/brand_white"
             android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="@id/iv_thumbnail"
-            app:layout_constraintStart_toStartOf="@id/iv_thumbnail"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
             tools:text="‘사위 사랑’ 이상화, 강위 사랑’ 이상화, 강위 사랑’ 이상화, 강남 먹방에 행복 지수 U" />
 
@@ -49,7 +55,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-            <include layout="@layout/subscribe_view" />
+            <include
+                layout="@layout/subscribe_view"
+                bind:subscribeCount="@{item.subject.subscribeCount}"
+                bind:userCount="@{item.userCount}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

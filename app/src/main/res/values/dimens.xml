@@ -9,6 +9,7 @@
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp12">12dp</dimen>
     <dimen name="dp16">16dp</dimen>
+    <dimen name="dp40">40dp</dimen>
     <dimen name="dp48">48dp</dimen>
     <dimen name="dp51">51dp</dimen>
     <dimen name="dp60">60dp</dimen>

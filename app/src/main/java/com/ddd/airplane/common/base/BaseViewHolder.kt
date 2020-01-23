@@ -3,6 +3,7 @@ package com.ddd.airplane.common.base
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.BR
+import com.ddd.airplane.common.utils.tryCatch
 
 open class BaseViewHolder<T : Any>(
     val viewDataBinding: ViewDataBinding
@@ -11,7 +12,9 @@ open class BaseViewHolder<T : Any>(
     val view = viewDataBinding.root
 
     open fun onBind(item: T?) {
-        viewDataBinding.setVariable(BR.item, item)
-        viewDataBinding.executePendingBindings()
+        tryCatch {
+            viewDataBinding.setVariable(BR.item, item)
+            viewDataBinding.executePendingBindings()
+        }
     }
 }

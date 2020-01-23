@@ -1,6 +1,5 @@
 package com.ddd.airplane.common.views.component
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -12,9 +11,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ImageLoadViewBinding
 import kotlinx.android.synthetic.main.image_load_view.view.*
+import timber.log.Timber
 
 /**
  *
@@ -30,77 +29,114 @@ class ImageLoadView @JvmOverloads constructor(
 
     private var binding = ImageLoadViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    enum class Style { NORMAL, CIRCLE, ROUND }
+//    enum class Style { NORMAL, CIRCLE, ROUND }
 
-    private val glide by lazy {
-        Glide.with(context)
-    }
+//    init {
+//        intLayout(attrs, defStyleAttr)
+//    }
+//
+//    @SuppressLint("CustomViewStyleable", "Recycle", "CheckResult")
+//    private fun intLayout(
+//        attrs: AttributeSet?,
+//        defStyleAttr: Int
+//    ) {
+//        if (attrs != null) {
+//            val typedValue = context.obtainStyledAttributes(
+//                attrs,
+//                R.styleable.ImageLoadView,
+//                defStyleAttr,
+//                0
+//            )
+//
+//            val url = typedValue.getString(R.styleable.ImageLoadView_url)
+//            if (url.isNullOrEmpty()) {
+//                binding.isLoaded = false
+//                return
+//            }
+//
+//
+//        }
+//    }
 
-    init {
-        intLayout(attrs, defStyleAttr)
-    }
-
-    @SuppressLint("CustomViewStyleable", "Recycle", "CheckResult")
-    private fun intLayout(
-        attrs: AttributeSet?,
-        defStyleAttr: Int
-    ) {
-        if (attrs != null) {
-            val typedValue = context.obtainStyledAttributes(
-                attrs,
-                R.styleable.ImageLoadView,
-                defStyleAttr,
-                0
-            )
-
-            val url = typedValue.getString(R.styleable.ImageLoadView_url)
-            if (url.isNullOrEmpty()) {
-                binding.isLoaded = false
-                return
-            }
-
-            glide.load(typedValue.getString(R.styleable.ImageLoadView_url)).run {
-
-                // 플레이스 홀더
-                placeholder(typedValue.getDrawable(R.styleable.ImageLoadView_placeholder))
-
-                // 에러
-                error(typedValue.getDrawable(R.styleable.ImageLoadView_error))
-
-                // fade 처리
-                transition(DrawableTransitionOptions.withCrossFade())
-
-                // Request Options
-//                apply(getRequestOptions(typedValue))
-
-                // 이미지
-                into(iv_succeed)
-
-                // 리스너
-                listener(object : RequestListener<Drawable> {
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-
-                        return false
-                    }
-
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.isLoaded = false
-                        return true
-                    }
-                })
-            }
+    fun setUrl(url: String?) {
+        url?.let {
+            loadImage(it)
         }
+    }
+
+    fun loadImage(url: String) {
+        Glide.with(context)
+            .load(url)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .listener(object : RequestListener<Drawable> {
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.isLoaded = true
+                    Timber.d("onResourceReady $url")
+                    return false
+                }
+
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    binding.isLoaded = false
+                    Timber.d("onLoadFailed $url")
+                    Timber.d("onLoadFailed ${e?.message}")
+                    return false
+                }
+            })
+            .into(iv_succeed)
+//        Glide.with(context).load(url).run {
+//
+//            //            // 플레이스 홀더
+////            placeholder(typedValue.getDrawable(R.styleable.ImageLoadView_placeholder))
+////
+////            // 에러
+////            error(typedValue.getDrawable(R.styleable.ImageLoadView_error))
+//
+//            // Request Options
+////                apply(getRequestOptions(typedValue))
+//
+//            // fade 처리
+//            transition(DrawableTransitionOptions.withCrossFade())
+//
+//            // 이미지
+//            into(iv_succeed)
+//
+//            // 리스너
+//            listener(object : RequestListener<Drawable> {
+//
+//                override fun onResourceReady(
+//                    resource: Drawable?,
+//                    model: Any?,
+//                    target: Target<Drawable>?,
+//                    dataSource: DataSource?,
+//                    isFirstResource: Boolean
+//                ): Boolean {
+//                    Timber.e("onResourceReady")
+//                    return false
+//                }
+//
+//                override fun onLoadFailed(
+//                    e: GlideException?,
+//                    model: Any?,
+//                    target: Target<Drawable>?,
+//                    isFirstResource: Boolean
+//                ): Boolean {
+//                    Timber.e("onLoadFailed")
+//                    binding.isLoaded = false
+//                    return true
+//                }
+//            })
+//        }
     }
 }

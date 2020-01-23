@@ -8,9 +8,9 @@ package com.ddd.airplane.data.response.chat
  * @property subject
  */
 data class ChatRoomData(
-    val roomId: Long?,
-    val userCount: Int?,
-    val subject: SubjectData?,
-    val liked: Boolean?
+    val roomId: Long? = 0,
+    val userCount: Int? = 0,
+    val subject: SubjectData? = null,
+    val liked: Boolean? = false
 )
 

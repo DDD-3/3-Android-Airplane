@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        tools:layout_height="300dp">
+        tools:background="@color/brand_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,7 +35,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="#ff0000"
                 tools:layout_height="300dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -64,7 +63,6 @@
                     bind:subscribeCount="@{item.subject.subscribeCount}"
                     bind:userCount="@{item.userCount}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
