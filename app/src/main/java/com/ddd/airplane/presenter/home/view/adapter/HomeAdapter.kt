@@ -12,6 +12,7 @@ import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.presenter.home.view.viewholder.HorizontalViewHolder
 import com.ddd.airplane.presenter.home.view.viewholder.MainSwipeViewHolder
+import com.ddd.airplane.presenter.home.view.viewholder.RectangleViewHolder
 
 class HomeAdapter constructor(
     private val context: Context?
@@ -53,6 +54,7 @@ class HomeAdapter constructor(
         val layoutId = when (style) {
             Home.Style.MAIN_SWIPE_BANNER -> R.layout.home_swipe_banner
             Home.Style.HORIZONTAL -> R.layout.home_horizontal
+            Home.Style.RECTANGLE_BANNER -> R.layout.home_rectangle
             else -> {
                 R.layout.empty_view
             }
@@ -69,6 +71,7 @@ class HomeAdapter constructor(
             when (getStyle(getItemViewType(position))) {
                 Home.Style.MAIN_SWIPE_BANNER -> holder.swipe?.onBind(item)
                 Home.Style.HORIZONTAL -> holder.horizontal?.onBind(item)
+                Home.Style.RECTANGLE_BANNER -> holder.rectangle?.onBind(item)
                 else -> {
 
                 }
@@ -86,6 +89,7 @@ class HomeAdapter constructor(
 
         var swipe: MainSwipeViewHolder? = null
         var horizontal: HorizontalViewHolder? = null
+        var rectangle: RectangleViewHolder? = null
 
         init {
             when (style) {
@@ -93,7 +97,10 @@ class HomeAdapter constructor(
                     swipe = MainSwipeViewHolder(viewDataBinding)
                 }
                 Home.Style.HORIZONTAL -> {
-                    horizontal = HorizontalViewHolder(context, viewDataBinding)
+                    horizontal = HorizontalViewHolder(viewDataBinding)
+                }
+                Home.Style.RECTANGLE_BANNER -> {
+                    rectangle = RectangleViewHolder(viewDataBinding)
                 }
                 else -> {
 

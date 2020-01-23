@@ -10,7 +10,9 @@ import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.home.HomeData
+import com.ddd.airplane.data.response.home.RectangleData
 import com.ddd.airplane.databinding.HomeHorizontalBinding
+import com.ddd.airplane.databinding.HomeRectangleBinding
 import com.ddd.airplane.databinding.ThumbnailGeneralItemBinding
 import timber.log.Timber
 
@@ -20,13 +22,12 @@ import timber.log.Timber
  * @author jess
  * @since 2020.01.23
  */
-class HorizontalViewHolder(
+class RectangleViewHolder(
     viewDataBinding: ViewDataBinding
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
-    private val binding = viewDataBinding as HomeHorizontalBinding
+    private val binding = viewDataBinding as HomeRectangleBinding
     private var itemData = HomeData.ItemData<Any>()
-    private val bannerList = ArrayList<ChatRoomData>()
 
     fun onBind(item: HomeData.ItemData<Any>?) {
         tryCatch {
@@ -39,30 +40,17 @@ class HorizontalViewHolder(
         tryCatch {
             item?.let {
                 itemData = it
-                bannerList.addAll(it.item as ArrayList<ChatRoomData>)
-                Timber.d(bannerList.toString())
+                Timber.d(itemData.toString())
             }
         }
     }
 
     private fun initLayout() {
-
-        // 타이틀
-        binding.title = itemData.title
-
-        binding.rvHorizontal.run {
-            addItemDecoration(
-                DividerItemSpace(
-                    LinearLayout.HORIZONTAL,
-                    context.resources.getDimensionPixelSize(R.dimen.dp12)
-                )
-            )
-
-            val listAdapter = object :
-                BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGeneralItemBinding>(R.layout.thumbnail_general_item) {
-            }
-            adapter = listAdapter
-            listAdapter.addAllItem(bannerList)
+        val item = itemData.item as RectangleData?
+        item?.thumbnail?.let {
+            binding.ivThumbnail.loadImage(it)
         }
+//        binding.item = itemData.item as RectangleData?
+//        binding.executePendingBindings()
     }
 }

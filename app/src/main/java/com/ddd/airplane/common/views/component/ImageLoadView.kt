@@ -8,9 +8,12 @@ import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.ddd.airplane.R
 import com.ddd.airplane.databinding.ImageLoadViewBinding
 import kotlinx.android.synthetic.main.image_load_view.view.*
 import timber.log.Timber
@@ -68,6 +71,16 @@ class ImageLoadView @JvmOverloads constructor(
         Glide.with(context)
             .load(url)
             .transition(DrawableTransitionOptions.withCrossFade())
+            .centerCrop()
+            .apply(
+                RequestOptions.bitmapTransform(
+                    RoundedCorners(
+                        context.resources.getDimensionPixelSize(
+                            R.dimen.dp8
+                        )
+                    )
+                )
+            )
             .listener(object : RequestListener<Drawable> {
 
                 override fun onResourceReady(
@@ -95,48 +108,5 @@ class ImageLoadView @JvmOverloads constructor(
                 }
             })
             .into(iv_succeed)
-//        Glide.with(context).load(url).run {
-//
-//            //            // 플레이스 홀더
-////            placeholder(typedValue.getDrawable(R.styleable.ImageLoadView_placeholder))
-////
-////            // 에러
-////            error(typedValue.getDrawable(R.styleable.ImageLoadView_error))
-//
-//            // Request Options
-////                apply(getRequestOptions(typedValue))
-//
-//            // fade 처리
-//            transition(DrawableTransitionOptions.withCrossFade())
-//
-//            // 이미지
-//            into(iv_succeed)
-//
-//            // 리스너
-//            listener(object : RequestListener<Drawable> {
-//
-//                override fun onResourceReady(
-//                    resource: Drawable?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    dataSource: DataSource?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    Timber.e("onResourceReady")
-//                    return false
-//                }
-//
-//                override fun onLoadFailed(
-//                    e: GlideException?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    Timber.e("onLoadFailed")
-//                    binding.isLoaded = false
-//                    return true
-//                }
-//            })
-//        }
     }
 }

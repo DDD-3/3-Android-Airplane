@@ -10,6 +10,7 @@ import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.SubjectData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.BannerData
+import com.ddd.airplane.data.response.home.RectangleData
 
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
@@ -102,12 +103,12 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
             )
         )
 
-//        itemList.add(
-//            HomeData.ItemData(
-//                Home.Style.RECTANGLE_BANNER,
-//                item = RectangleData("http://post.phinf.naver.net/MjAxOTExMTlfMzEg/MDAxNTc0MTQ4OTk4NDY0.8fQgfiGzgT2VG6nHBQyzr2g4l8TVXly6bfvnRixgqHYg.FgSVk6X1gCbUn1ow8aesNvG1NRNVbhCRtT10kOGLDHcg.PNG/IODRXw2DPRQxOrN-Gs1pESJBJGXU.jpg")
-//            )
-//        )
+        itemList.add(
+            HomeData.ItemData(
+                Home.Style.RECTANGLE_BANNER,
+                item = RectangleData("http://post.phinf.naver.net/MjAxOTExMTlfMzEg/MDAxNTc0MTQ4OTk4NDY0.8fQgfiGzgT2VG6nHBQyzr2g4l8TVXly6bfvnRixgqHYg.FgSVk6X1gCbUn1ow8aesNvG1NRNVbhCRtT10kOGLDHcg.PNG/IODRXw2DPRQxOrN-Gs1pESJBJGXU.jpg")
+            )
+        )
 
         _homeList.value = itemList
     }
