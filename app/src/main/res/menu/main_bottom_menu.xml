@@ -4,22 +4,26 @@
 
     <item
         android:id="@+id/main_navi_item_home"
-        android:icon="@android:drawable/ic_menu_call"
-        android:title="@string/home" />
+        android:icon="@drawable/ic_gnb_main"
+        android:title="@string/main" />
 
     <item
         android:id="@+id/main_navi_item_schedule"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/ic_gnb_schedule"
         android:title="@string/schedule" />
 
     <item
         android:id="@+id/main_navi_item_chat"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_gnb_chat"
+        android:title="@string/chatting" />
+
+    <item
+        android:id="@+id/main_navi_item_search"
+        android:icon="@drawable/ic_gnb_search"
         android:title="@string/chatting" />
 
     <item
         android:id="@+id/main_navi_item_mypage"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_gnb_my"
         android:title="@string/mypage" />
-
 </menu>

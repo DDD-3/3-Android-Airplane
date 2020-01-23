@@ -41,18 +41,18 @@
     </style>
 
     <!-- BottomNavigationView Selected -->
-    <style name="navigation_selected" parent="font_b">
-        <item name="android:includeFontPadding">true</item>
-        <item name="android:layout_marginTop">1.5dp</item>
-        <item name="android:textColor">@color/brand_white</item>
+    <style name="navigation_selected" parent="font_r">
+<!--        <item name="android:includeFontPadding">false</item>-->
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/brand_blue</item>
         <item name="android:textSize">12dp</item>
     </style>
 
     <!-- BottomNavigationView UnSelected -->
-    <style name="navigation_unselected" parent="font_b">
-        <item name="android:includeFontPadding">true</item>
-        <item name="android:layout_marginTop">1.5dp</item>
-        <item name="android:textColor">@color/color_8e8e8e</item>
+    <style name="navigation_unselected" parent="font_r">
+<!--        <item name="android:includeFontPadding">false</item>-->
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textColor">@color/grey500</item>
         <item name="android:textSize">12dp</item>
     </style>
 

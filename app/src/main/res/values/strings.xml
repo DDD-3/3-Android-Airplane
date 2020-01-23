@@ -15,6 +15,7 @@
     <string name="more">더보기</string>
     <string name="live">LIVE</string>
     <string name="send">전송</string>
+    <string name="main">메인</string>
 
     <!-- error -->
     <string name="error_network_response_error">네트워크 통신을 실패했어요</string>

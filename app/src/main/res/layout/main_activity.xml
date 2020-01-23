@@ -58,7 +58,7 @@
                 app:itemIconTint="@drawable/select_color_brand_white_8e8e8e"
                 app:itemTextAppearanceActive="@style/navigation_selected"
                 app:itemTextAppearanceInactive="@style/navigation_unselected"
-                app:labelVisibilityMode="labeled"
+                app:labelVisibilityMode="selected"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
