@@ -5,17 +5,12 @@ import com.ddd.airplane.common.consts.Home
 /**
  * 홈 데이터
  */
-open class HomeData() {
+data class HomeData(
+    var list: ArrayList<ItemData<Any>>? = null
+) {
 
-    var type: Home.Type = Home.Type.EMPTY
-    var banner: Any? = null
-
-    constructor(
-        type: Home.Type,
-        banner: Any
-    ) : this() {
-        this.type = type
-        this.banner = banner
-    }
-
+    data class ItemData<T>(
+        var type: Home.Type = Home.Type.EMPTY,
+        var item: T? = null
+    )
 }
