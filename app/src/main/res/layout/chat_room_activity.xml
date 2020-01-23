@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -56,8 +57,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:ellipsize="end"
-                    android:maxLines="1"
                     android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:text="@{viewModel.roomName}"
                     android:textAlignment="gravity"
                     android:textColor="@color/brand_white"
@@ -151,8 +152,8 @@
                     android:layout_marginEnd="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/tv_subscribe_room">
+                    app:layout_constraintRight_toLeftOf="@+id/tv_subscribe_room"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_schedule_label"
@@ -185,8 +186,8 @@
                         style="@style/font_r"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
                         android:ellipsize="end"
+                        android:gravity="start"
                         android:maxLines="2"
                         android:text="@{viewModel.roomDesc}"
                         android:textAlignment="textStart"
@@ -311,8 +312,8 @@
                 android:id="@+id/btn_room_like"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_heart"
                 android:background="@drawable/shp_oval_brand_white"
+                android:src="@drawable/ic_heart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

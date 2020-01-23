@@ -33,10 +33,13 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
         itemList.add(
             HomeData.ItemData(
-                Home.Type.SWIPE_BANNER, swipeBanner
+                Home.Style.SWIPE_BANNER, swipeBanner
             )
         )
 
         _homeList.value = itemList
     }
+
+    fun getStyle(position: Int) = homeList.value?.get(position)?.style ?: Home.Style.EMPTY
+
 }

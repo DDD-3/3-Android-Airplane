@@ -56,19 +56,19 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         return this.list.size
     }
 
-    fun addAllItem(items: List<T>?) {
+    fun addAllItem(items: List<T>?) = apply {
         items?.let {
             list.addAll(it)
             notifyDataSetChanged()
         }
     }
 
-    fun addItem(item: T) {
+    fun addItem(item: T) = apply {
         list.add(item)
         notifyDataSetChanged()
     }
 
-    fun clear() {
+    fun clear() =apply{
         list.clear()
         notifyDataSetChanged()
     }

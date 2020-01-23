@@ -5,5 +5,5 @@ package com.ddd.airplane.data.response.home
  */
 data class BannerData(
     var title: String? = null,
-    var url: Any? = null
+    var url: Int? = null
 )

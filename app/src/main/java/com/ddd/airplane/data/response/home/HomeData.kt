@@ -10,7 +10,7 @@ data class HomeData(
 ) {
 
     data class ItemData<T>(
-        var type: Home.Type = Home.Type.EMPTY,
+        var style: Home.Style = Home.Style.EMPTY,
         var item: T? = null
     )
 }

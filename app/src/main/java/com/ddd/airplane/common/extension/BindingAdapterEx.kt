@@ -1,5 +1,7 @@
 package com.ddd.airplane.common.extension
 
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -89,4 +91,11 @@ object BindingAdapterEx {
             }
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("imageResource")
+    fun ImageView.setImageResource(@DrawableRes drawableRes: Int) {
+        this.setImageResource(drawableRes)
+    }
+
 }

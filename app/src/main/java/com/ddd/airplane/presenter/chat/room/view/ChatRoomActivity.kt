@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
-import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.databinding.ChatMsgItemBinding
+import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatMsgViewModel
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel
 import kotlinx.android.synthetic.main.chat_room_activity.*

@@ -103,39 +103,4 @@ class ImageLoadView @JvmOverloads constructor(
             }
         }
     }
-
-//    /**
-//    //     * Options
-//    //     */
-//    private fun getRequestOptions(typedValue: TypedArray): RequestOptions {
-//
-//        var result = RequestOptions().centerCrop()
-//
-//        tryCatch {
-//
-//            // 스타일
-//            val style = Style.values()[typedValue.getInt(
-//                R.styleable.ImageLoadView_style,
-//                Style.NORMAL.ordinal
-//            )]
-//
-//            val corner = typedValue.getInt(R.styleable.ImageLoadView_corner, 0)
-//
-//            result = when (style) {
-//                Style.CIRCLE -> {
-//                    RequestOptions().centerCrop().circleCrop()
-//                }
-//
-//                Style.ROUND -> {
-//                    RequestOptions.bitmapTransform(RoundedCorners(corner))
-//                }
-//
-//                else -> {
-//                    RequestOptions().centerCrop()
-//                }
-//            }
-//        }
-//
-//        return result
-//    }
 }
