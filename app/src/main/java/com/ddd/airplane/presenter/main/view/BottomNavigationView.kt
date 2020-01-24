@@ -32,9 +32,7 @@ class BottomNavigationView @JvmOverloads constructor(
 
     lateinit var fragmentManager: FragmentManager
 
-    private val homeFragment: Fragment by lazy {
-        HomeFragment()
-    }
+    private val homeFragment = HomeFragment()
 
     private val scheduleFragment: Fragment by lazy {
         ScheduleFragment()
@@ -53,6 +51,7 @@ class BottomNavigationView @JvmOverloads constructor(
     }
 
     init {
+        itemIconTintList = null
         setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.main_navi_item_schedule -> {

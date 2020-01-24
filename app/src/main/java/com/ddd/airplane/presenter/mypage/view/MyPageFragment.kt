@@ -29,11 +29,6 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
     }
 
     override fun initLayout() {
-        val views = arrayOf(cl_profile)
-        views.forEach {
-            it.setOnClickListener(this)
-        }
-
         setPagedList()
     }
 
@@ -81,9 +76,7 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.cl_profile -> { // 로그인화면 (임시)
 
-            }
         }
     }
 }
