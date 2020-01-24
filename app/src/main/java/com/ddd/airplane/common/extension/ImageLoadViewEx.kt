@@ -1,35 +1,67 @@
 package com.ddd.airplane.common.extension
 
-import android.view.View
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
-import com.ddd.airplane.common.utils.DeviceUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.ddd.airplane.common.utils.tryCatch
-import com.google.android.material.tabs.TabLayout
+import com.ddd.airplane.common.views.component.ImageLoadView
+import timber.log.Timber
 
 /**
- * Image Load View Extension
+ * 이미지 로드
  */
-object ImageLoadViewEx {
+@BindingAdapter(value = ["url", "corners", "circle"], requireAll = false)
+fun ImageView.loadImage(
+    url: String?,
+    corners: Int = 0,
+    circle: Boolean = false
+) {
+    tryCatch {
+        Timber.d(">> $url")
+        this.post {
+            val glide = Glide.with(this)
+                .load(url)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
 
+            if (corners > 0) {
+                glide.apply(
+                    RequestOptions.bitmapTransform(
+                        RoundedCorners(
+                            corners
+                        )
+                    )
+                )
+            }
 
-    /**
-     * 스크린 사이즈 width 설정
-     */
-    @JvmStatic
-    @BindingAdapter("ratioWidth")
-    fun View.setRatioWidth(ratio: Int) {
-        try {
-            this.layoutParams.width = DeviceUtils.getScreenWidth(this.context, ratio)
-        } catch (e: Exception) {
-            e.printStackTrace()
+            glide
+                .into(this)
         }
 
     }
+}
 
+/**
+ * 이미지 로드
+ */
+@BindingAdapter(value = ["url", "corners", "circle"], requireAll = false)
+fun ImageLoadView.loadImage(
+    url: String?,
+    corners: Int = 0,
+    circle: Boolean = false
+) {
+    tryCatch {
+        url?.let {
+            val view = this
+            view.post {
+                view.setCorners(corners)
+                    .setCircle(circle)
+                    .load(url)
+            }
+
+        }
+    }
 }

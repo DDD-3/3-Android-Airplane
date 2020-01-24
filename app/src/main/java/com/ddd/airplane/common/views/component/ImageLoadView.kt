@@ -1,5 +1,6 @@
 package com.ddd.airplane.common.views.component
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -31,48 +32,39 @@ class ImageLoadView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private var binding = ImageLoadViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private var corners: Int = 0
+    private var isCircle: Boolean = false
 
-//    enum class Style { NORMAL, CIRCLE, ROUND }
-
-//    init {
-//        intLayout(attrs, defStyleAttr)
-//    }
-//
-//    @SuppressLint("CustomViewStyleable", "Recycle", "CheckResult")
-//    private fun intLayout(
-//        attrs: AttributeSet?,
-//        defStyleAttr: Int
-//    ) {
-//        if (attrs != null) {
-//            val typedValue = context.obtainStyledAttributes(
-//                attrs,
-//                R.styleable.ImageLoadView,
-//                defStyleAttr,
-//                0
-//            )
-//
-//            val url = typedValue.getString(R.styleable.ImageLoadView_url)
-//            if (url.isNullOrEmpty()) {
-//                binding.isLoaded = false
-//                return
-//            }
-//
-//
-//        }
-//    }
-
-    fun setUrl(url: String?) {
-        url?.let {
-            loadImage(it)
-        }
+    /**
+     * 라운드 설정
+     *
+     * @param corners
+     */
+    fun setCorners(corners: Int) = apply {
+        this.corners = corners
     }
 
-    fun loadImage(url: String) {
-        Glide.with(context)
+    /**
+     * 원 여부
+     *
+     * @param isCircle
+     */
+    fun setCircle(isCircle: Boolean) = apply {
+        this.isCircle = isCircle
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun load(url: String) {
+        Timber.d("load $url")
+
+        val glide = Glide.with(iv_succeed)
             .load(url)
             .transition(DrawableTransitionOptions.withCrossFade())
             .centerCrop()
-            .apply(
+
+        if (corners > 0) {
+            glide.apply(
                 RequestOptions.bitmapTransform(
                     RoundedCorners(
                         context.resources.getDimensionPixelSize(
@@ -81,32 +73,33 @@ class ImageLoadView @JvmOverloads constructor(
                     )
                 )
             )
-            .listener(object : RequestListener<Drawable> {
+        }
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    binding.isLoaded = true
-                    Timber.d("onResourceReady $url")
-                    return false
-                }
+        glide.listener(object : RequestListener<Drawable> {
 
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    binding.isLoaded = false
-                    Timber.d("onLoadFailed $url")
-                    Timber.d("onLoadFailed ${e?.message}")
-                    return false
-                }
-            })
-            .into(iv_succeed)
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                binding.isLoaded = true
+                Timber.d("onResourceReady $url")
+                return false
+            }
+
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                binding.isLoaded = false
+                Timber.d("onLoadFailed $url")
+                Timber.d("onLoadFailed ${e?.message}")
+                return false
+            }
+        }).into(iv_succeed)
     }
 }

@@ -6,46 +6,42 @@
 
     <data>
 
+        <variable
+            name="title"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="24dp"
-        android:paddingTop="40dp"
-        android:paddingEnd="24dp">
+        android:paddingEnd="24dp"
+        tools:background="@color/brand_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/rv_rank"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <include layout="@layout/home_item_title" />
+            <include
+                layout="@layout/home_item_title"
+                bind:title="@{title}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_rank"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/tv_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_title"
-            tools:listitem="@layout/home_many_item" />
-
-        <View
-            android:id="@+id/v_divider_rank"
-            style="@style/divider_vertical"
-            android:layout_marginTop="27dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_rank" />
+            tools:itemCount="5"
+            tools:listitem="@layout/home_rank_item" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_info"
@@ -53,12 +49,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="#4c4c4c"
+            android:text="@string/home_rank_info"
+            android:textColor="@color/grey400"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_divider_rank"
-            tools:text="활동 참여자 기준으로 집계합니다." />
+            app:layout_constraintTop_toBottomOf="@id/rv_rank" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

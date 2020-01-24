@@ -9,6 +9,7 @@ object Home {
         MAIN_SWIPE_BANNER("mainSwipeBanner"),
         HORIZONTAL("horizontal"),
         RECTANGLE_BANNER("rectangleBanner"),
+        RANK("rank"),
         EMPTY("empty")
     }
 }

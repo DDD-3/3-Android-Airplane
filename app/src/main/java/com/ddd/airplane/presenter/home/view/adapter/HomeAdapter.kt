@@ -12,6 +12,7 @@ import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.presenter.home.view.viewholder.HorizontalViewHolder
 import com.ddd.airplane.presenter.home.view.viewholder.MainSwipeViewHolder
+import com.ddd.airplane.presenter.home.view.viewholder.RankViewHolder
 import com.ddd.airplane.presenter.home.view.viewholder.RectangleViewHolder
 
 class HomeAdapter constructor(
@@ -55,6 +56,7 @@ class HomeAdapter constructor(
             Home.Style.MAIN_SWIPE_BANNER -> R.layout.home_swipe_banner
             Home.Style.HORIZONTAL -> R.layout.home_horizontal
             Home.Style.RECTANGLE_BANNER -> R.layout.home_rectangle
+            Home.Style.RANK -> R.layout.home_rank
             else -> {
                 R.layout.empty_view
             }
@@ -72,6 +74,7 @@ class HomeAdapter constructor(
                 Home.Style.MAIN_SWIPE_BANNER -> holder.swipe?.onBind(item)
                 Home.Style.HORIZONTAL -> holder.horizontal?.onBind(item)
                 Home.Style.RECTANGLE_BANNER -> holder.rectangle?.onBind(item)
+                Home.Style.RANK -> holder.rank?.onBind(item)
                 else -> {
 
                 }
@@ -90,6 +93,8 @@ class HomeAdapter constructor(
         var swipe: MainSwipeViewHolder? = null
         var horizontal: HorizontalViewHolder? = null
         var rectangle: RectangleViewHolder? = null
+        var rank: RankViewHolder? = null
+
 
         init {
             when (style) {
@@ -101,6 +106,9 @@ class HomeAdapter constructor(
                 }
                 Home.Style.RECTANGLE_BANNER -> {
                     rectangle = RectangleViewHolder(viewDataBinding)
+                }
+                Home.Style.RANK -> {
+                    rank = RankViewHolder(viewDataBinding)
                 }
                 else -> {
 

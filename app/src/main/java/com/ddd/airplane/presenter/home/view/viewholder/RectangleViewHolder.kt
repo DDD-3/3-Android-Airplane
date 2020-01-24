@@ -1,19 +1,13 @@
 package com.ddd.airplane.presenter.home.view.viewholder
 
-import android.content.Context
-import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
-import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.extension.loadImage
 import com.ddd.airplane.common.utils.tryCatch
-import com.ddd.airplane.common.views.decoration.DividerItemSpace
-import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.RectangleData
-import com.ddd.airplane.databinding.HomeHorizontalBinding
 import com.ddd.airplane.databinding.HomeRectangleBinding
-import com.ddd.airplane.databinding.ThumbnailGeneralItemBinding
 import timber.log.Timber
 
 /**
@@ -26,6 +20,7 @@ class RectangleViewHolder(
     viewDataBinding: ViewDataBinding
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
+    private val context = viewDataBinding.root.context
     private val binding = viewDataBinding as HomeRectangleBinding
     private var itemData = HomeData.ItemData<Any>()
 
@@ -46,11 +41,11 @@ class RectangleViewHolder(
     }
 
     private fun initLayout() {
-        val item = itemData.item as RectangleData?
-        item?.thumbnail?.let {
-            binding.ivThumbnail.loadImage(it)
-        }
 //        binding.item = itemData.item as RectangleData?
 //        binding.executePendingBindings()
+        binding.ivThumbnail.loadImage(
+            (itemData.item as RectangleData?)?.thumbnail,
+            context.resources.getDimensionPixelSize(R.dimen.dp8)
+        )
     }
 }
