@@ -38,7 +38,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         }
         itemList.add(
             HomeData.ItemData(
-                style = Home.Style.MAIN_SWIPE_BANNER, item = swipeBanner
+                style = Home.Style.TOP_BANNER, item = swipeBanner
             )
         )
 

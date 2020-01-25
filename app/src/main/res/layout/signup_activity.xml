@@ -181,16 +181,19 @@
                         tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_center"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/logo_blue"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lav_logo"
+                    android:layout_width="46.6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="69dp"
+                    android:adjustViewBounds="true"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible" />
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="motion.json"
+                    app:lottie_loop="true" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </androidx.constraintlayout.widget.ConstraintLayout>

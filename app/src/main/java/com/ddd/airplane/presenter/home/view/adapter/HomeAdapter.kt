@@ -50,7 +50,7 @@ class HomeAdapter constructor(
     ): ViewHolder {
         val style = getStyle(viewType)
         val layoutId = when (style) {
-            Home.Style.MAIN_SWIPE_BANNER -> R.layout.home_swipe_banner
+                Home.Style.TOP_BANNER -> R.layout.home_top_banner
             Home.Style.HORIZONTAL -> R.layout.home_horizontal
             Home.Style.GRID_2 -> R.layout.home_grid
             Home.Style.RECTANGLE_BANNER -> R.layout.home_rectangle
@@ -69,7 +69,7 @@ class HomeAdapter constructor(
         tryCatch {
             val item = list[position]
             when (getStyle(getItemViewType(position))) {
-                Home.Style.MAIN_SWIPE_BANNER -> holder.swipe?.onBind(item)
+                Home.Style.TOP_BANNER -> holder.top?.onBind(item)
                 Home.Style.HORIZONTAL -> holder.horizontal?.onBind(item)
                 Home.Style.GRID_2 -> holder.grid?.onBind(item)
                 Home.Style.RECTANGLE_BANNER -> holder.rectangle?.onBind(item)
@@ -88,7 +88,7 @@ class HomeAdapter constructor(
         style: Home.Style = Home.Style.EMPTY
     ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
-        var swipe: MainSwipeViewHolder? = null
+        var top: TopViewHolder? = null
         var horizontal: HorizontalViewHolder? = null
         var grid: GridViewHolder? = null
         var rectangle: RectangleViewHolder? = null
@@ -96,7 +96,7 @@ class HomeAdapter constructor(
 
         init {
             when (style) {
-                Home.Style.MAIN_SWIPE_BANNER -> swipe = MainSwipeViewHolder(viewDataBinding)
+                Home.Style.TOP_BANNER -> top = TopViewHolder(viewDataBinding)
                 Home.Style.HORIZONTAL -> horizontal = HorizontalViewHolder(viewDataBinding)
                 Home.Style.GRID_2 -> grid = GridViewHolder(viewDataBinding, 2)
                 Home.Style.RECTANGLE_BANNER -> rectangle = RectangleViewHolder(viewDataBinding)

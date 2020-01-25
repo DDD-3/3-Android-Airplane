@@ -13,9 +13,9 @@ import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
-import com.ddd.airplane.databinding.HomeSwipeBannerBinding
-import com.ddd.airplane.databinding.HomeSwipeBannerItemBinding
-import kotlinx.android.synthetic.main.home_swipe_banner.view.*
+import com.ddd.airplane.databinding.HomeTopBannerBinding
+import com.ddd.airplane.databinding.HomeTopBannerItemBinding
+import kotlinx.android.synthetic.main.home_top_banner.view.*
 import timber.log.Timber
 
 /**
@@ -24,13 +24,13 @@ import timber.log.Timber
  * @author jess
  * @since 2020.01.23
  */
-class MainSwipeViewHolder(
+class TopViewHolder(
     viewDataBinding: ViewDataBinding
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private val context = viewDataBinding.root.context
     private val view = viewDataBinding.root
-    private val binding = viewDataBinding as HomeSwipeBannerBinding
+    private val binding = viewDataBinding as HomeTopBannerBinding
     private val bannerList = ArrayList<BannerData>()
 
     fun onBind(item: HomeData.ItemData<Any>?) {
@@ -60,7 +60,7 @@ class MainSwipeViewHolder(
 
             // pager
             val pagerAdapter = object :
-                BaseRecyclerViewAdapter<BannerData, HomeSwipeBannerItemBinding>(R.layout.home_swipe_banner_item) {
+                BaseRecyclerViewAdapter<BannerData, HomeTopBannerItemBinding>(R.layout.home_top_banner_item) {
 
             }
             adapter = pagerAdapter
