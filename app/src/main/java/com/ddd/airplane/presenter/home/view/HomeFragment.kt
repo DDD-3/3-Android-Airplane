@@ -25,7 +25,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override fun initDataBinding() {
         super.initDataBinding()
         viewModel.homeList.observe(this, Observer {
-            if (viewModel.isExist) {
+            if (homeAdapter.itemCount < 1) {
                 homeAdapter.addAllItem(it)
             }
         })

@@ -11,12 +11,14 @@ import com.ddd.airplane.data.response.chat.SubjectData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.RectangleData
+import timber.log.Timber
 
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     private val _homeList = MutableLiveData<ArrayList<HomeData.ItemData<Any>>>()
     val homeList: LiveData<ArrayList<HomeData.ItemData<Any>>> = _homeList
-    var isExist = false // 홈 데이터 존재 여부
+    private val isExist: Boolean
+        get() = _homeList.value?.size ?: 0 > 0
 
     /**
      * 홈 데이터
@@ -299,7 +301,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         )
 
         _homeList.value = itemList
-        isExist = true
     }
 
 }
