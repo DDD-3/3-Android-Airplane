@@ -7,8 +7,9 @@ object Home {
      */
     enum class Style(val style: String) {
         MAIN_SWIPE_BANNER("mainSwipeBanner"),
-        HORIZONTAL("horizontal"),
         RECTANGLE_BANNER("rectangleBanner"),
+        HORIZONTAL("horizontal"),
+        GRID_2("grid2"), // Grid, Span 2
         RANK("rank"),
         EMPTY("empty")
     }

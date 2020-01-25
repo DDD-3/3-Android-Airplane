@@ -10,10 +10,7 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.HomeData
-import com.ddd.airplane.presenter.home.view.viewholder.HorizontalViewHolder
-import com.ddd.airplane.presenter.home.view.viewholder.MainSwipeViewHolder
-import com.ddd.airplane.presenter.home.view.viewholder.RankViewHolder
-import com.ddd.airplane.presenter.home.view.viewholder.RectangleViewHolder
+import com.ddd.airplane.presenter.home.view.viewholder.*
 
 class HomeAdapter constructor(
     private val context: Context?
@@ -55,6 +52,7 @@ class HomeAdapter constructor(
         val layoutId = when (style) {
             Home.Style.MAIN_SWIPE_BANNER -> R.layout.home_swipe_banner
             Home.Style.HORIZONTAL -> R.layout.home_horizontal
+            Home.Style.GRID_2 -> R.layout.home_grid
             Home.Style.RECTANGLE_BANNER -> R.layout.home_rectangle
             Home.Style.RANK -> R.layout.home_rank
             else -> {
@@ -73,10 +71,10 @@ class HomeAdapter constructor(
             when (getStyle(getItemViewType(position))) {
                 Home.Style.MAIN_SWIPE_BANNER -> holder.swipe?.onBind(item)
                 Home.Style.HORIZONTAL -> holder.horizontal?.onBind(item)
+                Home.Style.GRID_2 -> holder.grid?.onBind(item)
                 Home.Style.RECTANGLE_BANNER -> holder.rectangle?.onBind(item)
                 Home.Style.RANK -> holder.rank?.onBind(item)
                 else -> {
-
                 }
             }
         }
@@ -92,26 +90,18 @@ class HomeAdapter constructor(
 
         var swipe: MainSwipeViewHolder? = null
         var horizontal: HorizontalViewHolder? = null
+        var grid: GridViewHolder? = null
         var rectangle: RectangleViewHolder? = null
         var rank: RankViewHolder? = null
 
-
         init {
             when (style) {
-                Home.Style.MAIN_SWIPE_BANNER -> {
-                    swipe = MainSwipeViewHolder(viewDataBinding)
-                }
-                Home.Style.HORIZONTAL -> {
-                    horizontal = HorizontalViewHolder(viewDataBinding)
-                }
-                Home.Style.RECTANGLE_BANNER -> {
-                    rectangle = RectangleViewHolder(viewDataBinding)
-                }
-                Home.Style.RANK -> {
-                    rank = RankViewHolder(viewDataBinding)
-                }
+                Home.Style.MAIN_SWIPE_BANNER -> swipe = MainSwipeViewHolder(viewDataBinding)
+                Home.Style.HORIZONTAL -> horizontal = HorizontalViewHolder(viewDataBinding)
+                Home.Style.GRID_2 -> grid = GridViewHolder(viewDataBinding, 2)
+                Home.Style.RECTANGLE_BANNER -> rectangle = RectangleViewHolder(viewDataBinding)
+                Home.Style.RANK -> rank = RankViewHolder(viewDataBinding)
                 else -> {
-
                 }
             }
         }

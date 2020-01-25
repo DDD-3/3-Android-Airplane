@@ -41,11 +41,9 @@ class RectangleViewHolder(
     }
 
     private fun initLayout() {
-//        binding.item = itemData.item as RectangleData?
-//        binding.executePendingBindings()
         binding.ivThumbnail.loadImage(
             (itemData.item as RectangleData?)?.thumbnail,
-            context.resources.getDimensionPixelSize(R.dimen.dp8)
+            corners = context.resources.getDimensionPixelSize(R.dimen.dp8)
         )
     }
 }

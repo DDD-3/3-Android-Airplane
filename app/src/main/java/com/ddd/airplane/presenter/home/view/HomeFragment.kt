@@ -18,17 +18,20 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     override val layoutRes = R.layout.home_fragment
     override val viewModelClass = HomeViewModel::class.java
-    private val homeAdapter = HomeAdapter(context)
+    private val homeAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        HomeAdapter(context)
+    }
 
     override fun initDataBinding() {
         super.initDataBinding()
         viewModel.homeList.observe(this, Observer {
-            homeAdapter.addAllItem(it)
+            if (viewModel.isExist) {
+                homeAdapter.addAllItem(it)
+            }
         })
     }
 
     override fun initLayout() {
-
         rv_home.run {
             addItemDecoration(DividerItemSpace(space = context.resources.getDimensionPixelSize(R.dimen.dp40)))
             adapter = homeAdapter

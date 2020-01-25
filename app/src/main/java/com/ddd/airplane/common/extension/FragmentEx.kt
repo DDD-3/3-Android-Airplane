@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager
  * @param replaceId
  */
 fun Fragment.replace(fragmentManager: FragmentManager, replaceId: Int) {
-    fragmentManager.beginTransaction().run {
-        replace(replaceId, this@replace)
-        commitNowAllowingStateLoss()
+    fragmentManager.beginTransaction().let {
+        it.replace(replaceId, this)
+        it.commitAllowingStateLoss()
     }
 }

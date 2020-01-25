@@ -6,48 +6,60 @@
 
     <data>
 
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="spanCount"
+            type="int" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="24dp"
-        android:paddingTop="40dp"
-        android:paddingEnd="24dp">
+        tools:background="@color/brand_black">
 
-        <!-- 핫한 방송 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/rv_hot"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <include layout="@layout/home_item_title" />
+            <include
+                layout="@layout/home_item_title"
+                bind:title="@{title}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_hot"
+            android:id="@+id/rv_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="12dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/tv_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_title"
-            app:layout_constraintVertical_weight="1"
-            app:spanCount="2"
+            bind:spanCount="@{spanCount}"
+            tools:itemCount="10"
             tools:listitem="@layout/thumbnail_grid_item" />
 
         <View
             android:id="@+id/v_divider_hot"
             style="@style/divider_vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_hot" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_grid" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_info"
@@ -55,12 +67,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="#4c4c4c"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/home_hot_info"
+            android:textColor="@color/grey400"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_divider_hot"
-            tools:text="활동 참여자 기준으로 집계합니다." />
+            app:layout_constraintTop_toBottomOf="@id/v_divider_hot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

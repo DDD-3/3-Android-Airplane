@@ -33,50 +33,41 @@ class BottomNavigationView @JvmOverloads constructor(
     lateinit var fragmentManager: FragmentManager
 
     private val homeFragment = HomeFragment()
-
-    private val scheduleFragment: Fragment by lazy {
-        ScheduleFragment()
-    }
-
-    private val chatFragment: Fragment by lazy {
-        ChatListFragment()
-    }
-
-    private val searchFragment: Fragment by lazy {
-        SearchFragment()
-    }
-
-    private val myPageFragment: Fragment by lazy {
-        MyPageFragment()
-    }
+    private val scheduleFragment = ScheduleFragment()
+    private val chatFragment = ChatListFragment()
+    private val searchFragment = SearchFragment()
+    private val myPageFragment = MyPageFragment()
 
     init {
         itemIconTintList = null
+
         setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.main_navi_item_schedule -> {
-                    // 편성표
-                    scheduleFragment.replace(fragmentManager, R.id.fl_main)
-                    true
+            val fragment = when (it.itemId) {
+                R.id.main_navi_item_schedule -> { // 편성표
+                    scheduleFragment
                 }
-
-                R.id.main_navi_item_chat -> {
-                    // 채팅
-                    chatFragment.replace(fragmentManager, R.id.fl_main)
-                    true
+                R.id.main_navi_item_chat -> { // 채팅
+                    chatFragment
                 }
-
-                R.id.main_navi_item_mypage -> {
-                    // 마이페이지
-                    myPageFragment.replace(fragmentManager, R.id.fl_main)
-                    true
+                R.id.main_navi_item_mypage -> { // 마이페이지
+                    myPageFragment
                 }
-
+                R.id.main_navi_item_home -> { // 홈
+                    homeFragment
+                }
+                R.id.main_navi_item_search -> { // 검색
+                    null
+                }
                 else -> {
-                    // 홈
-                    homeFragment.replace(fragmentManager, R.id.fl_main)
-                    true
+                    null
                 }
+            }
+
+            fragment?.let { f ->
+                f.replace(fragmentManager, R.id.fl_main)
+                return@setOnNavigationItemSelectedListener true
+            } ?: kotlin.run {
+                return@setOnNavigationItemSelectedListener false
             }
         }
     }

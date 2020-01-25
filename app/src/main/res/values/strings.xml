@@ -25,6 +25,7 @@
     <string name="error_info">정보를 불러올 수 없습니다.</string>
 
     <string name="home_rank_info">활동 참여자 기준으로 집계합니다.</string>
+    <string name="home_hot_info">활동 참여자 기준으로 집계합니다.</string>
 
     <string name="schedule_broadcast">방송사별</string>
     <string name="schedule_channel">주제별</string>

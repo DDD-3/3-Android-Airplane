@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
@@ -63,6 +64,18 @@ fun ViewPager2.addAllItem(
 }
 
 /**
+ * RecyclerView GridLayout
+ */
+@BindingAdapter("spanCount")
+fun RecyclerView.spanCount(
+    spanCount: Int = 2
+) {
+    tryCatch {
+        this.layoutManager = GridLayoutManager(this.context, spanCount)
+    }
+}
+
+/**
  * ViewPager2 isUserInputEnabled
  */
 @BindingAdapter("isUserInputEnabled")
@@ -73,6 +86,7 @@ fun ViewPager2.setUserInputEnabled(
         this.isUserInputEnabled = isUserInputEnabled
     }
 }
+
 @BindingAdapter("items")
 fun TabLayout.addAllItem(
     items: List<String>?
@@ -106,5 +120,5 @@ fun View.setRatioWidth(ratio: Int) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
-        
+
 }
