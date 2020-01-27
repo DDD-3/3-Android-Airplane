@@ -27,21 +27,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="채팅 리스트 제목" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_subscribe"
+        <com.ddd.airplane.common.views.component.UserSubscribeView
+            android:id="@+id/cv_subscribe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title">
-
-            <include layout="@layout/subscribe_view" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            />
+<!--        bind:subscribeCount="@{item.subject.subscribeCount}"-->
+<!--        bind:userCount="@{item.userCount}"-->
 
         <View
             style="@style/divider_vertical"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="17dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_subscribe" />
+            app:layout_constraintTop_toBottomOf="@id/cv_subscribe" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

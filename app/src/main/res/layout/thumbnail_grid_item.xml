@@ -51,18 +51,14 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
                 tools:text="‘사위 사랑’ 이상화, 강위 사랑’ 이상화, 강위 사랑’ 이상화, 강남 먹방에 행복 지수 U" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.ddd.airplane.common.views.component.UserSubscribeView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title">
-
-                <include
-                    layout="@layout/subscribe_view"
-                    bind:subscribeCount="@{item.subject.subscribeCount}"
-                    bind:userCount="@{item.userCount}" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                bind:subscribeCount="@{item.subject.subscribeCount}"
+                bind:userCount="@{item.userCount}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

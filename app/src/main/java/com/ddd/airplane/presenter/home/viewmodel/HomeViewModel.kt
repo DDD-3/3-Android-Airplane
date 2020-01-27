@@ -8,11 +8,13 @@ import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.SubjectData
-import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.BannerData
+import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.RectangleData
-import timber.log.Timber
 
+/**
+ * 홈 ViewModel
+ */
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     private val _homeList = MutableLiveData<ArrayList<HomeData.ItemData<Any>>>()

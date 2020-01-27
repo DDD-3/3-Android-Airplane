@@ -80,26 +80,21 @@
                     android:maxLines="1"
                     android:text="@{item.subject.description}"
                     android:textColor="@color/brand_white"
-                    app:layout_constraintBottom_toTopOf="@id/cl_subscribe"
+                    app:layout_constraintBottom_toTopOf="@id/cv_subscribe"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
                     tools:text="과천행 버스 출발합니다. 쭈아쉬이쉬익…과천행 버스 출발합니다. 쭈아쉬이쉬과천행 버스 출발합니다. 쭈아쉬이쉬익…과천행 버스 출발합니다. 쭈아쉬이쉬" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_subscribe"
+                <com.ddd.airplane.common.views.component.UserSubscribeView
+                    android:id="@+id/cv_subscribe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title">
-
-                    <include
-                        layout="@layout/subscribe_view"
-                        bind:subscribeCount="@{item.subject.subscribeCount}"
-                        bind:userCount="@{item.userCount}" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:subscribeCount="@{item.subject.subscribeCount}"
+                    app:userCount="@{item.userCount}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
