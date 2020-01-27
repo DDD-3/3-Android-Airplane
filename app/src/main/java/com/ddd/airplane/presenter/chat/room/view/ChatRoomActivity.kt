@@ -24,7 +24,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
     //TODO 리스트에서 id 받아서 set
-    private var roomId: Long = 1
+    private var roomId: Long = 0
 
     override fun initDataBinding() {
         super.initDataBinding()
@@ -63,6 +63,9 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
+        if (intent.hasExtra("roomId")) {
+            roomId = intent.getLongExtra("roomId", 0)
+        }
         viewModel.getChatRoomInfo(roomId)
     }
 
