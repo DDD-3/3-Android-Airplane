@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BasePagedListAdapter
+import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.databinding.MypageFragmentBinding
@@ -48,6 +49,10 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
             viewModel.diffCallback
         ) {
 
+        }.apply {
+            setOnItemClickListener { view, data ->
+                context?.showToast(data?.roomId.toString())
+            }
         }
 
         // adapter
@@ -66,12 +71,6 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
         viewModel.pagedList.observe(this@MyPageFragment, Observer {
             pagedAdapter.submitList(it)
         })
-
-        pagedAdapter.run {
-            setOnItemClickListener { view, chatRoomData ->
-
-            }
-        }
     }
 
     override fun onClick(v: View?) {

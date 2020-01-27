@@ -45,7 +45,7 @@ class ChatListFragment : BaseFragment<ChatListFragmentBinding, ChatListViewModel
                 BaseRecyclerViewAdapter<ChatRoomData, ChatListItemBinding>(R.layout.chat_list_item) {
             }.apply {
                 setOnItemClickListener { view, data ->
-                    context.showToast(data.roomId.toString())
+                    context.showToast(data?.roomId.toString())
                 }
             }
         }

@@ -10,13 +10,16 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.BR
+import com.ddd.airplane.common.extension.addCircleRipple
+import com.ddd.airplane.common.extension.addRipple
 
 internal abstract class BasePagedListAdapter<T : Any>(
     @LayoutRes private val layoutId: Int = 0,
     diffCallback: DiffUtil.ItemCallback<T>
 ) : PagedListAdapter<T, BaseViewHolder<T>>(diffCallback) {
 
-    private var itemClickListener: ((View, T) -> Unit)? = null
+    private var itemClickListener: ((View, T?) -> Unit)? = null
+    private var isCircleRipple: Boolean = false
     var itemViewModel: BaseItemViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
@@ -29,12 +32,13 @@ internal abstract class BasePagedListAdapter<T : Any>(
         // OnClick
         dataBinding.run {
 
-            // click
-            root.setOnClickListener { view ->
-                val item = getItem(viewHolder.adapterPosition)
-                item?.let { t ->
-                    if (viewHolder.adapterPosition != RecyclerView.NO_POSITION && itemClickListener != null) {
-                        itemClickListener?.invoke(view, t)
+            itemClickListener?.let { listener ->
+                root.run {
+                    if (isCircleRipple) addCircleRipple() else addRipple()
+                    setOnClickListener { view ->
+                        if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
+                            listener.invoke(view, getItem(viewHolder.adapterPosition))
+                        }
                     }
                 }
             }
@@ -53,9 +57,14 @@ internal abstract class BasePagedListAdapter<T : Any>(
      * 아이템 클릭 리스너
      *
      * @param listener
+     * @param isCircleRipple
      */
-    open fun setOnItemClickListener(listener: ((View, T) -> Unit)?) = apply {
+    open fun setOnItemClickListener(
+        isCircleRipple: Boolean = false,
+        listener: ((View, T?) -> Unit)?
+    ) {
         this.itemClickListener = listener
+        this.isCircleRipple = isCircleRipple
     }
 
     open fun createViewDataBinding(parent: ViewGroup): ViewDataBinding {
