@@ -9,6 +9,6 @@ object ServerInfo {
 
     public enum class DOMAIN(val domain: String) {
         DEV("http://15.164.213.75"),
-        REAL("http://192.168.43.55:8080")
+        REAL("http://15.164.213.75")
     }
 }

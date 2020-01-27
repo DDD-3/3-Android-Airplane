@@ -70,16 +70,18 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                     dataBinding: ScheduleHeaderItemBinding
                 ) {
                     dataBinding.let {
+
                         it.model = data
                         it.position = position
 
                         // 현재 포지션
-                        viewModel.position.observe(this@ScheduleFragment, Observer { position ->
+                        viewModel.position.observe(viewLifecycleOwner, Observer { position ->
                             it.current = position
                         })
 
                         // 헤더 클릭
                         it.root.tv_broadcast.setOnClickListener {
+                            viewModel.setCurrentPage(position)
                             vp_schedule_depth1.setCurrentItem(position, false)
                         }
                     }
