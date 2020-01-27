@@ -20,7 +20,7 @@ import timber.log.Timber
  */
 class GridViewHolder(
     viewDataBinding: ViewDataBinding,
-    private val span: Int
+    private val span: Int = 2
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private val binding = viewDataBinding as HomeGridBinding

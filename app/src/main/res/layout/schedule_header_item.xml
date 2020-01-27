@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@{model.name}"
-            android:textColor="@{position == current ? @color/brand_white : @color/color_888888}"
+            android:textColor="@{position == current ? @color/brand_white : @color/grey600}"
             android:textSize="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"

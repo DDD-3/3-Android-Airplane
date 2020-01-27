@@ -6,13 +6,19 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.ddd.airplane.data.response.chat.ChatRoomData" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:paddingStart="24dp"
-        android:paddingRight="24dp"
+        android:paddingEnd="24dp"
         tools:background="@color/brand_black">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -21,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:maxLines="2"
+            android:text="@{item.subject.description}"
             android:textColor="@color/brand_white"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,9 +42,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            />
-<!--        bind:subscribeCount="@{item.subject.subscribeCount}"-->
-<!--        bind:userCount="@{item.userCount}"-->
+            bind:subscribeCount="@{item.subject.subscribeCount}"
+            bind:userCount="@{item.userCount}" />
 
         <View
             style="@style/divider_vertical"

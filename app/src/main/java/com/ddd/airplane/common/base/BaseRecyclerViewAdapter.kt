@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.BR
+import com.ddd.airplane.common.extension.addRipple
 
 /**
  * Base RecyclerView Adapter for DataBinding
@@ -31,19 +32,21 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         val dataBinding = createViewDataBinding(parent, layoutId)
         val viewHolder = createViewHolder(dataBinding)
 
-        // OnClick
         dataBinding.run {
 
-            root.setOnClickListener {
-                if (viewHolder.adapterPosition != RecyclerView.NO_POSITION && itemClickListener != null) {
-                    itemClickListener?.invoke(it, list[viewHolder.adapterPosition])
+            // onClick
+            itemClickListener?.let { listener ->
+                root.addRipple()
+                root.setOnClickListener { view ->
+                    if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
+                        listener.invoke(view, list[viewHolder.adapterPosition])
+                    }
                 }
             }
 
             // Item ViewModel
             dataBinding.setVariable(BR.viewModel, itemViewModel)
         }
-
         return viewHolder
     }
 
@@ -68,7 +71,7 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         notifyDataSetChanged()
     }
 
-    fun clear() =apply{
+    fun clear() = apply {
         list.clear()
         notifyDataSetChanged()
     }
@@ -87,7 +90,7 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
      *
      * @param listener
      */
-    open fun setOnItemClickListener(listener: ((View, T) -> Unit)?) = apply {
+    open fun setOnItemClickListener(listener: ((View, T) -> Unit)) {
         this.itemClickListener = listener
     }
 

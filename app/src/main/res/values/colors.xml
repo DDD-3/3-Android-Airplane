@@ -5,19 +5,17 @@
     <color name="colorPrimaryDark">@color/brand_black</color>
     <color name="colorAccent">@color/brand_blue</color>
 
-    <!-- brand -->
+    <color name="brand_black">#000000</color>
     <color name="brand_blue">#00c1ff</color>
+    <color name="brand_orange">#ff4200</color>
     <color name="brand_mint">#00cdc6</color>
     <color name="brand_white">#ffffff</color>
-    <color name="brand_orange">#ff4200</color>
-    <color name="brand_black">#000000</color>
 
-    <!-- text -->
+    <color name="text_grey">#858585</color>
     <color name="text_baby">#ffabb1</color>
     <color name="text_sky">#89ebff</color>
     <color name="text_yellow">#fed45b</color>
     <color name="text_pink">#ff93d3</color>
-    <color name="text_grey">#858585</color>
     <color name="text_blue">#00a1f0</color>
     <color name="text_navy">#455aff</color>
     <color name="text_orange">#ff9238</color>
@@ -25,7 +23,6 @@
     <color name="text_purple">#a39cff</color>
     <color name="text_deep">#2c5a76</color>
 
-    <!-- grey -->
     <color name="grey800">#191923</color>
     <color name="grey700">#33333b</color>
     <color name="grey600">#4c4c54</color>
@@ -36,8 +33,6 @@
     <color name="grey100">#e5e5e7</color>
 
     <!-- 컬러 리소스 정의되지 않음 -->
-    <color name="color_888888">#888888</color>
-    <color name="color_8e8e8e">#8e8e8e</color>
     <color name="color_0cbfff">#0cbfff</color>
     <color name="color_828181">#828181</color>
     <color name="color_36363e">#36363e</color>
