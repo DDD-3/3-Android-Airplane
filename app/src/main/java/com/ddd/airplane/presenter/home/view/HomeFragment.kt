@@ -19,7 +19,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override val layoutRes = R.layout.home_fragment
     override val viewModelClass = HomeViewModel::class.java
     private val homeAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        HomeAdapter(context)
+        HomeAdapter()
     }
 
     override fun initDataBinding() {

@@ -13,14 +13,13 @@ import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.presenter.home.view.viewholder.*
 
 class HomeAdapter constructor(
-    private val context: Context?
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    val list = arrayListOf<HomeData.ItemData<Any>>()
+    val list = arrayListOf<HomeData.ItemData>()
 
     private fun getStyle(viewType: Int) = Home.Style.values()[viewType]
 
-    fun addAllItem(items: ArrayList<HomeData.ItemData<Any>>?) = apply {
+    fun addAllItem(items: ArrayList<HomeData.ItemData>?) = apply {
         items?.let {
             list.addAll(it)
             notifyDataSetChanged()
@@ -41,7 +40,7 @@ class HomeAdapter constructor(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].style.ordinal
+        return list[position].homeStyle.ordinal
     }
 
     override fun onCreateViewHolder(
@@ -50,7 +49,7 @@ class HomeAdapter constructor(
     ): ViewHolder {
         val style = getStyle(viewType)
         val layoutId = when (style) {
-                Home.Style.TOP_BANNER -> R.layout.home_top_banner
+            Home.Style.TOP_BANNER -> R.layout.home_top_banner
             Home.Style.HORIZONTAL -> R.layout.home_horizontal
             Home.Style.GRID -> R.layout.home_grid
             Home.Style.RECTANGLE_BANNER -> R.layout.home_rectangle

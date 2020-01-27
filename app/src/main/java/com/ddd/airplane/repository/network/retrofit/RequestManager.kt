@@ -9,7 +9,12 @@ import com.ddd.airplane.repository.network.config.HttpStatus
 import com.ddd.airplane.repository.network.retrofit.RequestManager.parseErrorResponse
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.data.response.home.BannerData
 import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonSyntaxException
+import com.google.gson.internal.LinkedTreeMap
+import com.google.gson.internal.Primitives
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,6 +22,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import timber.log.Timber
+import java.lang.reflect.Type
 
 /**
  * 네트워크 통신
@@ -118,6 +124,40 @@ object RequestManager {
         }
 
         return error
+    }
+
+    /**
+     * ArrayList<LinkedTreeMap<String, Any>> 를 원하는 class 로 변환함
+     *
+     * @param T
+     * @param list
+     * @param classOfT
+     * @return
+     */
+    fun <T> convertList(list: ArrayList<LinkedTreeMap<String, Any>>, classOfT: Class<T>): List<T>? {
+        val convert = ArrayList<T>()
+        list.forEach {
+            val json = Gson().toJsonTree(it).asJsonObject
+            val banner = Gson().fromJson(json, classOfT)
+            convert.add(banner)
+        }
+        Timber.d(convert.toString())
+        return convert
+    }
+
+    /**
+     * ArrayList<LinkedTreeMap<String, Any>> 를 원하는 class 로 변환함
+     *
+     * @param T
+     * @param data
+     * @param classOfT
+     * @return
+     */
+    fun <T> convertData(data: LinkedTreeMap<String, Any>, classOfT: Class<T>): T? {
+        val json = Gson().toJsonTree(data).asJsonObject
+        val model = Gson().fromJson(json, classOfT)
+        Timber.d(model.toString())
+        return model
     }
 
 }

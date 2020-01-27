@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.extension.loadImage
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
@@ -33,14 +34,14 @@ class TopViewHolder(
     private val binding = viewDataBinding as HomeTopBannerBinding
     private val bannerList = ArrayList<BannerData>()
 
-    fun onBind(item: HomeData.ItemData<Any>?) {
+    fun onBind(item: HomeData.ItemData?) {
         tryCatch {
             initData(item)
             initLayout()
         }
     }
 
-    private fun initData(item: HomeData.ItemData<Any>?) {
+    private fun initData(item: HomeData.ItemData?) {
         tryCatch {
             item?.let {
                 bannerList.addAll(it.item as ArrayList<BannerData>)
@@ -61,6 +62,16 @@ class TopViewHolder(
             // pager
             val pagerAdapter = object :
                 BaseRecyclerViewAdapter<BannerData, HomeTopBannerItemBinding>(R.layout.home_top_banner_item) {
+
+                override fun onBindData(
+                    position: Int,
+                    data: BannerData?,
+                    dataBinding: HomeTopBannerItemBinding
+                ) {
+                    data?.let {
+                        dataBinding.ivThumbnail.loadImage(it.thumbnailUrl)
+                    }
+                }
 
             }
             adapter = pagerAdapter

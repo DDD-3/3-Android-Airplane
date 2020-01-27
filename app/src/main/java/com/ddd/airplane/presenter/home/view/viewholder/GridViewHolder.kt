@@ -25,17 +25,17 @@ class GridViewHolder(
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private val binding = viewDataBinding as HomeGridBinding
-    private var itemData = HomeData.ItemData<Any>()
+    private var itemData = HomeData.ItemData()
     private val bannerList = ArrayList<ChatRoomData>()
 
-    fun onBind(item: HomeData.ItemData<Any>?) {
+    fun onBind(item: HomeData.ItemData?) {
         tryCatch {
             initData(item)
             initLayout()
         }
     }
 
-    private fun initData(item: HomeData.ItemData<Any>?) {
+    private fun initData(item: HomeData.ItemData?) {
         tryCatch {
             item?.let {
                 itemData = it

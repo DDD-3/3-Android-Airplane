@@ -1,6 +1,5 @@
 package com.ddd.airplane.presenter.home.view.viewholder
 
-import android.content.Context
 import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +12,7 @@ import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeHorizontalBinding
 import com.ddd.airplane.databinding.ThumbnailGeneralItemBinding
+import kotlinx.android.synthetic.main.home_horizontal.view.*
 import timber.log.Timber
 
 /**
@@ -25,18 +25,19 @@ class HorizontalViewHolder(
     viewDataBinding: ViewDataBinding
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
+    private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeHorizontalBinding
-    private var itemData = HomeData.ItemData<Any>()
+    private var itemData = HomeData.ItemData()
     private val bannerList = ArrayList<ChatRoomData>()
 
-    fun onBind(item: HomeData.ItemData<Any>?) {
+    fun onBind(item: HomeData.ItemData?) {
         tryCatch {
             initData(item)
             initLayout()
         }
     }
 
-    private fun initData(item: HomeData.ItemData<Any>?) {
+    private fun initData(item: HomeData.ItemData?) {
         tryCatch {
             item?.let {
                 itemData = it
@@ -51,7 +52,7 @@ class HorizontalViewHolder(
         // 타이틀
         binding.title = itemData.title
 
-        binding.rvHorizontal.run {
+        view.rv_horizontal.run {
             addItemDecoration(
                 DividerItemSpace(
                     LinearLayout.HORIZONTAL,
