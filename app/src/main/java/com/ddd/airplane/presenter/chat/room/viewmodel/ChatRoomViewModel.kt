@@ -141,14 +141,14 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                         _subjectId.value = data.subjectId
                         _roomName.value = data.subjectName
                         _roomDesc.value = data.subjectDescription
-//                        _roomSchedule.value = parseRoomSchedule(data.scheduleList)
+                        _roomSchedule.value = parseRoomSchedule(data.upcomingSubjectSchedule)
                         _subscribeCount.value = data.subjectSubscribeCount.toString()
-//                        _subscribed.value = data.subscribed
+                        _subscribed.value = data.subjectSubscribed
                     }
                     _roomId.value = response.roomId
                     _userCount.value = response.roomUserCount.toString()
                     _liked.value = response.liked
-                    _msgList.value = response.messages
+                    _msgList.value = response.recentMessages
                     connectChatClient()
                 }
 
@@ -159,10 +159,17 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
             })
     }
 
-    private fun parseRoomSchedule(scheduleList: List<ScheduleData>?): String? {
+    private fun parseRoomSchedule(schedule: ScheduleData?): String? {
         //TODO start ~ end time 디자인 확인해서 넣기
-        val startAt = scheduleList?.get(0)?.startAt
-        return if (startAt != null) Utils.convertLongToTime(startAt) else R.string.error_info.toString()
+        val startAt = schedule?.startAt
+        val endAt = schedule?.endAt
+        var res = R.string.error_info.toString()
+
+        if (startAt != null && endAt != null) {
+            res = Utils.convertLongToTime(startAt) + " ~ " + Utils.convertLongToTime(endAt)
+        }
+
+        return res
     }
 
     fun postSubscribe() {

@@ -8,6 +8,7 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.databinding.ChatListFragmentBinding
@@ -59,7 +60,7 @@ class ChatListFragment : BaseFragment<ChatListFragmentBinding, ChatListViewModel
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_test -> {
-                startActivity(Intent(context, ChatRoomActivity::class.java))
+                ChatRoomManager.joinChatRoom(activity, 2)
             }
         }
     }

@@ -15,5 +15,8 @@ data class ChatRoomData(
     val subjectSubscribeCount: Int? = 0,
     val subjectThumbnailUrl: String? = null,
 
-    val messages: ArrayList<ChatMessageData.MessageData>? = null
+    val subjectSubscribed: Boolean? = false,
+    val upcomingSubjectSchedule: ScheduleData? = null,
+
+    val recentMessages: ArrayList<ChatMessageData.MessageData>? = null
 )
