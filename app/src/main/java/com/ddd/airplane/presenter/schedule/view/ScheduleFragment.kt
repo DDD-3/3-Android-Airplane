@@ -66,7 +66,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                 override fun onBindData(
                     position: Int,
-                    data: ScheduleData,
+                    data: ScheduleData?,
                     dataBinding: ScheduleHeaderItemBinding
                 ) {
                     dataBinding.let {
@@ -105,11 +105,11 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                 override fun onBindData(
                     position: Int,
-                    model: ScheduleData,
+                    model: ScheduleData?,
                     dataBinding: ScheduleTypeItemBinding
                 ) {
                     // 주제별 viewPager 삽입
-                    set2DepthViewPager(dataBinding, model.typeList)
+                    model?.typeList?.let { set2DepthViewPager(dataBinding, it) }
                 }
             }
         }
@@ -161,7 +161,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
 
                 override fun onBindData(
                     position: Int,
-                    model: ScheduleData.Type,
+                    data: ScheduleData.Type?,
                     dataBinding: ScheduleRoomItemBinding
                 ) {
                     dataBinding.position = position

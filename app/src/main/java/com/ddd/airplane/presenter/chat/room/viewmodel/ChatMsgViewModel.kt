@@ -10,8 +10,8 @@ class ChatMsgViewModel {
     val content = ObservableField<String>()
     val createAt = ObservableField<String>()
 
-    fun setChatMsg(model: ChatMessageData.MessageData) {
-        model.let { msg ->
+    fun setChatMsg(model: ChatMessageData.MessageData?) {
+        model?.let { msg ->
             messageId = msg.messageId
             roomId.set(msg.roomId)
             senderId.set(msg.senderId)

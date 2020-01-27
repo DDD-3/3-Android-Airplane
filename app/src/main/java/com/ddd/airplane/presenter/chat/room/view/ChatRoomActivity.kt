@@ -50,11 +50,11 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
                 override fun onBindData(
                     position: Int,
-                    model: ChatMessageData.MessageData,
+                    data: ChatMessageData.MessageData?,
                     dataBinding: ChatMsgItemBinding
                 ) {
                     dataBinding.viewModel = ChatMsgViewModel().apply {
-                        setChatMsg(model)
+                        setChatMsg(data)
                     }
                 }
 
