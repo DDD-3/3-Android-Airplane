@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.chat.list.viewmodel.ChatListViewModel" />
+
     </data>
 
     <FrameLayout
@@ -44,7 +48,8 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cl_title"
-                        tools:itemCount="1"
+                        bind:items="@{viewModel.chatList}"
+                        tools:itemCount="10"
                         tools:listitem="@layout/chat_list_item" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </FrameLayout>

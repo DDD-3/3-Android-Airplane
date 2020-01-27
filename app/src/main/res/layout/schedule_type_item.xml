@@ -32,7 +32,7 @@
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/brand_white"
-            app:tabTextColor="@color/color_828181"
+            app:tabTextColor="@color/grey500"
             bind:items="@{viewModel.tabList}" />
 
         <!-- 구분선 -->

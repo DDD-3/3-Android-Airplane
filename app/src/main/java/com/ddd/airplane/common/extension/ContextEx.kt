@@ -20,6 +20,8 @@ fun Context.showToast(@StringRes stringRes: Int) {
  *
  * @param text
  */
-fun Context.showToast(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+fun Context.showToast(text: String?) {
+    text?.let {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -8,6 +8,8 @@ import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.data.response.home.RectangleData
 import com.ddd.airplane.databinding.HomeRectangleBinding
+import kotlinx.android.synthetic.main.chat_list_item.view.*
+import kotlinx.android.synthetic.main.home_rank_item.view.*
 import timber.log.Timber
 
 /**
@@ -21,6 +23,7 @@ class RectangleViewHolder(
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private val context = viewDataBinding.root.context
+    private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeRectangleBinding
     private var itemData = HomeData.ItemData<Any>()
 
@@ -41,9 +44,13 @@ class RectangleViewHolder(
     }
 
     private fun initLayout() {
-        binding.ivThumbnail.loadImage(
+        view.iv_thumbnail.loadImage(
             (itemData.item as RectangleData?)?.thumbnail,
             corners = context.resources.getDimensionPixelSize(R.dimen.dp8)
         )
+
+        view.cl_container.setOnClickListener {
+
+        }
     }
 }

@@ -73,7 +73,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         )
 
         binding.run {
-            lifecycleOwner = this@BaseFragment
+            lifecycleOwner = viewLifecycleOwner
             setVariable(BR.viewModel, viewModel)
         }
 
@@ -107,7 +107,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         }
 
         viewModel.run {
-            isProgress.observe(this@BaseFragment, Observer {
+            isProgress.observe(viewLifecycleOwner, Observer {
                 activity?.runOnUiThread {
                     progressDialog?.run {
                         if (it) show() else dismiss()
@@ -115,7 +115,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
                 }
             })
 
-            toast.observe(this@BaseFragment, Observer {
+            toast.observe(viewLifecycleOwner, Observer {
                 activity?.runOnUiThread {
                     context.showToast(it)
                 }

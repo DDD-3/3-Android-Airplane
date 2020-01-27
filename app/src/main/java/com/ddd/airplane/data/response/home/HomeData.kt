@@ -8,7 +8,6 @@ import com.ddd.airplane.common.consts.Home
 data class HomeData(
     var list: ArrayList<ItemData<Any>>? = null
 ) {
-
     data class ItemData<T>(
         var style: Home.Style = Home.Style.EMPTY,
         var title: String? = null,

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/brand_black</item>
         <item name="colorPrimaryDark">@color/brand_black</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/ripple_material_dark</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">

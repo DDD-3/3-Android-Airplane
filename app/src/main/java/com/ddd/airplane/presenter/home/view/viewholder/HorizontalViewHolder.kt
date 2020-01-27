@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.chat.ChatRoomData
@@ -60,7 +61,12 @@ class HorizontalViewHolder(
 
             val listAdapter = object :
                 BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGeneralItemBinding>(R.layout.thumbnail_general_item) {
+            }.apply {
+                setOnItemClickListener { view, data ->
+                    context.showToast(data?.roomId.toString())
+                }
             }
+
             adapter = listAdapter
             listAdapter.addAllItem(bannerList)
         }

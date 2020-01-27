@@ -298,7 +298,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         }
         itemList.add(
             HomeData.ItemData(
-                Home.Style.GRID_2, "핫한 방송", hot
+                Home.Style.GRID, "핫한 방송", hot
             )
         )
 

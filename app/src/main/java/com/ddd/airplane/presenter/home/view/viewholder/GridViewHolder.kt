@@ -4,6 +4,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
 import com.ddd.airplane.data.response.chat.ChatRoomData
@@ -20,7 +21,7 @@ import timber.log.Timber
  */
 class GridViewHolder(
     viewDataBinding: ViewDataBinding,
-    private val span: Int
+    private val span: Int = 2
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
     private val binding = viewDataBinding as HomeGridBinding
@@ -62,7 +63,12 @@ class GridViewHolder(
 
                 val listAdapter = object :
                     BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
+                }.apply {
+                    setOnItemClickListener { view, data ->
+                        context.showToast(data?.roomId.toString())
+                    }
                 }
+
                 adapter = listAdapter
                 listAdapter.addAllItem(bannerList)
             }

@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.BR
+import com.ddd.airplane.common.extension.addCircleRipple
+import com.ddd.airplane.common.extension.addRipple
 
 /**
  * Base RecyclerView Adapter for DataBinding
@@ -21,7 +23,8 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
 ) : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     private val list = mutableListOf<T>()
-    private var itemClickListener: ((View, T) -> Unit)? = null
+    private var itemClickListener: ((View, T?) -> Unit)? = null
+    private var isCircleRipple: Boolean = false
     var itemViewModel: BaseItemViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
@@ -31,19 +34,23 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         val dataBinding = createViewDataBinding(parent, layoutId)
         val viewHolder = createViewHolder(dataBinding)
 
-        // OnClick
         dataBinding.run {
 
-            root.setOnClickListener {
-                if (viewHolder.adapterPosition != RecyclerView.NO_POSITION && itemClickListener != null) {
-                    itemClickListener?.invoke(it, list[viewHolder.adapterPosition])
+            // onClick
+            itemClickListener?.let { listener ->
+                root.run {
+                    if (isCircleRipple) addCircleRipple() else addRipple()
+                    setOnClickListener { view ->
+                        if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {
+                            listener.invoke(view, list[viewHolder.adapterPosition])
+                        }
+                    }
                 }
             }
 
             // Item ViewModel
             dataBinding.setVariable(BR.viewModel, itemViewModel)
         }
-
         return viewHolder
     }
 
@@ -68,7 +75,7 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         notifyDataSetChanged()
     }
 
-    fun clear() =apply{
+    fun clear() = apply {
         list.clear()
         notifyDataSetChanged()
     }
@@ -86,9 +93,14 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
      * 아이템 클릭 리스너
      *
      * @param listener
+     * @param isCircleRipple
      */
-    open fun setOnItemClickListener(listener: ((View, T) -> Unit)?) = apply {
+    open fun setOnItemClickListener(
+        isCircleRipple: Boolean = false,
+        listener: ((View, T?) -> Unit)
+    ) {
         this.itemClickListener = listener
+        this.isCircleRipple = isCircleRipple
     }
 
     open fun createViewHolder(dataBinding: ViewDataBinding): BaseViewHolder<T> {
