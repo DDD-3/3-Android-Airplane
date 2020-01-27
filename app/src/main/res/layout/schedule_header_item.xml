@@ -6,10 +6,12 @@
 
     <data>
 
+        <!-- tab 위치 포지션 -->
         <variable
             name="position"
             type="int" />
 
+        <!-- tab 클릭한 포지션 -->
         <variable
             name="current"
             type="int" />
