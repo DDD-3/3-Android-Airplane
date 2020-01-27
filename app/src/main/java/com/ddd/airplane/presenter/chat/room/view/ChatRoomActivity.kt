@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.databinding.ChatMsgItemBinding
 import com.ddd.airplane.databinding.ChatRoomActivityBinding
@@ -23,7 +24,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
     //TODO 리스트에서 id 받아서 set
-    private var roomId: Long = 2
+    private var roomId: Long = 1
 
     override fun initDataBinding() {
         super.initDataBinding()
@@ -63,13 +64,6 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override fun onCreated(savedInstanceState: Bundle?) {
         viewModel.getChatRoomInfo(roomId)
-        viewModel.connectChatClient()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.getChatMessages()
     }
 
     override fun onDestroy() {
@@ -82,6 +76,8 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         when (v?.id) {
             R.id.tv_send_msg -> {
                 viewModel.sendChatMessage(et_chat_msg.text.toString())
+                et_chat_msg.text.clear()
+                DeviceUtils.hideKeyboard(v)
             }
             R.id.ib_hold_info -> {
                 cl_info_second.visibility =

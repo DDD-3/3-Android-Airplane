@@ -15,5 +15,6 @@ data class SubjectData(
     val description: String? = null,
     val scheduleList: List<ScheduleData>? = arrayListOf(),
     val subscribeCount: Int? = 0,
-    val thumbnail: String? = null
+    val thumbnail: String? = null,
+    val subscribed: Boolean = false
 )

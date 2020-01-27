@@ -37,7 +37,7 @@ object DeviceUtils {
                 it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputManager.hideSoftInputFromWindow(
                 view.windowToken,
-                InputMethodManager.HIDE_IMPLICIT_ONLY
+                0
             )
         }
     }

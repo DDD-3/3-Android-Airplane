@@ -23,7 +23,8 @@ interface SubscribeService {
     @FormUrlEncoded
     @POST("/api/v1/subjects/{subjectId}/subscribe")
     fun postSubscribe(
-        @Path("subjectId") subjectId: Long
+        @Path("subjectId") subjectId: Long,
+        @Field("subjectId") subId: Long
     ): Single<Any>
 
     /**

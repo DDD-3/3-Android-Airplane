@@ -11,6 +11,7 @@ data class ChatRoomData(
     val roomId: Long? = 0,
     val userCount: Int? = 0,
     val subject: SubjectData? = null,
-    val liked: Boolean? = false
+    val liked: Boolean? = false,
+    val messages: ArrayList<ChatMessageData.MessageData>? = null
 )
 
