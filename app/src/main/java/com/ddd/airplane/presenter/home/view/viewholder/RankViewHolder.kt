@@ -11,6 +11,7 @@ import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeRankBinding
 import com.ddd.airplane.databinding.HomeRankItemBinding
+import kotlinx.android.synthetic.main.home_rank.view.*
 import timber.log.Timber
 
 /**
@@ -23,6 +24,7 @@ class RankViewHolder(
     viewDataBinding: ViewDataBinding
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
+    private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeRankBinding
     private var itemData = HomeData.ItemData<Any>()
     private val bannerList = ArrayList<ChatRoomData>()
@@ -49,17 +51,17 @@ class RankViewHolder(
         // 타이틀
         binding.title = itemData.title
 
-        binding.rvRank.run {
+        view.rv_rank.run {
             val listAdapter = object :
                 BaseRecyclerViewAdapter<ChatRoomData, HomeRankItemBinding>(R.layout.home_rank_item) {
                 override fun onBindData(
                     position: Int,
-                    data: ChatRoomData,
+                    data: ChatRoomData?,
                     dataBinding: HomeRankItemBinding
                 ) {
                     dataBinding.run {
                         rank = position + 1
-                        ivThumbnail.loadImage(data.subject?.thumbnail)
+                        ivThumbnail.loadImage(data?.subjectThumbnailUrl)
                     }
                 }
             }.apply {

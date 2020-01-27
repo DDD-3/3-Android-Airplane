@@ -2,16 +2,18 @@ package com.ddd.airplane.data.response.chat
 
 /**
  * 채팅방 정보
- *
- * @property roomId
- * @property userCount
- * @property subject
  */
 data class ChatRoomData(
     val roomId: Long? = 0,
-    val userCount: Int? = 0,
-    val subject: SubjectData? = null,
+    val roomUserCount: Int? = 0,
+
     val liked: Boolean? = false,
+
+    val subjectId: Long? = 0,
+    val subjectName: String? = null,
+    val subjectDescription: String? = null,
+    val subjectSubscribeCount: Int? = 0,
+    val subjectThumbnailUrl: String? = null,
+
     val messages: ArrayList<ChatMessageData.MessageData>? = null
 )
-

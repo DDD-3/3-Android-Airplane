@@ -27,7 +27,7 @@
             app:layout_constraintDimensionRatio="1:1.42"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:url="@{item.subject.thumbnail}"
+            bind:url="@{item.subjectThumbnailUrl}"
             tools:background="#ff0000"
             tools:layout_height="500dp" />
 
@@ -39,7 +39,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{item.subject.description}"
+            android:text="@{item.subjectDescription}"
             android:textColor="@color/brand_white"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -53,8 +53,8 @@
             android:layout_marginTop="7dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            bind:subscribeCount="@{item.subject.subscribeCount}"
-            bind:userCount="@{item.userCount}" />
+            bind:subscribeCount="@{item.subjectSubscribeCount}"
+            bind:userCount="@{item.roomUserCount}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

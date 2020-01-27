@@ -21,26 +21,25 @@ fun ImageView.loadImage(
 ) {
     tryCatch {
         Timber.d(">> $url")
-        this.post {
-            val glide = Glide.with(this)
-                .load(url)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .centerCrop()
+        url?.let {
+            this.post {
+                val glide = Glide.with(this)
+                    .load(url)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .centerCrop()
 
-            if (corners > 0) {
-                glide.apply(
-                    RequestOptions.bitmapTransform(
-                        RoundedCorners(
-                            corners
+                if (corners > 0) {
+                    glide.apply(
+                        RequestOptions.bitmapTransform(
+                            RoundedCorners(
+                                corners
+                            )
                         )
                     )
-                )
+                }
+                glide.into(this)
             }
-
-            glide
-                .into(this)
         }
-
     }
 }
 

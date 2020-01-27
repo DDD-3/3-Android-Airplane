@@ -116,7 +116,7 @@ internal abstract class BaseRecyclerViewAdapter<T : Any, D : ViewDataBinding>(
         )
     }
 
-    open fun onBindData(position: Int, data: T, dataBinding: D) {
+    open fun onBindData(position: Int, data: T?, dataBinding: D) {
 
     }
 

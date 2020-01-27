@@ -137,16 +137,16 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
             .getRoom(roomId)
             .request(this, object : OnResponseListener<ChatRoomData> {
                 override fun onSuccess(response: ChatRoomData) {
-                    response.subject?.let { subject ->
-                        _subjectId.value = subject.subjectId
-                        _roomName.value = subject.name
-                        _roomDesc.value = subject.description
-                        _roomSchedule.value = parseRoomSchedule(subject.scheduleList)
-                        _subscribeCount.value = subject.subscribeCount.toString()
-                        _subscribed.value = subject.subscribed
+                    response.let { data ->
+                        _subjectId.value = data.subjectId
+                        _roomName.value = data.subjectName
+                        _roomDesc.value = data.subjectDescription
+//                        _roomSchedule.value = parseRoomSchedule(data.scheduleList)
+                        _subscribeCount.value = data.subjectSubscribeCount.toString()
+//                        _subscribed.value = data.subscribed
                     }
                     _roomId.value = response.roomId
-                    _userCount.value = response.userCount.toString()
+                    _userCount.value = response.roomUserCount.toString()
                     _liked.value = response.liked
                     _msgList.value = response.messages
                     connectChatClient()

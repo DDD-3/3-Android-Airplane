@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:maxLines="2"
-            android:text="@{item.subject.description}"
+            android:text="@{item.subjectDescription}"
             android:textColor="@color/brand_white"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,8 +42,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            bind:subscribeCount="@{item.subject.subscribeCount}"
-            bind:userCount="@{item.userCount}" />
+            bind:subscribeCount="@{item.subjectSubscribeCount}"
+            bind:userCount="@{item.roomUserCount}" />
 
         <View
             style="@style/divider_vertical"
