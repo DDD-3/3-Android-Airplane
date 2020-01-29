@@ -45,7 +45,7 @@ class RectangleViewHolder(
     private fun initLayout() {
         view.iv_thumbnail.loadImage(
             (itemData.item as BannerData?)?.thumbnailUrl,
-            corners = context.resources.getDimensionPixelSize(R.dimen.dp8)
+            corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
         )
 
         view.cl_container.setOnClickListener {

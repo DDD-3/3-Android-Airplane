@@ -5,6 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
+import com.ddd.airplane.common.extension.loadImage
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
@@ -62,6 +63,18 @@ class HorizontalViewHolder(
 
             val listAdapter = object :
                 BaseRecyclerViewAdapter<ProgramData, ThumbnailGeneralItemBinding>(R.layout.thumbnail_general_item) {
+                override fun onBindData(
+                    position: Int,
+                    data: ProgramData?,
+                    dataBinding: ThumbnailGeneralItemBinding
+                ) {
+                    data?.let {
+                        dataBinding.ivThumbnail.loadImage(
+                            it.subjectThumbnailUrl,
+                            corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
+                        )
+                    }
+                }
             }.apply {
                 setOnItemClickListener { view, data ->
                     context.showToast(data?.roomId.toString())
