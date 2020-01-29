@@ -8,15 +8,13 @@ import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.ErrorData
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.repository.network.retrofit.RequestManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
-import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
-import timber.log.Timber
 
 /**
  * 홈 ViewModel
@@ -98,7 +96,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                     Home.Style.HORIZONTAL, Home.Style.GRID, Home.Style.RANK -> {
                         data.item = RequestManager.convertList(
                             data.item as ArrayList<LinkedTreeMap<String, Any>>,
-                            ChatRoomData::class.java
+                            ProgramData::class.java
                         )
                     }
 

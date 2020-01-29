@@ -115,8 +115,7 @@ object RequestManager {
 
         try {
             val httpException = e as? HttpException ?: return error
-//            val httpCode = httpException.code()
-            val errorBody = httpException.response().errorBody() ?: return error
+            val errorBody = httpException.response()?.errorBody() ?: return error
             val adapter = Gson().getAdapter(ErrorData::class.java)
             return adapter.fromJson(errorBody.string())
         } catch (e: Exception) {

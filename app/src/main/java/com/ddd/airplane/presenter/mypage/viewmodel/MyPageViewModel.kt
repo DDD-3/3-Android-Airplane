@@ -1,21 +1,22 @@
 package com.ddd.airplane.presenter.mypage.viewmodel
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.*
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DiffUtil
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.SubscribeData
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import timber.log.Timber
-import java.util.concurrent.Executors
 
 class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
@@ -24,7 +25,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val nickName: LiveData<String> = _nickName
 
     // 구독 리스트
-    private val subscribeList = ArrayList<ChatRoomData>()
+    private val subscribeList = ArrayList<ProgramData>()
     private val _isSubscribe = MutableLiveData<Boolean>()
     val isSubscribe: LiveData<Boolean> = _isSubscribe
 
@@ -48,7 +49,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
      */
     private fun getSubscribe(
         position: Int = 1,
-        listener: ((List<ChatRoomData>, Int) -> Unit)? = null
+        listener: ((List<ProgramData>, Int) -> Unit)? = null
     ) {
 
         Timber.d("position : $position")
@@ -91,14 +92,14 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     /**
      * Data Factory
      */
-    private val dataSourceFactory = object : DataSource.Factory<Int, ChatRoomData>() {
-        override fun create(): DataSource<Int, ChatRoomData> {
+    private val dataSourceFactory = object : DataSource.Factory<Int, ProgramData>() {
+        override fun create(): DataSource<Int, ProgramData> {
 
-            return object : PageKeyedDataSource<Int, ChatRoomData>() {
+            return object : PageKeyedDataSource<Int, ProgramData>() {
 
                 override fun loadInitial(
                     params: LoadInitialParams<Int>,
-                    callback: LoadInitialCallback<Int, ChatRoomData>
+                    callback: LoadInitialCallback<Int, ProgramData>
                 ) {
                     Timber.d("loadInitial : $params")
                     getSubscribe(1) { list, pageNum ->
@@ -108,7 +109,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
                 override fun loadBefore(
                     params: LoadParams<Int>,
-                    callback: LoadCallback<Int, ChatRoomData>
+                    callback: LoadCallback<Int, ProgramData>
                 ) {
                     Timber.d("loadBefore : $params")
                     getSubscribe(params.key) { list, pageNum ->
@@ -118,7 +119,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
                 override fun loadAfter(
                     params: LoadParams<Int>,
-                    callback: LoadCallback<Int, ChatRoomData>
+                    callback: LoadCallback<Int, ProgramData>
                 ) {
 //                    Timber.d("loadAfter : $params")
 //                    getSubscribe(params.key) { list, pageNum ->
@@ -134,14 +135,14 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
      * Live Paged List
      */
     val pagedList = LivePagedListBuilder(dataSourceFactory, pageListConfig)
-        .setBoundaryCallback(object : PagedList.BoundaryCallback<ChatRoomData>() {
+        .setBoundaryCallback(object : PagedList.BoundaryCallback<ProgramData>() {
 
-            override fun onItemAtFrontLoaded(itemAtFront: ChatRoomData) {
+            override fun onItemAtFrontLoaded(itemAtFront: ProgramData) {
                 super.onItemAtFrontLoaded(itemAtFront)
                 Timber.d("onItemAtFrontLoaded")
             }
 
-            override fun onItemAtEndLoaded(itemAtEnd: ChatRoomData) {
+            override fun onItemAtEndLoaded(itemAtEnd: ProgramData) {
                 super.onItemAtEndLoaded(itemAtEnd)
                 Timber.d("onItemAtEndLoaded")
             }
@@ -156,18 +157,18 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     /**
      * Diff Callback
      */
-    val diffCallback: DiffUtil.ItemCallback<ChatRoomData> =
-        object : DiffUtil.ItemCallback<ChatRoomData>() {
+    val diffCallback: DiffUtil.ItemCallback<ProgramData> =
+        object : DiffUtil.ItemCallback<ProgramData>() {
             override fun areItemsTheSame(
-                oldItem: ChatRoomData,
-                newItem: ChatRoomData
+                oldItem: ProgramData,
+                newItem: ProgramData
             ): Boolean {
                 return oldItem.roomId == newItem.roomId
             }
 
             override fun areContentsTheSame(
-                oldItem: ChatRoomData,
-                newItem: ChatRoomData
+                oldItem: ProgramData,
+                newItem: ProgramData
             ): Boolean {
                 return oldItem.roomId == newItem.roomId
             }

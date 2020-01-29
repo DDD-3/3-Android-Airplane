@@ -8,7 +8,7 @@ import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeHorizontalBinding
 import com.ddd.airplane.databinding.ThumbnailGeneralItemBinding
@@ -28,7 +28,7 @@ class HorizontalViewHolder(
     private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeHorizontalBinding
     private var itemData = HomeData.ItemData()
-    private val bannerList = ArrayList<ChatRoomData>()
+    private val bannerList = ArrayList<ProgramData>()
 
     fun onBind(item: HomeData.ItemData?) {
         tryCatch {
@@ -41,7 +41,7 @@ class HorizontalViewHolder(
         tryCatch {
             item?.let {
                 itemData = it
-                bannerList.addAll(it.item as ArrayList<ChatRoomData>)
+                bannerList.addAll(it.item as ArrayList<ProgramData>)
                 Timber.d(bannerList.toString())
             }
         }
@@ -61,7 +61,7 @@ class HorizontalViewHolder(
             )
 
             val listAdapter = object :
-                BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGeneralItemBinding>(R.layout.thumbnail_general_item) {
+                BaseRecyclerViewAdapter<ProgramData, ThumbnailGeneralItemBinding>(R.layout.thumbnail_general_item) {
             }.apply {
                 setOnItemClickListener { view, data ->
                     context.showToast(data?.roomId.toString())

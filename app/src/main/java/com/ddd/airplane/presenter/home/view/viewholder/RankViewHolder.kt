@@ -7,7 +7,7 @@ import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.loadImage
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeRankBinding
 import com.ddd.airplane.databinding.HomeRankItemBinding
@@ -27,7 +27,7 @@ class RankViewHolder(
     private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeRankBinding
     private var itemData = HomeData.ItemData()
-    private val bannerList = ArrayList<ChatRoomData>()
+    private val bannerList = ArrayList<ProgramData>()
 
     fun onBind(item: HomeData.ItemData?) {
         tryCatch {
@@ -40,7 +40,7 @@ class RankViewHolder(
         tryCatch {
             item?.let {
                 itemData = it
-                bannerList.addAll(it.item as ArrayList<ChatRoomData>)
+                bannerList.addAll(it.item as ArrayList<ProgramData>)
                 Timber.d(bannerList.toString())
             }
         }
@@ -53,10 +53,10 @@ class RankViewHolder(
 
         view.rv_rank.run {
             val listAdapter = object :
-                BaseRecyclerViewAdapter<ChatRoomData, HomeRankItemBinding>(R.layout.home_rank_item) {
+                BaseRecyclerViewAdapter<ProgramData, HomeRankItemBinding>(R.layout.home_rank_item) {
                 override fun onBindData(
                     position: Int,
-                    data: ChatRoomData?,
+                    data: ProgramData?,
                     dataBinding: HomeRankItemBinding
                 ) {
                     dataBinding.run {

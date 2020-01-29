@@ -7,7 +7,7 @@ import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeGridBinding
 import com.ddd.airplane.databinding.ThumbnailGridItemBinding
@@ -26,7 +26,7 @@ class GridViewHolder(
 
     private val binding = viewDataBinding as HomeGridBinding
     private var itemData = HomeData.ItemData()
-    private val bannerList = ArrayList<ChatRoomData>()
+    private val bannerList = ArrayList<ProgramData>()
 
     fun onBind(item: HomeData.ItemData?) {
         tryCatch {
@@ -39,7 +39,7 @@ class GridViewHolder(
         tryCatch {
             item?.let {
                 itemData = it
-                bannerList.addAll(it.item as ArrayList<ChatRoomData>)
+                bannerList.addAll(it.item as ArrayList<ProgramData>)
                 Timber.d(bannerList.toString())
             }
         }
@@ -62,7 +62,7 @@ class GridViewHolder(
                 )
 
                 val listAdapter = object :
-                    BaseRecyclerViewAdapter<ChatRoomData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
+                    BaseRecyclerViewAdapter<ProgramData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
                 }.apply {
                     setOnItemClickListener { view, data ->
                         context.showToast(data?.roomId.toString())

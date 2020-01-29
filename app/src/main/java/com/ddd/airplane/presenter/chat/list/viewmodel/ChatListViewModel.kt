@@ -4,24 +4,23 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ddd.airplane.common.base.BaseViewModel
-import com.ddd.airplane.data.response.chat.ChatRoomData
-import com.ddd.airplane.data.response.chat.SubjectData
+import com.ddd.airplane.data.response.chat.ProgramData
 
 class ChatListViewModel(application: Application) : BaseViewModel(application) {
 
     // 채팅 리스트
-    private val _chatList = MutableLiveData<ArrayList<ChatRoomData>>()
-    val chatList: LiveData<ArrayList<ChatRoomData>> = _chatList
+    private val _chatList = MutableLiveData<ArrayList<ProgramData>>()
+    val chatList: LiveData<ArrayList<ProgramData>> = _chatList
 
     /**
      * 채팅 리스트
      */
     fun getChatList() {
 
-        val list = ArrayList<ChatRoomData>().apply {
+        val list = ArrayList<ProgramData>().apply {
 
             add(
-                ChatRoomData(
+                ProgramData(
                     roomUserCount = 140,
                     subjectName = "남산의 부장",
                     subjectDescription = "“각하,  제가 어떻게 하길 원하십니까”\n" +
@@ -35,7 +34,7 @@ class ChatListViewModel(application: Application) : BaseViewModel(application) {
             )
 
             add(
-                ChatRoomData(
+                ProgramData(
                     roomUserCount = 423,
                     subjectName = "히트맨",
                     subjectDescription = "웹툰 작가가 되고 싶어 국정원을 탈출한 \n" +
@@ -49,7 +48,7 @@ class ChatListViewModel(application: Application) : BaseViewModel(application) {
             )
 
             add(
-                ChatRoomData(
+                ProgramData(
                     roomUserCount = 10,
                     subjectName = "미스터 주- 사라진 VIP",
                     subjectDescription = "동물의 말이 들리는 순간, \n" +

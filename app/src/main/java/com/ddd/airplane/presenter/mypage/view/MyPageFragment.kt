@@ -8,7 +8,7 @@ import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BasePagedListAdapter
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
-import com.ddd.airplane.data.response.chat.ChatRoomData
+import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import kotlinx.android.synthetic.main.mypage_fragment.*
@@ -44,7 +44,7 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
         /**
          * PagedList Adapter
          */
-        val pagedAdapter = object : BasePagedListAdapter<ChatRoomData>(
+        val pagedAdapter = object : BasePagedListAdapter<ProgramData>(
             R.layout.thumbnail_grid_item,
             viewModel.diffCallback
         ) {
