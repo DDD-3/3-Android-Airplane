@@ -32,7 +32,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override fun initLayout() {
         tv_send_msg.setOnClickListener(this)
-        ib_hold_info.setOnClickListener(this)
+        iv_hold_info.setOnClickListener(this)
         tv_subscribe_room.setOnClickListener(this)
         tv_subscribe_cancel_room.setOnClickListener(this)
         et_chat_msg.onFocusChangeListener = this
@@ -82,7 +82,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 et_chat_msg.text.clear()
                 DeviceUtils.hideKeyboard(v)
             }
-            R.id.ib_hold_info -> {
+            R.id.iv_hold_info -> {
                 cl_info_second.visibility =
                     if (cl_info_second.visibility == View.GONE) View.VISIBLE else View.GONE
                 cl_info_third.visibility =

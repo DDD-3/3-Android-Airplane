@@ -8,4 +8,5 @@ object ServerUrl {
     const val WEB_SOCKET = "/ws/websocket"
     const val SUBSCRIBE_ROOM = "/topic/room/"
     const val SEND_MSG = "/app/room/"
+
 }

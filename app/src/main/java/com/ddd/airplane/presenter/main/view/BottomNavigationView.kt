@@ -2,7 +2,6 @@ package com.ddd.airplane.presenter.main.view
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.replace
@@ -56,7 +55,7 @@ class BottomNavigationView @JvmOverloads constructor(
                     homeFragment
                 }
                 R.id.main_navi_item_search -> { // 검색
-                    null
+                    searchFragment
                 }
                 else -> {
                     null

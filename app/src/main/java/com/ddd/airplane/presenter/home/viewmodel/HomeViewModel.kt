@@ -38,7 +38,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 //
         RetrofitManager
             .general
-            .getHomeList()
+            .getHome()
             .request(this, object : OnResponseListener<HomeData> {
 
                 override fun onSuccess(response: HomeData) {

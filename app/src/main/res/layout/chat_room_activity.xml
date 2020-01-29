@@ -71,7 +71,7 @@
                     tools:text="‘사위 사랑’ 이상화, 강남 먹방에 행복" />
 
                 <ImageView
-                    android:id="@+id/ib_hold_info"
+                    android:id="@+id/iv_hold_info"
                     android:layout_width="19dp"
                     android:layout_height="10dp"
                     android:src="@drawable/ic_arrow_side_grey"
