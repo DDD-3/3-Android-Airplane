@@ -45,6 +45,7 @@ class RectangleViewHolder(
     }
 
     private fun initLayout() {
+
         bannerData?.let {
             view.iv_thumbnail.loadImage(
                 it.thumbnailUrl,

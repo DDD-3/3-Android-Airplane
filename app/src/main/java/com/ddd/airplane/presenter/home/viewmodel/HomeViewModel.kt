@@ -79,25 +79,40 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         tryCatch {
             list?.forEach { data ->
                 when (data.homeStyle) {
+                    // 상단 메인 배너
                     Home.Style.TOP_BANNER -> {
                         data.item = RequestManager.convertList(
                             data.item as ArrayList<LinkedTreeMap<String, Any>>,
                             BannerData::class.java
-                        )
+                        ).apply {
+                            if (isNullOrEmpty()) {
+                                data.homeStyle = Home.Style.EMPTY
+                            }
+                        }
                     }
 
+                    // 직사각형배너
                     Home.Style.RECTANGLE_BANNER -> {
                         data.item = RequestManager.convertData(
                             data.item as LinkedTreeMap<String, Any>,
                             BannerData::class.java
-                        )
+                        ).apply {
+                            if (this == null) {
+                                data.homeStyle = Home.Style.EMPTY
+                            }
+                        }
                     }
 
+                    // 기타
                     Home.Style.HORIZONTAL, Home.Style.GRID, Home.Style.RANK -> {
                         data.item = RequestManager.convertList(
                             data.item as ArrayList<LinkedTreeMap<String, Any>>,
                             ProgramData::class.java
-                        )
+                        ).apply {
+                            if (isNullOrEmpty()) {
+                                data.homeStyle = Home.Style.EMPTY
+                            }
+                        }
                     }
 
                     else -> {

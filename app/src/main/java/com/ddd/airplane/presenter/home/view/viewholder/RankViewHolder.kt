@@ -1,5 +1,6 @@
 package com.ddd.airplane.presenter.home.view.viewholder
 
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R

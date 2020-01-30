@@ -52,7 +52,9 @@ class HorizontalViewHolder(
     private fun initLayout() {
 
         // 타이틀
-        binding.title = itemData.title
+        binding.run {
+            title = itemData.title
+        }
 
         view.rv_horizontal.run {
             addItemDecoration(

@@ -13,6 +13,7 @@ import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeGridBinding
 import com.ddd.airplane.databinding.ThumbnailGridItemBinding
+import kotlinx.android.synthetic.main.home_grid.view.*
 import timber.log.Timber
 
 /**
@@ -26,6 +27,7 @@ class GridViewHolder(
     private val span: Int = 2
 ) : RecyclerView.ViewHolder(viewDataBinding.root) {
 
+    private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeGridBinding
     private var itemData = HomeData.ItemData()
     private val bannerList = ArrayList<ProgramData>()
@@ -53,43 +55,43 @@ class GridViewHolder(
         binding.run {
             title = itemData.title
             spanCount = span
+        }
 
-            rvGrid.run {
-                setHasFixedSize(true)
-                addItemDecoration(
-                    DividerItemGrid(
-                        2,
-                        context.resources.getDimensionPixelSize(R.dimen.dp16)
-                    )
+        view.rv_grid.run {
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemGrid(
+                    2,
+                    context.resources.getDimensionPixelSize(R.dimen.dp16)
                 )
+            )
 
-                val listAdapter = object :
-                    BaseRecyclerViewAdapter<ProgramData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
+            val listAdapter = object :
+                BaseRecyclerViewAdapter<ProgramData, ThumbnailGridItemBinding>(R.layout.thumbnail_grid_item) {
 
-                    override fun onBindData(
-                        position: Int,
-                        data: ProgramData?,
-                        dataBinding: ThumbnailGridItemBinding
-                    ) {
-                        data?.let {
-                            dataBinding.ivThumbnail.loadImage(
-                                it.subjectThumbnailUrl,
-                                corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
-                            )
-                        }
-                    }
-
-                }.apply {
-                    setOnItemClickListener { view, data ->
-                        data?.let {
-                            ChatRoomManager.joinChatRoom(context, it.roomId)
-                        } ?: context?.showToast(R.string.error_chat_data)
+                override fun onBindData(
+                    position: Int,
+                    data: ProgramData?,
+                    dataBinding: ThumbnailGridItemBinding
+                ) {
+                    data?.let {
+                        dataBinding.ivThumbnail.loadImage(
+                            it.subjectThumbnailUrl,
+                            corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
+                        )
                     }
                 }
 
-                adapter = listAdapter
-                listAdapter.addAllItem(bannerList)
+            }.apply {
+                setOnItemClickListener { view, data ->
+                    data?.let {
+                        ChatRoomManager.joinChatRoom(context, it.roomId)
+                    } ?: context?.showToast(R.string.error_chat_data)
+                }
             }
+
+            adapter = listAdapter
+            listAdapter.addAllItem(bannerList)
         }
     }
 }

@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     override fun initLayout() {
         rv_home.run {
-            addItemDecoration(DividerItemSpace(space = context.resources.getDimensionPixelSize(R.dimen.dp40)))
+//            addItemDecoration(DividerItemSpace(space = context.resources.getDimensionPixelSize(R.dimen.dp40)))
             adapter = homeAdapter
         }
     }
