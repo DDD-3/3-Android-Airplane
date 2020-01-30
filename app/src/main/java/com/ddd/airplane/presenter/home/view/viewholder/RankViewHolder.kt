@@ -6,6 +6,7 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.loadImage
 import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.HomeData
@@ -66,7 +67,9 @@ class RankViewHolder(
                 }
             }.apply {
                 setOnItemClickListener { view, data ->
-                    context.showToast(data?.roomId.toString())
+                    data?.let {
+                        ChatRoomManager.joinChatRoom(context, it.roomId)
+                    } ?: context?.showToast(R.string.error_chat_data)
                 }
             }
 

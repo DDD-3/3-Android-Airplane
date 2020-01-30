@@ -22,7 +22,10 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     private var searchFor: String? = null
 
     // list
-    var searchPagedList = LivePagedListBuilder(getDataSourceFactory(), getPageListConfig()).build()
+    var searchPagedList =
+        LivePagedListBuilder(getSearchDataSourceFactory(), getPageListConfig()).build()
+    var manyPagedList =
+        LivePagedListBuilder(getManyDataSourceFactory(), getPageListConfig()).build()
 
     // 검색결과 여부
     private val _isEmpty = MutableLiveData<Boolean>()
@@ -62,7 +65,8 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
      * 검색 초기화
      */
     private fun initSearch() {
-        searchPagedList = LivePagedListBuilder(getDataSourceFactory(), getPageListConfig()).build()
+        searchPagedList =
+            LivePagedListBuilder(getSearchDataSourceFactory(), getPageListConfig()).build()
         _isSearchAdapter.value = false
     }
 
@@ -87,13 +91,35 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     pageNum = position
                 )
 
-            Timber.d(">> ${response.body()?.items.toString()}")
-
             if (response.isSuccessful) {
                 val pageNum = response.body()?.pageInfo?.pageNum ?: 1
                 val list = response.body()?.items?.toMutableList() ?: mutableListOf()
                 listener?.invoke(list, pageNum)
             }
+        }
+    }
+
+    /**
+     * 많이 참여한 방송 Request
+     */
+    private fun getManyList(
+        position: Int = 1,
+        listener: ((List<ProgramData>, Int) -> Unit)? = null
+    ) {
+        viewModelScope.launch(ioDispatchers) {
+
+//            val response = RetrofitManager
+//                .general
+//                .getSearch(
+//                    query = searchFor!!,
+//                    pageNum = position
+//                )
+//
+//            if (response.isSuccessful) {
+//                val pageNum = response.body()?.pageInfo?.pageNum ?: 1
+//                val list = response.body()?.items?.toMutableList() ?: mutableListOf()
+//                listener?.invoke(list, pageNum)
+//            }
         }
     }
 
@@ -108,9 +134,9 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         .build()
 
     /**
-     * DataSourceFactory
+     * 검색 DataSourceFactory
      */
-    private fun getDataSourceFactory() = object : DataSource.Factory<Int, ProgramData>() {
+    private fun getSearchDataSourceFactory() = object : DataSource.Factory<Int, ProgramData>() {
 
         override fun create(): DataSource<Int, ProgramData> {
 
@@ -140,14 +166,51 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-//                    Timber.d("loadAfter : $params")
-//                    getSubscribe(params.key) { list, pageNum ->
-//                        callback.onResult(list, pageNum.minus(1))
-//                    }
+
                 }
             }
         }
     }
+
+    /**
+     * 많이 참여한 방송 DataSourceFactory
+     */
+    private fun getManyDataSourceFactory() = object : DataSource.Factory<Int, ProgramData>() {
+
+        override fun create(): DataSource<Int, ProgramData> {
+
+            return object : PageKeyedDataSource<Int, ProgramData>() {
+
+                override fun loadInitial(
+                    params: LoadInitialParams<Int>,
+                    callback: LoadInitialCallback<Int, ProgramData>
+                ) {
+                    Timber.d("loadInitial : $params")
+                    getSearchList(1) { list, pageNum ->
+                        callback.onResult(list, null, pageNum)
+                    }
+                }
+
+                override fun loadBefore(
+                    params: LoadParams<Int>,
+                    callback: LoadCallback<Int, ProgramData>
+                ) {
+                    Timber.d("loadBefore : $params")
+                    getSearchList(params.key) { list, pageNum ->
+                        callback.onResult(list, pageNum.plus(1))
+                    }
+                }
+
+                override fun loadAfter(
+                    params: LoadParams<Int>,
+                    callback: LoadCallback<Int, ProgramData>
+                ) {
+
+                }
+            }
+        }
+    }
+
 
     /**
      * Diff Callback

@@ -154,6 +154,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
         })
 
         // viewPager
+        // 채널 보여줌
         viewPager.apply {
             adapter = object :
 
@@ -164,7 +165,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                     data: ScheduleData.Type?,
                     dataBinding: ScheduleRoomItemBinding
                 ) {
-                    dataBinding.position = position
+
                 }
             }
 

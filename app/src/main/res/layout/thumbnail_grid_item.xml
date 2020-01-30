@@ -45,7 +45,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{item.subjectDescription}"
+                android:text="@{item.subjectName}"
                 android:textColor="@color/brand_white"
                 android:textSize="14dp"
                 app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"

@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="position"
-            type="int" />
+            name="item"
+            type="com.ddd.airplane.data.response.chat.ProgramData" />
 
     </data>
 
@@ -25,12 +25,5 @@
             app:spanCount="2"
             tools:itemCount="10"
             tools:listitem="@layout/thumbnail_grid_item" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@{String.valueOf(position)}"
-            android:textColor="@color/brand_white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,6 +4,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
 import com.ddd.airplane.common.extension.loadImage
+import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
@@ -24,7 +26,7 @@ class RectangleViewHolder(
     private val context = viewDataBinding.root.context
     private val view = viewDataBinding.root
     private val binding = viewDataBinding as HomeRectangleBinding
-    private var itemData = HomeData.ItemData()
+    private var bannerData: BannerData? = null
 
     fun onBind(item: HomeData.ItemData?) {
         tryCatch {
@@ -36,20 +38,24 @@ class RectangleViewHolder(
     private fun initData(item: HomeData.ItemData?) {
         tryCatch {
             item?.let {
-                itemData = it
-                Timber.d(itemData.toString())
+                bannerData = it.item as BannerData
+                Timber.d(bannerData.toString())
             }
         }
     }
 
     private fun initLayout() {
-        view.iv_thumbnail.loadImage(
-            (itemData.item as BannerData?)?.thumbnailUrl,
-            corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
-        )
+        bannerData?.let {
+            view.iv_thumbnail.loadImage(
+                it.thumbnailUrl,
+                corners = context.resources.getDimensionPixelSize(R.dimen.dp4)
+            )
+        }
 
         view.cl_container.setOnClickListener {
-
+            bannerData?.let {
+                ChatRoomManager.joinChatRoom(context, it.roomId)
+            } ?: context?.showToast(R.string.error_chat_data)
         }
     }
 }

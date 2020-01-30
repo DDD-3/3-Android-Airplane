@@ -5,5 +5,6 @@ package com.ddd.airplane.data.response.home
  */
 data class BannerData(
     var title: String? = null,
-    var thumbnailUrl: String? = null
+    var thumbnailUrl: String? = null,
+    val roomId: Long?
 )

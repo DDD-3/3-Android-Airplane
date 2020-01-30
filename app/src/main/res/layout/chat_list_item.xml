@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:maxLines="2"
-            android:text="@{item.subjectDescription}"
+            android:text="@{item.subjectName}"
             android:textColor="@color/brand_white"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"

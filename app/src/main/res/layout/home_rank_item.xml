@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{item.subjectThumbnailUrl}"
+                    android:text="@{item.subjectName}"
                     android:textColor="@color/brand_white"
                     app:layout_constraintBottom_toTopOf="@id/cv_subscribe"
                     app:layout_constraintRight_toRightOf="parent"

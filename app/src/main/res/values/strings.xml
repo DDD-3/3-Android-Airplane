@@ -21,8 +21,9 @@
     <!-- error -->
     <string name="error_network_response_error">네트워크 통신을 실패했어요</string>
     <string name="error_network_response_null">네트워크 통신을 실패했어요</string>
-    <string name="error_network_response_retry">다시 시도해주세요.</string>
-    <string name="error_info">정보를 불러올 수 없습니다.</string>
+    <string name="error_network_response_retry">다시 시도해주세요</string>
+    <string name="error_info">정보를 불러올 수 없어요</string>
+    <string name="error_chat_data">채팅 정보를 불러올 수 없어요</string>
 
     <string name="home_rank_info">활동 참여자 기준으로 집계합니다.</string>
     <string name="home_hot_info">활동 참여자 기준으로 집계합니다.</string>

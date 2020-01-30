@@ -12,6 +12,7 @@
 
     </data>
 
+    <!-- 방송사별, 주제별 -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"

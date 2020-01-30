@@ -27,7 +27,7 @@
             android:paddingTop="8dp"
             android:paddingEnd="28dp"
             android:paddingBottom="8dp"
-            android:text="@{item.subjectDescription}"
+            android:text="@{item.subjectName}"
             android:textColor="@color/brand_white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

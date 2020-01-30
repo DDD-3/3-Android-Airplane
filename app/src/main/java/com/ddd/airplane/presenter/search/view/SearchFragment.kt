@@ -8,12 +8,17 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BasePagedListAdapter
 import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 검색
@@ -38,7 +43,7 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
         cl_delete.setOnClickListener(this)
 
         // adapter
-        rv_search.apply {
+        rv_many.apply {
             setHasFixedSize(true)
             addItemDecoration(
                 DividerItemSpace(
@@ -55,13 +60,19 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
 
     override fun onResume() {
         super.onResume()
-        DeviceUtils.showKeyboard(binding.root)
         et_search.requestFocus()
+//        CoroutineScope(Dispatchers.Main).launch {
+//            delay(300)
+        DeviceUtils.showKeyboard(et_search)
+//        }
     }
 
     override fun onPause() {
-        DeviceUtils.hideKeyboard(binding.root)
         et_search.clearFocus()
+//        CoroutineScope(Dispatchers.Main).launch {
+//            delay(300)
+        DeviceUtils.hideKeyboard(et_search)
+//        }
         super.onPause()
     }
 
@@ -75,6 +86,35 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
          */
         val pagedAdapter = object : BasePagedListAdapter<ProgramData>(
             R.layout.search_item,
+            viewModel.diffCallback
+        ) {
+
+        }.apply {
+            setOnItemClickListener { view, data ->
+                data?.let {
+                    ChatRoomManager.joinChatRoom(context, it.roomId)
+                } ?: context?.showToast(R.string.error_chat_data)
+            }
+        }
+
+        // adapter
+        rv_search.adapter = pagedAdapter
+
+        viewModel.searchPagedList.observe(viewLifecycleOwner, Observer {
+            pagedAdapter.submitList(it)
+        })
+    }
+
+    /**
+     * 많이 참여한 방송 RecyclerView Paged List 설정
+     */
+    private fun setManyPagedList() {
+
+        /**
+         * PagedList Adapter
+         */
+        val pagedAdapter = object : BasePagedListAdapter<ProgramData>(
+            R.layout.thumbnail_general_item,
             viewModel.diffCallback
         ) {
 
