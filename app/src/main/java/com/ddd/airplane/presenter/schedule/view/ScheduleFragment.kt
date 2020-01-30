@@ -143,13 +143,13 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Timber.d("onTabSelected : ${tab?.position}")
+                Timber.d(">> onTabSelected : ${tab?.position}")
                 val position = tab?.position ?: 0
                 viewPager.setCurrentItem(position, false)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Timber.d("onTabUnselected : ${tab?.position}")
+                Timber.d(">> onTabUnselected : ${tab?.position}")
             }
         })
 
@@ -181,7 +181,7 @@ class ScheduleFragment : BaseFragment<ScheduleFragmentBinding, ScheduleViewModel
                 }
 
                 override fun onPageSelected(position: Int) {
-                    Timber.d("onPageSelected : $position")
+                    Timber.d(">> onPageSelected : $position")
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {

@@ -6,8 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ddd.airplane.repository.database.member.MemberDao
 import com.ddd.airplane.repository.database.member.MemberEntity
+import com.ddd.airplane.repository.database.recent.RecentDao
+import com.ddd.airplane.repository.database.recent.RecentEntity
 
-@Database(entities = [MemberEntity::class], version = 1)
+@Database(entities = [MemberEntity::class, RecentEntity::class], version = 1)
 abstract class RoomManager : RoomDatabase() {
 
     companion object {
@@ -30,4 +32,5 @@ abstract class RoomManager : RoomDatabase() {
     }
 
     abstract fun memberDao(): MemberDao
+    abstract fun recentDao(): RecentDao
 }

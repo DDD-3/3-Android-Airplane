@@ -7,6 +7,7 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BasePagedListAdapter
 import com.ddd.airplane.common.extension.showToast
+import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.common.views.decoration.DividerItemGrid
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.MypageFragmentBinding
@@ -51,7 +52,7 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
         }.apply {
             setOnItemClickListener { view, data ->
-                context?.showToast(data?.roomId.toString())
+                ChatRoomManager.joinChatRoom(context, data)
             }
         }
 

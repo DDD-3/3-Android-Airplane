@@ -6,7 +6,6 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseFragment
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.extension.showToast
-import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.ChatListFragmentBinding
 import com.ddd.airplane.databinding.ChatListItemBinding
@@ -26,11 +25,9 @@ class ChatListFragment : BaseFragment<ChatListFragmentBinding, ChatListViewModel
 
     override fun initDataBinding() {
         super.initDataBinding()
-
     }
 
     override fun initLayout() {
-        btn_test.setOnClickListener(this)
 
         rv_chat.apply {
             setHasFixedSize(true)
@@ -51,9 +48,7 @@ class ChatListFragment : BaseFragment<ChatListFragmentBinding, ChatListViewModel
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_test -> {
-                ChatRoomManager.joinChatRoom(activity, 2)
-            }
+
         }
     }
 }

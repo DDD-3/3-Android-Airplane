@@ -15,10 +15,6 @@ import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * 검색
@@ -91,9 +87,7 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
 
         }.apply {
             setOnItemClickListener { view, data ->
-                data?.let {
-                    ChatRoomManager.joinChatRoom(context, it.roomId)
-                } ?: context?.showToast(R.string.error_chat_data)
+                ChatRoomManager.joinChatRoom(context, data)
             }
         }
 

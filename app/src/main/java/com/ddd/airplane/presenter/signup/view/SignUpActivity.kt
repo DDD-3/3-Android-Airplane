@@ -83,8 +83,8 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
      * 유효성 체크후 버튼 활성화
      */
     private fun onCheckValid() {
-        Timber.d("Email Valid ${et_email.isValid}")
-        Timber.d("Password Valid ${et_password.isValid}")
+        Timber.d(">> Email Valid ${et_email.isValid}")
+        Timber.d(">> Password Valid ${et_password.isValid}")
         bt_sign_up.isEnabled = et_email.isValid && et_password.isValid
     }
 }

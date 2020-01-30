@@ -1,6 +1,5 @@
 package com.ddd.airplane.presenter.home.view.viewholder
 
-import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd.airplane.R
@@ -68,9 +67,7 @@ class RankViewHolder(
                 }
             }.apply {
                 setOnItemClickListener { view, data ->
-                    data?.let {
-                        ChatRoomManager.joinChatRoom(context, it.roomId)
-                    } ?: context?.showToast(R.string.error_chat_data)
+                    ChatRoomManager.joinChatRoom(context, data)
                 }
             }
 

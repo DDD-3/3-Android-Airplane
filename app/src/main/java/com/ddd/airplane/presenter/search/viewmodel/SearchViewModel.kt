@@ -146,7 +146,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadInitialParams<Int>,
                     callback: LoadInitialCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadInitial : $params")
+                    Timber.d(">> loadInitial : $params")
                     getSearchList(1) { list, pageNum ->
                         callback.onResult(list, null, pageNum)
                     }
@@ -156,7 +156,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadBefore : $params")
+                    Timber.d(">> loadBefore : $params")
                     getSearchList(params.key) { list, pageNum ->
                         callback.onResult(list, pageNum.plus(1))
                     }
@@ -185,7 +185,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadInitialParams<Int>,
                     callback: LoadInitialCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadInitial : $params")
+                    Timber.d(">> loadInitial : $params")
                     getSearchList(1) { list, pageNum ->
                         callback.onResult(list, null, pageNum)
                     }
@@ -195,7 +195,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadBefore : $params")
+                    Timber.d(">> loadBefore : $params")
                     getSearchList(params.key) { list, pageNum ->
                         callback.onResult(list, pageNum.plus(1))
                     }

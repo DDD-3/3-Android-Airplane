@@ -54,9 +54,7 @@ class RectangleViewHolder(
         }
 
         view.cl_container.setOnClickListener {
-            bannerData?.let {
-                ChatRoomManager.joinChatRoom(context, it.roomId)
-            } ?: context?.showToast(R.string.error_chat_data)
+//            ChatRoomManager.joinChatRoom(context, data)
         }
     }
 }

@@ -105,7 +105,7 @@ object TokenManager {
         status: OnNetworkStatusListener?,
         listener: ((Boolean) -> Unit)? = null
     ) {
-        Timber.d("onRefreshToken")
+        Timber.d(">> onRefreshToken")
 
         refreshToken?.let { token ->
 

@@ -80,9 +80,7 @@ class HorizontalViewHolder(
                 }
             }.apply {
                 setOnItemClickListener { view, data ->
-                    data?.let {
-                        ChatRoomManager.joinChatRoom(context, it.roomId)
-                    } ?: context?.showToast(R.string.error_chat_data)
+                    ChatRoomManager.joinChatRoom(context, data)
                 }
             }
 

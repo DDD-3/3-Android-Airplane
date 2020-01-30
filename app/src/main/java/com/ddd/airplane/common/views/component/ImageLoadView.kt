@@ -56,7 +56,7 @@ class ImageLoadView @JvmOverloads constructor(
 
     @SuppressLint("CheckResult")
     fun load(url: String) {
-        Timber.d("load $url")
+        Timber.d(">> load $url")
 
         val glide = Glide.with(iv_succeed)
             .load(url)
@@ -85,7 +85,7 @@ class ImageLoadView @JvmOverloads constructor(
                 isFirstResource: Boolean
             ): Boolean {
                 binding.isLoaded = true
-                Timber.d("onResourceReady $url")
+                Timber.d(">> onResourceReady $url")
                 return false
             }
 
@@ -96,8 +96,8 @@ class ImageLoadView @JvmOverloads constructor(
                 isFirstResource: Boolean
             ): Boolean {
                 binding.isLoaded = false
-                Timber.d("onLoadFailed $url")
-                Timber.d("onLoadFailed ${e?.message}")
+                Timber.d(">> onLoadFailed $url")
+                Timber.d(">> onLoadFailed ${e?.message}")
                 return false
             }
         }).into(iv_succeed)

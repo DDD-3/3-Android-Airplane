@@ -52,7 +52,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
         listener: ((List<ProgramData>, Int) -> Unit)? = null
     ) {
 
-        Timber.d("position : $position")
+        Timber.d(">> position : $position")
         if (position < 1) {
             return
         }
@@ -101,7 +101,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadInitialParams<Int>,
                     callback: LoadInitialCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadInitial : $params")
+                    Timber.d(">> loadInitial : $params")
                     getSubscribe(1) { list, pageNum ->
                         callback.onResult(list, null, pageNum)
                     }
@@ -111,7 +111,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-                    Timber.d("loadBefore : $params")
+                    Timber.d(">> loadBefore : $params")
                     getSubscribe(params.key) { list, pageNum ->
                         callback.onResult(list, pageNum.plus(1))
                     }
@@ -121,7 +121,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-//                    Timber.d("loadAfter : $params")
+//                    Timber.d(">> loadAfter : $params")
 //                    getSubscribe(params.key) { list, pageNum ->
 //                        callback.onResult(list, pageNum.minus(1))
 //                    }
@@ -139,17 +139,17 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
             override fun onItemAtFrontLoaded(itemAtFront: ProgramData) {
                 super.onItemAtFrontLoaded(itemAtFront)
-                Timber.d("onItemAtFrontLoaded")
+                Timber.d(">> onItemAtFrontLoaded")
             }
 
             override fun onItemAtEndLoaded(itemAtEnd: ProgramData) {
                 super.onItemAtEndLoaded(itemAtEnd)
-                Timber.d("onItemAtEndLoaded")
+                Timber.d(">> onItemAtEndLoaded")
             }
 
             override fun onZeroItemsLoaded() {
                 super.onZeroItemsLoaded()
-                Timber.d("onZeroItemsLoaded")
+                Timber.d(">> onZeroItemsLoaded")
             }
         })
         .build()

@@ -35,7 +35,7 @@ object PreferencesManager {
      */
     fun putValue(key: String, value: Any?) {
         tryCatch {
-            Timber.d("key : $key / value : $value")
+            Timber.d(">> key : $key / value : $value")
             val edit = prefs.edit()
             when (value) {
                 is Int -> edit.putInt(key, value)
@@ -68,7 +68,7 @@ object PreferencesManager {
      */
     fun getInt(key: String, defValue: Int = 0): Int {
         prefs.getInt(key, defValue).let {
-            Timber.d("key : $key / value : $it")
+            Timber.d(">> key : $key / value : $it")
             return it
         }
     }
@@ -81,7 +81,7 @@ object PreferencesManager {
      */
     fun getLong(key: String, defValue: Long = 0): Long {
         prefs.getLong(key, defValue).let {
-            Timber.d("key : $key / value : $it")
+            Timber.d(">> key : $key / value : $it")
             return it
         }
     }
@@ -94,7 +94,7 @@ object PreferencesManager {
      */
     fun getFloat(key: String, defValue: Float = (0.0).toFloat()): Float {
         prefs.getFloat(key, defValue).let {
-            Timber.d("key : $key / value : $it")
+            Timber.d(">> key : $key / value : $it")
             return it
         }
     }
@@ -107,7 +107,7 @@ object PreferencesManager {
      */
     fun getBoolean(key: String, defValue: Boolean = false): Boolean {
         prefs.getBoolean(key, defValue).let {
-            Timber.d("key : $key / value : $it")
+            Timber.d(">> key : $key / value : $it")
             return it
         }
     }
@@ -120,7 +120,7 @@ object PreferencesManager {
      */
     fun getString(key: String, defValue: String? = null): String? {
         prefs.getString(key, defValue).let {
-            Timber.d("key : $key / value : $it")
+            Timber.d(">> key : $key / value : $it")
             return it
         }
     }
