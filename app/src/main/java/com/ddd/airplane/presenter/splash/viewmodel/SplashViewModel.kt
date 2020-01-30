@@ -2,7 +2,6 @@ package com.ddd.airplane.presenter.splash.viewmodel
 
 import android.app.Application
 import com.ddd.airplane.common.base.BaseViewModel
-import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.common.manager.TokenManager
 

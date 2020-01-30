@@ -6,18 +6,33 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.ddd.airplane.data.response.chat.ProgramData" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="@color/brand_black">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingStart="28dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="28dp"
+            android:paddingBottom="8dp"
+            android:text="@{item.subjectDescription}"
+            android:textColor="@color/brand_white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="검색결과" />
+            tools:text="호텔" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -22,10 +22,10 @@ interface GeneralService {
      * 검색
      */
     @GET("/api/v1/search")
-    fun getSearch(
+    suspend fun getSearch(
         @Query("query") query: String,
-        @Query("pageNum") pageNum: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageNum") pageNum: Int = 1,
+        @Query("pageSize") pageSize: Int = 10
     ): Response<SearchData>
 
 }

@@ -68,7 +68,7 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
             adapter = pagedAdapter
         }
 
-        viewModel.pagedList.observe(this@MyPageFragment, Observer {
+        viewModel.pagedList.observe(viewLifecycleOwner, Observer {
             pagedAdapter.submitList(it)
         })
     }
