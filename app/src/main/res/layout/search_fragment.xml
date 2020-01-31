@@ -14,9 +14,10 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:background="@color/brand_black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +54,6 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
-                android:onTextChanged="@{(text, start, before, count) -> viewModel.onTextChanged(text, start, before, count)}"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:textColor="@color/brand_white"
@@ -94,7 +94,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_many"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:visibility="gone"
             app:layout_constrainedHeight="true"
@@ -141,18 +141,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- 검색 결과 -->
-        <androidx.recyclerview.widget.RecyclerView
+        <com.ddd.airplane.common.views.component.BoundRecyclerView
             android:id="@+id/rv_search"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:visibility="@{viewModel.isEmpty() ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_search"
-            tools:listitem="@layout/search_item" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            bind:isClear="@{viewModel.isClear}"
+            bind:items="@{viewModel.searchList}"
+            tools:listitem="@layout/search_item"
+            tools:visibility="gone" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

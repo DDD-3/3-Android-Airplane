@@ -28,23 +28,18 @@ fun <T> Response<T>?.request(
     status: OnNetworkStatusListener? = null,
     listener: OnResponseListener<T>? = null
 ): Response<T>? {
-
     val context = status?.context
     this?.let { response ->
-        if (response.isSuccessful) {
-            return response
-        } else {
+        if (!response.isSuccessful) {
             val error = parseErrorBody(context, response.errorBody())
             status?.showToast(error.message)
-
             RequestManager.onError(
                 error, status, listener
             )
         }
     }
-
     status?.showProgress(false)
-    return null
+    return this
 }
 
 /**
