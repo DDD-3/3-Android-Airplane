@@ -5,24 +5,47 @@ import com.ddd.airplane.R
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
-import com.ddd.airplane.repository.network.config.HttpStatus
-import com.ddd.airplane.repository.network.retrofit.RequestManager.parseErrorResponse
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.ErrorData
-import com.ddd.airplane.data.response.home.BannerData
+import com.ddd.airplane.repository.network.config.HttpStatus
+import com.ddd.airplane.repository.network.retrofit.RequestManager.parseErrorBody
 import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.JsonSyntaxException
 import com.google.gson.internal.LinkedTreeMap
-import com.google.gson.internal.Primitives
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.HttpException
+import retrofit2.Response
 import timber.log.Timber
-import java.lang.reflect.Type
+
+/**
+ * 네트워크 통신
+ */
+fun <T> Response<T>?.request(
+    status: OnNetworkStatusListener? = null,
+    listener: OnResponseListener<T>? = null
+): Response<T>? {
+
+    val context = status?.context
+    this?.let { response ->
+        if (response.isSuccessful) {
+            return response
+        } else {
+            val error = parseErrorBody(context, response.errorBody())
+            status?.showToast(error.message)
+
+            RequestManager.onError(
+                error, status, listener
+            )
+        }
+    }
+
+    status?.showProgress(false)
+    return null
+}
 
 /**
  * 네트워크 통신
@@ -73,24 +96,12 @@ fun <T> Single<T>.request(
                 tryCatch {
                     Timber.e("onError($e)")
 
-                    val error = parseErrorResponse(context, e)
-                    // 에러파싱 실패
-                    error?.let {
-                        if (error.status == HttpStatus.UNAUTHORIZED.code) {
-                            // 토큰 재발급
-                            TokenManager.onRefreshToken(status) { isRefresh ->
-                                status?.showToast(
-                                    context?.getString(
-                                        if (isRefresh) R.string.error_network_response_retry
-                                        else R.string.error_network_response_error
-                                    )
-                                )
-                            }
-                        } else {
-                            status?.showToast(it.message)
-                            listener?.onError(it)
-                        }
-                    }
+                    val errorBody = (e as HttpException).response()?.errorBody()
+                    val error = parseErrorBody(context, errorBody)
+
+                    RequestManager.onError(
+                        error, status, listener
+                    )
 
                     status?.showProgress(false)
                 }
@@ -103,7 +114,7 @@ object RequestManager {
     /**
      * 에러 바디 처리
      */
-    fun parseErrorResponse(context: Context?, e: Throwable): ErrorData? {
+    fun parseErrorBody(context: Context?, errorBody: ResponseBody?): ErrorData {
 
         // 에러파싱 실패
         val error = ErrorData(
@@ -113,17 +124,42 @@ object RequestManager {
             message = context?.getString(R.string.error_network_response_error) ?: ""
         )
 
-        try {
-            val httpException = e as? HttpException ?: return error
-            val errorBody = httpException.response()?.errorBody() ?: return error
-            val adapter = Gson().getAdapter(ErrorData::class.java)
-            return adapter.fromJson(errorBody.string())
-        } catch (e: Exception) {
-            Timber.e(e)
+        errorBody?.let {
+            try {
+                val adapter = Gson().getAdapter(ErrorData::class.java)
+                return adapter.fromJson(it.string())
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
         }
 
         return error
     }
+
+    fun <T> onError(
+        error: ErrorData,
+        status: OnNetworkStatusListener? = null,
+        listener: OnResponseListener<T>? = null
+    ) {
+        val context = status?.context
+
+        // 에러파싱 실패
+        if (error.status == HttpStatus.UNAUTHORIZED.code) {
+            // 토큰 재발급
+            TokenManager.onRefreshToken(status) { isRefresh ->
+                status?.showToast(
+                    context?.getString(
+                        if (isRefresh) R.string.error_network_response_retry
+                        else R.string.error_network_response_error
+                    )
+                )
+            }
+        } else {
+            status?.showToast(error.message)
+            listener?.onError(error)
+        }
+    }
+
 
     /**
      * ArrayList<LinkedTreeMap<String, Any>> 를 원하는 class 로 변환함

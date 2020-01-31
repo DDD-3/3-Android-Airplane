@@ -13,6 +13,7 @@ import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.SearchData
 import com.ddd.airplane.data.response.chat.ProgramData
+import com.ddd.airplane.repository.network.GeneralRepository
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -83,19 +84,13 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         }
 
         viewModelScope.launch(ioDispatchers) {
-
-            val response = RetrofitManager
-                .general
-                .getSearch(
-                    query = searchFor!!,
-                    pageNum = position
-                )
-
-            if (response.isSuccessful) {
-                val pageNum = response.body()?.pageInfo?.pageNum ?: 1
-                val list = response.body()?.items?.toMutableList() ?: mutableListOf()
-                listener?.invoke(list, pageNum)
-            }
+            GeneralRepository(this@SearchViewModel)
+                .getSearch(searchFor!!, position)
+                ?.let { response ->
+                    val pageNum = response.body()?.pageInfo?.pageNum ?: 1
+                    val list = response.body()?.items?.toMutableList() ?: mutableListOf()
+                    listener?.invoke(list, pageNum)
+                }
         }
     }
 
@@ -108,7 +103,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     ) {
         viewModelScope.launch(ioDispatchers) {
 
-//            val response = RetrofitManager
+            //            val response = RetrofitManager
 //                .general
 //                .getSearch(
 //                    query = searchFor!!,

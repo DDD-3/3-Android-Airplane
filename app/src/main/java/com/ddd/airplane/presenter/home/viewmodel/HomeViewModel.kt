@@ -77,6 +77,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
      */
     private fun checkItem(list: ArrayList<HomeData.ItemData>?) {
         tryCatch {
+
             list?.forEach { data ->
                 when (data.homeStyle) {
                     // 상단 메인 배너
