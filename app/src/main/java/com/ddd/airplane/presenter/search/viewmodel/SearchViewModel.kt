@@ -64,7 +64,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 검색 초기화
      */
-    private fun initSearch() {
+    fun initSearch() {
         searchPagedList =
             LivePagedListBuilder(getSearchDataSourceFactory(), getPageListConfig()).build()
         _isSearchAdapter.value = false

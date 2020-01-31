@@ -15,6 +15,10 @@ import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.view.KeyEvent
+
 
 /**
  * 검색
@@ -48,6 +52,16 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
                 )
             )
         }
+
+        et_search.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel.initSearch()
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -57,18 +71,12 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
     override fun onResume() {
         super.onResume()
         et_search.requestFocus()
-//        CoroutineScope(Dispatchers.Main).launch {
-//            delay(300)
         DeviceUtils.showKeyboard(et_search)
-//        }
     }
 
     override fun onPause() {
         et_search.clearFocus()
-//        CoroutineScope(Dispatchers.Main).launch {
-//            delay(300)
         DeviceUtils.hideKeyboard(et_search)
-//        }
         super.onPause()
     }
 

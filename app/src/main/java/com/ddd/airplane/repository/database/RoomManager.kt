@@ -9,7 +9,7 @@ import com.ddd.airplane.repository.database.member.MemberEntity
 import com.ddd.airplane.repository.database.recent.RecentDao
 import com.ddd.airplane.repository.database.recent.RecentEntity
 
-@Database(entities = [MemberEntity::class, RecentEntity::class], version = 1)
+@Database(entities = [MemberEntity::class, RecentEntity::class], version = 2, exportSchema = false)
 abstract class RoomManager : RoomDatabase() {
 
     companion object {

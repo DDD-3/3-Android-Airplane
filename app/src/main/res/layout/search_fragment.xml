@@ -50,6 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:maxLines="1"
                 android:onTextChanged="@{(text, start, before, count) -> viewModel.onTextChanged(text, start, before, count)}"
                 android:paddingTop="14dp"

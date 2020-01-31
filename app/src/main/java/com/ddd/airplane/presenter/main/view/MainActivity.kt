@@ -30,6 +30,10 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>(), View.On
 
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
 

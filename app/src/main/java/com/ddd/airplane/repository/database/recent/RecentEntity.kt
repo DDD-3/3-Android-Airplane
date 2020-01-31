@@ -17,5 +17,6 @@ data class RecentEntity(
     val roomId: Long? = 0,
     val subjectName: String? = null,
     val subjectDescription: String? = null,
-    val subjectThumbnailUrl: String? = null
+    val subjectThumbnailUrl: String? = null,
+    val isFloatingClose: Boolean = false // 메인 LIVE 플로팅 종료 여부
 )
