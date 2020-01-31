@@ -9,6 +9,8 @@ import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.data.response.ErrorData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel(application: Application) :
     AndroidViewModel(application),
@@ -26,22 +28,9 @@ abstract class BaseViewModel(application: Application) :
     private val _toast = MutableLiveData<String>()
     val toast: LiveData<String> = _toast
 
+
     override val context: Context
         get() = getApplication()
-
-    /**
-     * CoroutineScope 내부 Exception 처리 Handler
-     */
-    private val coroutineExceptionHandler =
-        CoroutineExceptionHandler { coroutineContext, throwable ->
-            throwable.printStackTrace()
-        }
-
-    /**
-     * Dispatchers 선언 (Normal Dispatchers + CoroutineExceptionHandler)
-     */
-    protected val ioDispatchers = Dispatchers.IO + coroutineExceptionHandler
-    protected val uiDispatchers = Dispatchers.Main + coroutineExceptionHandler
 
     /**
      * Progress
@@ -72,4 +61,23 @@ abstract class BaseViewModel(application: Application) :
         }
     }
 
+    /**
+     * CoroutineScope 내부 Exception 처리 Handler
+     */
+    private val coroutineExceptionHandler =
+        CoroutineExceptionHandler { coroutineContext, throwable ->
+            throwable.printStackTrace()
+        }
+
+    /**
+     * IO Dispatchers
+     */
+    val ioDispatchers: CoroutineContext
+        get() = Dispatchers.IO + coroutineExceptionHandler
+
+    /**
+     * UI Dispatchers
+     */
+    val uiDispatchers: CoroutineContext
+        get() = Dispatchers.Main + coroutineExceptionHandler
 }
