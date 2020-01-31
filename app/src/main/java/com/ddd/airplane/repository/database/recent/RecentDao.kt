@@ -10,9 +10,9 @@ import io.reactivex.Single
 interface RecentDao : BaseDao<RecentEntity> {
 
     @Query("SELECT * FROM RecentEntity")
-    suspend fun select(): List<RecentEntity>
+    suspend fun selectAll(): List<RecentEntity>
 
     @Query("SELECT * FROM RecentEntity LIMIT 1")
-    suspend fun selectToplimit(): RecentEntity
+    suspend fun selectTopLimit(): RecentEntity
 
 }

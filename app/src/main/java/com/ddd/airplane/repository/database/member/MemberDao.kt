@@ -2,6 +2,7 @@ package com.ddd.airplane.repository.database.member
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
 import com.ddd.airplane.common.base.BaseDao
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -10,9 +11,14 @@ import io.reactivex.Single
 interface MemberDao : BaseDao<MemberEntity> {
 
     @Query("SELECT * FROM MemberEntity")
-    fun select(): Single<MemberEntity>
+    suspend fun select(): MemberEntity
 
     @Query("DELETE FROM MemberEntity")
-    fun deleteAll(): Completable
+    suspend fun deleteAll()
 
+    @Transaction
+    suspend fun memberInsert(entity: MemberEntity) {
+        deleteAll()
+        insert(entity)
+    }
 }

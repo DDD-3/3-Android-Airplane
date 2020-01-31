@@ -6,15 +6,17 @@ import android.content.Intent
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.repository.database.member.MemberEntity
-import com.ddd.airplane.repository.database.RoomManager
+import com.ddd.airplane.repository.database.room.RoomManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import com.ddd.airplane.data.response.user.AccountData
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.presenter.signin.view.SignInActivity
+import com.ddd.airplane.repository.database.MemberRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.lang.Exception
 
 /**
  * 회원정보 관리
@@ -25,6 +27,8 @@ object MemberManager {
 
     // 로그인 리스너
     private var sigInInListener: ((Boolean) -> Unit)? = null
+
+    private val repository = MemberRepository()
 
     /**
      * 로그인
@@ -56,30 +60,16 @@ object MemberManager {
      * 계정정보 삭제
      *
      */
-    @SuppressLint("CheckResult")
-    fun removeAccount() {
-        memberDao
-            .deleteAll()
-            .subscribeOn(Schedulers.io())
+    private fun removeAccount() {
+        repository.deleteAll()
     }
 
 
     /**
      * 계정정보
      */
-    @SuppressLint("CheckResult")
-    fun getAccount(listener: ((MemberEntity?) -> Unit)? = null) {
-        memberDao
-            .select()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Timber.d(it.toString())
-                listener?.invoke(it)
-            }, {
-                Timber.e(it)
-                listener?.invoke(null)
-            })
+    suspend fun getAccount(listener: ((MemberEntity?) -> Unit)?) {
+        listener?.invoke(repository.select())
     }
 
     /**
@@ -95,28 +85,19 @@ object MemberManager {
             .getAccounts(email)
             .request(status, object : OnResponseListener<AccountData> {
 
-                @SuppressLint("CheckResult")
                 override fun onSuccess(response: AccountData) {
-
-                    // 기존 정보 지우고 새로 삽입
-                    val delete = memberDao.deleteAll()
-                    val insert = memberDao.insert(
-                        MemberEntity(
-                            response.email ?: "",
-                            response.nickname ?: ""
+                    try {
+                        MemberRepository().insertMember(
+                            MemberEntity(
+                                response.email ?: "",
+                                response.nickname ?: ""
+                            )
                         )
-                    )
-
-                    delete
-                        .concatWith(insert)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            listener?.invoke(true)
-                        }, {
-                            Timber.e(it)
-                            listener?.invoke(false)
-                        })
+                        listener?.invoke(true)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        listener?.invoke(false)
+                    }
                 }
 
                 override fun onError(error: ErrorData) {

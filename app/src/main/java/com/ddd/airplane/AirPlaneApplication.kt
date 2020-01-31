@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.ddd.airplane.common.manager.PreferencesManager
 import com.ddd.airplane.presenter.signin.KakaoSdkAdapter
-import com.ddd.airplane.repository.database.RoomManager
+import com.ddd.airplane.repository.database.room.RoomManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.kakao.auth.KakaoSDK
 import timber.log.Timber

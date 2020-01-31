@@ -10,13 +10,13 @@ import io.reactivex.Completable
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(obj: T): Completable
+    suspend fun insert(obj: T)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
-    fun update(obj: T): Completable
+    suspend fun update(obj: T)
 
     @Delete
-    fun delete(obj: T): Completable
+    suspend fun delete(obj: T)
 
 }
 

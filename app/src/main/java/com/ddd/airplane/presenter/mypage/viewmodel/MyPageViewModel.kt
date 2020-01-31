@@ -3,6 +3,7 @@ package com.ddd.airplane.presenter.mypage.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
@@ -16,6 +17,7 @@ import com.ddd.airplane.data.response.SubscribeData
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MyPageViewModel(application: Application) : BaseViewModel(application) {
@@ -37,9 +39,11 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
      * 프로필 정보 세팅
      */
     private fun setProfile() {
-        MemberManager.getAccount {
-            it?.run {
-                _nickName.postValue(nickName)
+        viewModelScope.launch(uiDispatchers) {
+            MemberManager.getAccount {
+                it?.run {
+                    _nickName.postValue(nickName)
+                }
             }
         }
     }

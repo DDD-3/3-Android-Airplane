@@ -1,6 +1,5 @@
 package com.ddd.airplane.presenter.home.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -12,8 +11,7 @@ import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.presenter.home.view.viewholder.*
 
-class HomeAdapter constructor(
-) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     val list = arrayListOf<HomeData.ItemData>()
 
