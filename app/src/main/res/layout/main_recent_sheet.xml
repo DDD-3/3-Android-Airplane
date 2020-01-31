@@ -6,11 +6,15 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd.airplane.presenter.main.viewmodel.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="48dp">
 
         <View
             android:id="@+id/v_divider"
@@ -20,30 +24,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="#2e2e2e"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:background="#2e2e2e"
             android:paddingStart="16dp"
-            android:paddingTop="7dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_divider">
+            app:layout_constraintTop_toBottomOf="@id/v_divider"
+            app:layout_constraintVertical_weight="1">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_live"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shp_rect_r35_strk_brand_white"
-                android:paddingStart="6dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="6dp"
-                android:paddingBottom="3dp"
                 style="@style/font_r"
+                android:layout_width="34dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shp_rect_r35_strk_brand_orange"
+                android:gravity="center"
                 android:text="@string/live"
-                android:textColor="@color/brand_white"
+                android:textColor="@color/brand_orange"
                 android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -53,32 +53,35 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/brand_white"
-                android:textSize="12dp"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 style="@style/font_r"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="4dp"
+                android:text="@{viewModel.recent.subjectName}"
+                android:textColor="@color/brand_white"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@id/tv_live"
                 app:layout_constraintRight_toLeftOf="@id/iv_thumbnail"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:text="‘사위 사랑’ 이상화, 강남 먹방에 행복 지수 UP… ‘사위 사랑’ 이상화, 강남 먹방에 행복 지수 UP…" />
+                tools:text="최근 본 방송" />
 
-            <com.ddd.airplane.common.views.component.ImageLoadView
+            <ImageView
                 android:id="@+id/iv_thumbnail"
-                android:layout_width="48dp"
+                android:layout_width="24dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/tv_title"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                bind:corners="@{@dimen/dp4}"
+                bind:url="@{viewModel.recent.subjectThumbnailUrl}"
                 tools:background="#ff0000" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

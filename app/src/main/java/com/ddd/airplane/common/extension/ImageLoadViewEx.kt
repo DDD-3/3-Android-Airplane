@@ -16,7 +16,7 @@ import timber.log.Timber
 @BindingAdapter(value = ["url", "corners", "circle"], requireAll = false)
 fun ImageView.loadImage(
     url: String?,
-    corners: Int = 0,
+    corners: Float = 0.0f,
     circle: Boolean = false
 ) {
     tryCatch {
@@ -32,7 +32,7 @@ fun ImageView.loadImage(
                     glide.apply(
                         RequestOptions.bitmapTransform(
                             RoundedCorners(
-                                corners
+                                corners.toInt()
                             )
                         )
                     )

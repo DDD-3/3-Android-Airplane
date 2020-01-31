@@ -2,12 +2,10 @@ package com.ddd.airplane.repository.database
 
 import com.ddd.airplane.repository.database.recent.RecentEntity
 import com.ddd.airplane.repository.database.room.RoomManager
-import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.repository.network.retrofit.request
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -19,6 +17,14 @@ class RecentRepository : CoroutineScope {
         get() = Dispatchers.IO
 
     private val db = RoomManager.instance.recentDao()
+
+    /**
+     * 최근 본 방송
+     */
+    suspend fun selectTopLimit() =
+        withContext(CoroutineScope(coroutineContext).coroutineContext) {
+            db.selectTopLimit()
+        }
 
     /**
      * 최근 본 방송 삽입

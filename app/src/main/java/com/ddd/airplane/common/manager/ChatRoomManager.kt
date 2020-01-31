@@ -23,6 +23,17 @@ object ChatRoomManager {
     /**
      * 채팅방 이동
      */
+    fun joinChatRoom(context: Context?, roomId: Long) {
+        // 채팅방 이동
+        Intent(context, ChatRoomActivity::class.java).let {
+            it.putExtra("roomId", roomId)
+            context?.startActivity(it)
+        }
+    }
+
+    /**
+     * 채팅방 이동, DB 저장
+     */
     fun joinChatRoom(context: Context?, program: ProgramData?) {
         program?.let { data ->
             // 채팅방 이동

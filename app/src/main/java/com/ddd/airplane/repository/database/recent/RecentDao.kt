@@ -13,6 +13,6 @@ interface RecentDao : BaseDao<RecentEntity> {
     suspend fun selectAll(): List<RecentEntity>
 
     @Query("SELECT * FROM RecentEntity LIMIT 1")
-    suspend fun selectTopLimit(): RecentEntity
+    suspend fun selectTopLimit(): RecentEntity?
 
 }

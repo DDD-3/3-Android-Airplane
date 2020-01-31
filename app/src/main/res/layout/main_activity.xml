@@ -7,84 +7,90 @@
     <data>
 
         <variable
-            name="vm"
+            name="viewModel"
             type="com.ddd.airplane.presenter.main.viewmodel.MainViewModel" />
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <!-- https://developer.android.com/guide/navigation/navigation-getting-started?hl=ko#kotlin -->
+        <!-- https://www.raywenderlich.com/6014-the-navigation-architecture-component-tutorial-getting-started#toc-anchor-001 -->
+
+        <!-- 최근 본 방송 Bottom Sheet -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <!-- https://developer.android.com/guide/navigation/navigation-getting-started?hl=ko#kotlin -->
-            <!-- https://www.raywenderlich.com/6014-the-navigation-architecture-component-tutorial-getting-started#toc-anchor-001 -->
-
-            <FrameLayout
-                android:id="@+id/fl_main"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:defaultNavHost="true"
-                app:layout_constraintBottom_toTopOf="@id/cl_navi"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintVertical_weight="1"
-                app:navGraph="@navigation/main_nav_graph" />
+                android:layout_height="match_parent">
 
-            <!-- 최근 본 방송 Bottom Sheet -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_recent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/cl_navi"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:visibility="visible">
-
-                <include layout="@layout/main_recent_sheet" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 최근 본 방송 Bottom Sheet -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_navi"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fl_main"
-                tools:visibility="visible">
-
-                <com.ddd.airplane.presenter.main.view.BottomNavigationView
-                    android:id="@+id/bnv_main"
+                <FrameLayout
+                    android:id="@+id/fl_main"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    app:itemIconSize="24dp"
-                    app:itemTextAppearanceActive="@style/navigation_selected"
-                    app:itemTextAppearanceInactive="@style/navigation_unselected"
-                    app:labelVisibilityMode="labeled"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:menu="@menu/main_bottom_menu" />
+                    app:navGraph="@navigation/main_nav_graph"
+                    tools:background="#ff0000" />
 
-                <View
-                    android:id="@+id/v_navi_divider"
-                    style="@style/divider_vertical"
+                <FrameLayout
+                    android:id="@+id/fl_bottom_sheet"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:behavior_hideable="true"
+                    app:behavior_peekHeight="48dp"
+                    app:layout_behavior="@string/bottom_sheet_behavior"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <include
+                        layout="@layout/main_recent_sheet"
+                        bind:viewModel="@{viewModel}" />
+                </FrameLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_navi"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            tools:visibility="visible">
+
+            <com.ddd.airplane.presenter.main.view.BottomNavigationView
+                android:id="@+id/bnv_main"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                app:itemIconSize="24dp"
+                app:itemTextAppearanceActive="@style/navigation_selected"
+                app:itemTextAppearanceInactive="@style/navigation_unselected"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/main_bottom_menu" />
+
+            <View
+                android:id="@+id/v_navi_divider"
+                style="@style/divider_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </layout>

@@ -28,7 +28,6 @@ abstract class BaseViewModel(application: Application) :
     private val _toast = MutableLiveData<String>()
     val toast: LiveData<String> = _toast
 
-
     override val context: Context
         get() = getApplication()
 

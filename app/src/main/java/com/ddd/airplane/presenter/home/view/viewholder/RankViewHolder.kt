@@ -62,7 +62,10 @@ class RankViewHolder(
                 ) {
                     dataBinding.run {
                         rank = position + 1
-                        ivThumbnail.loadImage(data?.subjectThumbnailUrl)
+                        ivThumbnail.loadImage(
+                            data?.subjectThumbnailUrl,
+                            context.resources.getDimension(R.dimen.dp4)
+                        )
                     }
                 }
             }.apply {
