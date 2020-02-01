@@ -21,7 +21,7 @@
             style="@style/font_b"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/brand_white"
+            android:textColor="@{viewModel.textColor}"
             android:textSize="14sp"
             android:text="@{viewModel.senderId}"
             app:layout_constraintLeft_toLeftOf="parent"

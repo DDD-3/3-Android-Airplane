@@ -10,10 +10,10 @@ data class ChatMessageData(
      * 메세지
      */
     data class MessageData(
-        val messageId: Long?,
-        val roomId: Long?,
-        val senderId: String?,
-        val content: String?,
+        var messageId: Long?,
+        var roomId: Long?,
+        var senderId: String?,
+        var content: String?,
         val createAt: String?
     )
 }

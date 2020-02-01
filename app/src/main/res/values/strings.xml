@@ -57,7 +57,6 @@
 
     <string name="chat_msg_hint">대화를 입력하세요.</string>
     <string name="chat_live">LIVE</string>
-    <string name="room_schedule_label">방송날짜 및 시간 :&#160;</string>
     <string name="subscribe">구독하기</string>
     <string name="subscribe_cancel">구독취소</string>
     <string name="msg_divider">&#160;:&#160;</string>

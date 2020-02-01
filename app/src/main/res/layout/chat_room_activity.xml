@@ -156,19 +156,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_schedule_label"
-                        style="@style/font_r"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:text="@string/room_schedule_label"
-                        android:textAlignment="center"
-                        android:textColor="@color/color_828181"
-                        android:textSize="14sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_schedule"
                         style="@style/font_r"
                         android:layout_width="wrap_content"
@@ -178,7 +165,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/color_828181"
                         android:textSize="14sp"
-                        app:layout_constraintLeft_toRightOf="@+id/tv_schedule_label"
+                        app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="2019.05.01-05.03" />
 
@@ -194,7 +181,7 @@
                         android:textColor="@color/color_828181"
                         android:textSize="14sp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_label"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_schedule"
                         tools:text="출연진 : A,B,C,D 등등 한줄정보" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -69,19 +69,20 @@ fun <T> Single<T>.request(
                     // Return
                     response?.let {
                         listener?.onSuccess(response)
-                    } ?: let {
-                        // response 가 null 인 경우
-                        val error = ErrorData(
-                            error = "null",
-                            error_description = "Data is null",
-                            message = context?.getString(R.string.error_network_response_null) ?: ""
-                        )
-
-                        error.let {
-                            status?.showToast(it.message)
-                            listener?.onError(it)
-                        }
                     }
+//                        ?: let {
+//                        // response 가 null 인 경우
+//                        val error = ErrorData(
+//                            error = "null",
+//                            error_description = "Data is null",
+//                            message = context?.getString(R.string.error_network_response_null) ?: ""
+//                        )
+//
+//                        error.let {
+//                            status?.showToast(it.message)
+//                            listener?.onError(it)
+//                        }
+//                    }
 
                     status?.showProgress(false)
                 }
