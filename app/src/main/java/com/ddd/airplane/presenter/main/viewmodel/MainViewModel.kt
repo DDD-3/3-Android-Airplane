@@ -1,6 +1,7 @@
 package com.ddd.airplane.presenter.main.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,7 +20,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val recent: LiveData<RecentEntity> = _recent
 
     // 최근 본 방송 roomId
-    private var recentRoomId: Long = 0
+    private var recentEntity: RecentEntity? = null
 
     fun onResume() {
         getRecent()
@@ -43,7 +44,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                     return@launch
                 }
 
-                recentRoomId = recent.roomId ?: 0
+                recentEntity = recent
                 withContext(Dispatchers.Main) {
                     _recent.value = recent
                 }
@@ -55,14 +56,25 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
      * 최근 본 방송 닫기
      */
     fun setFloatingClose() {
-
+        recentEntity?.let { recent ->
+            viewModelScope.launch {
+                recent.isFloatingClose = true
+                RecentRepository().insertRecent(
+                    recent
+                )
+                recentEntity = null
+            }
+        }
     }
 
     /**
      * 최근 본 방송 접속
+     * TODO. from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want? ... ㅎㅎ
      */
     fun joinChatRoom() {
-        ChatRoomManager.joinChatRoom(context, recentRoomId)
+        recentEntity?.let {
+            ChatRoomManager.joinChatRoom(context, it.roomId)
+        }
     }
 
 }

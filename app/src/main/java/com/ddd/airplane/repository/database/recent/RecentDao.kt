@@ -3,8 +3,6 @@ package com.ddd.airplane.repository.database.recent
 import androidx.room.Dao
 import androidx.room.Query
 import com.ddd.airplane.common.base.BaseDao
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
 interface RecentDao : BaseDao<RecentEntity> {
@@ -12,7 +10,7 @@ interface RecentDao : BaseDao<RecentEntity> {
     @Query("SELECT * FROM RecentEntity")
     suspend fun selectAll(): List<RecentEntity>
 
-    @Query("SELECT * FROM RecentEntity LIMIT 1")
+    @Query("SELECT * FROM RecentEntity ORDER BY timeStamp DESC LIMIT 1 ")
     suspend fun selectTopLimit(): RecentEntity?
 
 }
