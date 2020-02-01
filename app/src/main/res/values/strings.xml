@@ -25,6 +25,10 @@
     <string name="error_info">정보를 불러올 수 없어요</string>
     <string name="error_chat_data">채팅 정보를 불러올 수 없어요</string>
 
+
+    <string name="splash_desc_1">혼자 방송 볼 때 심심하다면?</string>
+    <string name="splash_desc_2">사바사!</string>
+
     <string name="home_rank_info">활동 참여자 기준으로 집계합니다.</string>
     <string name="home_hot_info">활동 참여자 기준으로 집계합니다.</string>
 
