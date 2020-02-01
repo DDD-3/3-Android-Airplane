@@ -62,35 +62,29 @@
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/cl_navi"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            tools:visibility="visible">
-
-            <com.ddd.airplane.presenter.main.view.BottomNavigationView
-                android:id="@+id/bnv_main"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                app:itemIconSize="24dp"
-                app:itemTextAppearanceActive="@style/navigation_selected"
-                app:itemTextAppearanceInactive="@style/navigation_unselected"
-                app:labelVisibilityMode="labeled"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:menu="@menu/main_bottom_menu" />
+            android:layout_height="56dp"
+            android:orientation="vertical">
 
             <View
                 android:id="@+id/v_navi_divider"
                 style="@style/divider_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="2dp" />
+
+            <com.ddd.airplane.presenter.main.view.BottomNavigationView
+                android:id="@+id/bnv_main"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:itemIconSize="24dp"
+                app:itemTextAppearanceActive="@style/navigation_selected"
+                app:itemTextAppearanceInactive="@style/navigation_unselected"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/main_bottom_menu" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>
