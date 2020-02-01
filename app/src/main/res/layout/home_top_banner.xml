@@ -20,11 +20,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:background="@color/grey800">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lav_logo"
-                android:layout_width="46.6dp"
+                android:layout_width="47dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="69dp"
@@ -52,7 +54,7 @@
                 android:id="@+id/vp_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="6dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:layout_constraintLeft_toLeftOf="parent"

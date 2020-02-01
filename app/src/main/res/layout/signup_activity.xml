@@ -183,7 +183,7 @@
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lav_logo"
-                    android:layout_width="46.6dp"
+                    android:layout_width="47dp"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     app:layout_constraintLeft_toLeftOf="parent"
