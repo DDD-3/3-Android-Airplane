@@ -29,6 +29,8 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_msg_divider"
+            app:layout_constraintHorizontal_chainStyle="packed"
             bind:textColor="@{viewModel.textColor}"
             tools:text="아이디" />
 
@@ -41,7 +43,9 @@
             android:textColor="@color/brand_white"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@+id/tv_sender"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toLeftOf="@id/tv_msg_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_msg_content"
@@ -54,7 +58,9 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@+id/tv_msg_divider"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
             tools:text="텍스트길이 테스트입니다. 얼마까지 길어지는지 확인해볼까요?텍스트길이 테스트입니다. 얼마까지 길어지는지 확인해볼까요?텍스트길이 테스트입니다. 얼마까지 길어지는지 확인해볼까요?" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

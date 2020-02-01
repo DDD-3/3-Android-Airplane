@@ -64,16 +64,16 @@
                     android:textColor="@color/brand_white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintLeft_toRightOf="@+id/tv_live"
                     app:layout_constraintRight_toLeftOf="@+id/iv_hold_info"
+                    app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="‘사위 사랑’ 이상화, 강남 먹방에 행복" />
 
                 <ImageView
                     android:id="@+id/iv_hold_info"
                     android:layout_width="19dp"
-                    android:layout_height="10dp"
+                    android:layout_height="match_parent"
                     android:src="@drawable/ic_arrow_side_grey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -83,68 +83,67 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_info_second"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_info_first">
 
-                <ImageView
-                    android:id="@+id/iv_follow_count"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@drawable/ic_followers"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_info_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_follow_count"
-                    style="@style/font_r"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.subscribeCount}"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/color_828181"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/iv_follow_count"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="26" />
+                    <ImageView
+                        android:id="@+id/iv_follow_count"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/ic_followers"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_viewer_count"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_viewers"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_follow_count"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_follow_count"
+                        style="@style/font_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:gravity="center_vertical"
+                        android:text="@{viewModel.subscribeCount}"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/color_828181"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_follow_count"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="26" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_viewer_count"
-                    style="@style/font_r"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@{viewModel.userCount}"
-                    android:textColor="@color/color_828181"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/iv_viewer_count"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="26" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/iv_viewer_count"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_viewers"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_follow_count"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_info_third"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_info_second">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_viewer_count"
+                        style="@style/font_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@{viewModel.userCount}"
+                        android:textColor="@color/color_828181"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_viewer_count"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="26" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
@@ -153,7 +152,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/tv_subscribe_room"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/cl_info_count">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_schedule"
@@ -167,22 +166,8 @@
                         android:textSize="14sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="2019.05.01-05.03" />
+                        tools:text="2020년 3월 2일 19:00" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/font_r"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="start"
-                        android:maxLines="2"
-                        android:text="@{viewModel.roomDesc}"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/color_828181"
-                        android:textSize="14sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_schedule"
-                        tools:text="출연진 : A,B,C,D 등등 한줄정보" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -218,6 +203,47 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_info_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_info_second">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/font_r"
+                    android:id="@+id/tv_room_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:text="@{viewModel.roomDesc}"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/color_828181"
+                    android:textSize="14sp"
+                    android:maxLines="2"
+                    tools:text="출연진 : A,B,C,D 등등 한줄정보 출연진 : A,B,C,D 등등 한줄정보 출연진 : A,B,C,D 등등 한줄정보 출연진 : A,B,C,D 등등 한줄정보 출연진 : A,B,C,D 등등 한줄정보 출연진 : A,B,C,D 등등 한줄정보 "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_more"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/font_b"
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:maxLines="2"
+                    android:text="@string/txt_more"
+                    android:textColor="@color/grey300"
+                    android:textSize="14sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat

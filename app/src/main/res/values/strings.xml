@@ -60,4 +60,5 @@
     <string name="subscribe">구독하기</string>
     <string name="subscribe_cancel">구독취소</string>
     <string name="msg_divider">&#160;:&#160;</string>
+    <string name="txt_more">더보기</string>
 </resources>
