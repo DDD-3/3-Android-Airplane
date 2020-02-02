@@ -39,7 +39,7 @@
             style="@style/font_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/msg_divider"
+            android:text="@string/chat_msg_divider"
             android:textColor="@color/brand_white"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@+id/tv_sender"
