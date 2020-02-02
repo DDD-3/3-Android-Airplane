@@ -23,11 +23,10 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
         super.initDataBinding()
         viewModel.run {
             doInitFlow { isSignIn ->
+                finish()
                 if (isSignIn) {
-                    this@SplashActivity.finish()
                     goMain()
                 } else {
-                    finish()
                     MemberManager.signIn(this@SplashActivity) {
                         if (it) {
                             goMain()
@@ -47,6 +46,6 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
     }
 
     private fun goMain() {
-//        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
     }
 }

@@ -5,6 +5,7 @@ import com.ddd.airplane.data.response.user.AccountData
 import com.ddd.airplane.data.response.user.TokenData
 import com.ddd.airplane.data.response.user.SignUpData
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -45,8 +46,18 @@ interface UserService {
     @FormUrlEncoded
     @POST("/oauth/token")
     fun postTokenRefresh(
-        @Field("refresh_token") password: String,
+        @Field("refresh_token") refreshToken: String,
         @Field("grant_type") grantType: String
     ): Single<TokenData>
+
+    /**
+     * 토큰 재발급
+     */
+    @FormUrlEncoded
+    @POST("/oauth/token")
+    fun postTokenRefreshCoruoutine(
+        @Field("refresh_token") refreshToken: String,
+        @Field("grant_type") grantType: String
+    ): Response<TokenData>
 
 }

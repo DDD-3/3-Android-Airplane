@@ -27,7 +27,7 @@ import timber.log.Timber
 fun <T> Response<T>?.request(
     status: OnNetworkStatusListener? = null,
     listener: OnResponseListener<T>? = null
-): Response<T>? {
+): T? {
     val context = status?.context
     this?.let { response ->
         if (!response.isSuccessful) {
@@ -39,7 +39,7 @@ fun <T> Response<T>?.request(
         }
     }
     status?.showProgress(false)
-    return this
+    return this?.body()
 }
 
 /**
