@@ -2,7 +2,9 @@ package com.ddd.airplane.common.extension
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.GridLayoutManager
@@ -112,13 +114,23 @@ fun ImageView.setImageResource(@DrawableRes drawableRes: Int) {
 
 /**
  * 스크린 사이즈 width 설정
+ * @param ratio 스크린의 퍼센트
  */
 @BindingAdapter("ratioWidth")
 fun View.setRatioWidth(ratio: Int) {
-    try {
+    tryCatch {
         this.layoutParams.width = DeviceUtils.getScreenWidth(this.context, ratio)
-    } catch (e: Exception) {
-        e.printStackTrace()
     }
+}
 
+/**
+ * 스크린 사이즈 width 설정
+ */
+@BindingAdapter("textColor")
+fun TextView.setTextColor(color: Int) {
+    tryCatch {
+        if (color > 0) {
+            this.setTextColor(ContextCompat.getColor(this.context, color))
+        }
+    }
 }

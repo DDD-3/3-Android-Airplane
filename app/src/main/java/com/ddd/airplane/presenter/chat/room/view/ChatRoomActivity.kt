@@ -1,6 +1,8 @@
 package com.ddd.airplane.presenter.chat.room.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
@@ -14,12 +16,13 @@ import com.ddd.airplane.presenter.chat.room.viewmodel.ChatMsgViewModel
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel
 import kotlinx.android.synthetic.main.chat_room_activity.*
 
+
 /**
  * 채팅
  * @author jess
  */
 class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel>(),
-    View.OnClickListener, View.OnFocusChangeListener {
+    View.OnClickListener {
 
     override val layoutRes = R.layout.chat_room_activity
     override val viewModelClass = ChatRoomViewModel::class.java
@@ -35,7 +38,22 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         iv_hold_info.setOnClickListener(this)
         tv_subscribe_room.setOnClickListener(this)
         tv_subscribe_cancel_room.setOnClickListener(this)
-        et_chat_msg.onFocusChangeListener = this
+        tv_more.setOnClickListener(this)
+
+        et_chat_msg.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (et_chat_msg.text.isNotEmpty()) {
+                    tv_send_msg.visibility = View.VISIBLE
+                    btn_room_like.visibility = View.GONE
+                } else {
+                    tv_send_msg.visibility = View.GONE
+                    btn_room_like.visibility = View.VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+        })
 
         //recycler view
         val llm = LinearLayoutManager(this)
@@ -58,6 +76,14 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                     }
                 }
 
+            }
+        }
+
+        rv_chat.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom != oldBottom) {
+                rv_chat.postDelayed({
+                    rv_chat.smoothScrollToPosition(rv_chat.childCount - 1)
+                }, 100)
             }
         }
     }
@@ -83,10 +109,13 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 DeviceUtils.hideKeyboard(v)
             }
             R.id.iv_hold_info -> {
+                v.rotation = v.rotation + 180
                 cl_info_second.visibility =
                     if (cl_info_second.visibility == View.GONE) View.VISIBLE else View.GONE
                 cl_info_third.visibility =
                     if (cl_info_third.visibility == View.GONE) View.VISIBLE else View.GONE
+                tv_live.visibility =
+                    if (tv_live.visibility == View.GONE) View.VISIBLE else View.GONE
             }
             R.id.tv_subscribe_room -> {
                 viewModel.postSubscribe()
@@ -94,17 +123,9 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
             R.id.tv_subscribe_cancel_room -> {
                 viewModel.deleteSubscribe()
             }
+            R.id.tv_more -> {
+                v.visibility = View.GONE
+            }
         }
-    }
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if (hasFocus) {
-            tv_send_msg.visibility = View.VISIBLE
-            btn_room_like.visibility = View.GONE
-        } else {
-            tv_send_msg.visibility = View.GONE
-            btn_room_like.visibility = View.VISIBLE
-        }
-
     }
 }

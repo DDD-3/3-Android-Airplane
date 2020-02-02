@@ -162,11 +162,10 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     private fun parseRoomSchedule(schedule: ScheduleData?): String? {
         //TODO start ~ end time 디자인 확인해서 넣기
         val startAt = schedule?.startAt
-        val endAt = schedule?.endAt
         var res = R.string.error_info.toString()
 
-        if (startAt != null && endAt != null) {
-            res = Utils.convertLongToTime(startAt) + " ~ " + Utils.convertLongToTime(endAt)
+        if (startAt != null) {
+            res = Utils.convertLongToYearDayTime(startAt)
         }
 
         return res
