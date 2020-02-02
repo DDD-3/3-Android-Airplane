@@ -14,13 +14,15 @@ import kotlin.coroutines.CoroutineContext
  */
 class GeneralRepository(
     private val status: OnNetworkStatusListener? = null,
-    private val coroutineScope: CoroutineScope
+    private val scope: CoroutineScope
 ) {
 
     private val service = RetrofitManager.general
 
     init {
-        status?.showProgress(true)
+        scope.launch(Dispatchers.Main) {
+            status?.showProgress(true)
+        }
     }
 
     /**

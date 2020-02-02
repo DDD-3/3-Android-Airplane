@@ -12,4 +12,4 @@ data class TokenData(
     @SerializedName("refresh_token") val refreshToken: String?,
     @SerializedName("expires_in") val expiresIn: String?,
     @SerializedName("scope") val scope: String?
-) : Serializable
+)

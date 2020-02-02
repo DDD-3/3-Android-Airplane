@@ -1,48 +1,70 @@
 package com.ddd.airplane.presenter.splash.viewmodel
 
 import android.app.Application
+import android.content.Intent
 import androidx.lifecycle.viewModelScope
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.common.manager.TokenManager
+import com.ddd.airplane.presenter.main.view.MainActivity
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class SplashViewModel(application: Application) : BaseViewModel(application) {
 
-    private var listener: ((Boolean) -> Unit)? = null
-
     /**
      * Init Flow
-     *
-     * @param listener
      */
-    fun doInitFlow(listener: ((Boolean) -> Unit)) {
-        this.listener = listener
-        viewModelScope.launch(ioDispatchers) {
-
+    suspend fun onInitFlow() =
+        withContext(ioDispatchers) {
             delay(1000)
 
             // 토큰갱신
-            Timber.d(">> 토큰갱신 시작")
             refreshToken()
-            Timber.d(">> 스플래시 flow 종료")
 
-            listener.invoke(TokenManager.isExist())
+            // 메인으로 이동
+            checkMember()
+
+            true
         }
-    }
 
     /**
      * 토큰갱신
      */
-    private suspend fun refreshToken() {
-        TokenManager.onRefreshTokenCoroutine(this@SplashViewModel, viewModelScope)
-            .let { isSuccess ->
-                Timber.d(">> 토큰갱신 완료 결과 : $isSuccess")
-                if (!isSuccess) {
-                    MemberManager.signOut()
+    private suspend fun refreshToken() =
+        withContext(viewModelScope.coroutineContext) {
+            TokenManager.onRefreshTokenCoroutine(this@SplashViewModel, this)
+                .let { isSuccess ->
+                    Timber.d(">> 토큰갱신 완료 결과 : $isSuccess")
+                    if (!isSuccess) {
+                        MemberManager.signOut()
+                    }
+                }
+        }
+
+    /**
+     * Token 체크
+     */
+    private fun checkMember() {
+        if (TokenManager.isExist()) {
+            startMainActivity()
+        } else {
+            MemberManager.signIn(this.context) {
+                if (it) {
+                    startMainActivity()
                 }
             }
+        }
+    }
+
+    /**
+     * 메인으로 이동
+     */
+    private fun startMainActivity() {
+        Intent(context, MainActivity::class.java).let {
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(it)
+        }
     }
 }

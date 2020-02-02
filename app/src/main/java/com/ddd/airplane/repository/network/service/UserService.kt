@@ -55,8 +55,8 @@ interface UserService {
      */
     @FormUrlEncoded
     @POST("/oauth/token")
-    fun postTokenRefreshCoruoutine(
-        @Field("refresh_token") refreshToken: String,
+    suspend fun postTokenRefreshCoruoutine(
+        @Field("refresh_token") refreshToken: String?,
         @Field("grant_type") grantType: String
     ): Response<TokenData>
 

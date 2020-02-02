@@ -148,11 +148,9 @@ object TokenManager {
         return withContext(scope.coroutineContext) {
             refreshToken?.let { refreshToken ->
 
-                Timber.d(">> 토큰 지우고 발급")
                 // 토큰 지우고 발급
                 removeToken()
 
-                Timber.d(">> 토큰 새로고침 Request")
                 val response = UserRepository(status, scope)
                     .postTokenRefresh(refreshToken)
 

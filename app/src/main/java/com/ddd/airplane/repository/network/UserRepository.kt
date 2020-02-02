@@ -21,12 +21,14 @@ class UserRepository(
     private val service = RetrofitManager.user
 
     init {
-        status?.showProgress(true)
+        scope.launch(Dispatchers.Main) {
+            status?.showProgress(true)
+        }
     }
 
     /**
      * 토큰 새로고침
      */
-    suspend fun postTokenRefresh(refreshToken: String) =
+    suspend fun postTokenRefresh(refreshToken: String?) =
         service.postTokenRefreshCoruoutine(refreshToken, TokenManager.REFRESH_TOKEN).request(status)
 }

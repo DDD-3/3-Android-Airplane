@@ -15,6 +15,7 @@ import com.ddd.airplane.repository.network.retrofit.RequestManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import com.google.gson.internal.LinkedTreeMap
+import timber.log.Timber
 
 /**
  * 홈 ViewModel
@@ -32,10 +33,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
      */
     fun getHomeList() {
 
-//        if (isExist) {
-//            return
-//        }
-//
+        if (isExist) {
+            return
+        }
+
         RetrofitManager
             .general
             .getHome()
