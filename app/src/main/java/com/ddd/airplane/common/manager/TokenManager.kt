@@ -2,10 +2,13 @@ package com.ddd.airplane.common.manager
 
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.repository.network.retrofit.request
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.user.TokenData
+import com.ddd.airplane.repository.network.UserRepository
+import com.ddd.airplane.repository.network.retrofit.RetrofitManager
+import com.ddd.airplane.repository.network.retrofit.request
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -14,7 +17,7 @@ import timber.log.Timber
 object TokenManager {
 
     private const val ACCESS_TOKEN = "access_token"
-    private const val REFRESH_TOKEN = "refresh_token"
+    const val REFRESH_TOKEN = "refresh_token"
     private const val TOKEN_TYPE = "token_type"
 
     /**
@@ -114,7 +117,7 @@ object TokenManager {
 
             RetrofitManager
                 .user
-                .postTokenRefresh(token, "refresh_token")
+                .postTokenRefresh(token, REFRESH_TOKEN)
                 .request(status, object : OnResponseListener<TokenData> {
 
                     override fun onSuccess(response: TokenData) {
@@ -134,5 +137,38 @@ object TokenManager {
         }
     }
 
+    /**
+     * 토큰 재발급
+     */
+    suspend fun onRefreshTokenCoroutine(
+        status: OnNetworkStatusListener,
+        scope: CoroutineScope
+    ): Boolean {
+        Timber.d(">> onRefreshToken")
+        return withContext(scope.coroutineContext) {
+            refreshToken?.let { refreshToken ->
+
+                // 토큰 지우고 발급
+                removeToken()
+
+                val response = UserRepository(status, scope)
+                    .postTokenRefresh(refreshToken)
+
+                Timber.d(">> 토큰 : $response")
+                response?.let { token ->
+                    // 토큰 갱신 성공
+                    setToken(token.accessToken, token.refreshToken, token.tokenType)
+                    true
+                } ?: let {
+                    // 토큰 갱신 실패 > 로그인
+                    false
+                }
+
+            } ?: let {
+                // 토큰 없음 > 로그인
+                false
+            }
+        }
+    }
 
 }

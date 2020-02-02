@@ -9,6 +9,10 @@ import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.presenter.main.view.MainActivity
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import com.ddd.airplane.presenter.splash.viewmodel.SplashViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.math.sign
 
 /**
  * 스플래시
@@ -21,18 +25,10 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
 
     override fun initDataBinding() {
         super.initDataBinding()
-        viewModel.run {
-            doInitFlow { isSignIn ->
-                if (isSignIn) {
-                    this@SplashActivity.finish()
-                    goMain()
-                } else {
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.onInitFlow().let { isNextFlow ->
+                if (isNextFlow) {
                     finish()
-                    MemberManager.signIn(this@SplashActivity) {
-                        if (it) {
-                            goMain()
-                        }
-                    }
                 }
             }
         }

@@ -20,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetrofitManager {
 
+    // 유저
+    val user: UserService = create(UserService::class.java)
     // 일반
     val general: GeneralService = create(GeneralService::class.java)
     // 채팅
@@ -28,10 +30,6 @@ object RetrofitManager {
     val Like: LikeService = create(LikeService::class.java)
     // 구독
     val subscribe: SubscribeService = create(SubscribeService::class.java)
-    // 유저
-    val user: UserService by lazy {
-        create(UserService::class.java)
-    }
 
     fun init() {
 

@@ -85,26 +85,27 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         }
 
         viewModelScope.launch {
-            GeneralRepository(this@SearchViewModel, this)
-                .getSearch(searchFor!!, pageNum)
-                ?.let { response ->
-                    pageNum = response.body()?.pageInfo?.pageNum ?: 1
-                    _searchList.value = response.body()?.items?.toMutableList() ?: mutableListOf()
-                }
+            val response =
+                GeneralRepository(this@SearchViewModel, this).getSearch(searchFor!!, pageNum)
+
+            response?.let {
+                pageNum = response.pageInfo?.pageNum ?: 1
+                _searchList.value = response.items?.toMutableList() ?: mutableListOf()
+            }
         }
     }
 
-    /**
-     * 많이 참여한 방송 Request
-     */
-    private fun getManyList(
-        position: Int = 1,
-        listener: ((List<ProgramData>, Int) -> Unit)? = null
-    ) {
-        viewModelScope.launch(ioDispatchers) {
-
-        }
-    }
+//    /**
+//     * 많이 참여한 방송 Request
+//     */
+//    private fun getManyList(
+//        position: Int = 1,
+//        listener: ((List<ProgramData>, Int) -> Unit)? = null
+//    ) {
+//        viewModelScope.launch(ioDispatchers) {
+//
+//        }
+//    }
 
     /**
      * Paged Config
