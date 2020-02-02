@@ -47,6 +47,6 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
     }
 
     private fun goMain() {
-//        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
     }
 }
