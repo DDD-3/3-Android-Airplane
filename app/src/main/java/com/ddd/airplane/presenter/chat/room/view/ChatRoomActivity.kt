@@ -40,7 +40,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         tv_subscribe_cancel_room.setOnClickListener(this)
         tv_more.setOnClickListener(this)
 
-        et_chat_msg.addTextChangedListener(object: TextWatcher {
+        et_chat_msg.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (et_chat_msg.text.isNotEmpty()) {
                     tv_send_msg.visibility = View.VISIBLE
@@ -51,17 +51,12 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        //recycler view
-        val llm = LinearLayoutManager(this)
-        llm.stackFromEnd = true
-        llm.reverseLayout = false
-        rv_chat.layoutManager = llm
-
         rv_chat.apply {
+
             setHasFixedSize(true)
             adapter = object :
                 BaseRecyclerViewAdapter<ChatMessageData.MessageData, ChatMsgItemBinding>(R.layout.chat_msg_item) {
@@ -77,13 +72,15 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 }
 
             }
-        }
 
-        rv_chat.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-            if (bottom != oldBottom) {
-                rv_chat.postDelayed({
-                    rv_chat.smoothScrollToPosition(rv_chat.childCount - 1)
-                }, 100)
+            addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+                if (bottom != oldBottom) {
+                    if (rv_chat.childCount > 0) {
+                        rv_chat.postDelayed({
+                            rv_chat.smoothScrollToPosition(rv_chat.childCount - 1)
+                        }, 100)
+                    }
+                }
             }
         }
     }
