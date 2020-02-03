@@ -21,8 +21,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:background="@color/grey800">
+            android:background="@color/grey800"
+            android:paddingBottom="16dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lav_logo"
@@ -66,6 +66,7 @@
                 android:id="@+id/ll_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"

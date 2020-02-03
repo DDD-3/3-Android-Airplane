@@ -16,8 +16,31 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="@color/brand_black">
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ic_failed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shp_rect_grey700_r4"
+            android:visibility="@{isLoaded ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_failed"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_logo_white"
+                app:tint="@color/grey600"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_succeed"
@@ -25,17 +48,5 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:visibility="@{isLoaded ? View.VISIBLE : View.GONE}" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_failed"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:visibility="@{isLoaded ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_blue"
-            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
