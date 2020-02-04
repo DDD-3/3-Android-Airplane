@@ -41,8 +41,4 @@ class SplashActivity : BaseActivity<SplashActivityBinding, SplashViewModel>() {
     override fun onCreated(savedInstanceState: Bundle?) {
 
     }
-
-    private fun goMain() {
-        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-    }
 }

@@ -35,7 +35,10 @@ object MemberManager {
      */
     fun signIn(context: Context?, sigInInListener: ((Boolean) -> Unit)? = null) {
         this.sigInInListener = sigInInListener
-        context?.startActivity(Intent(context, SignInActivity::class.java))
+        Intent(context, SignInActivity::class.java).let {
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context?.startActivity(it)
+        }
     }
 
     /**
