@@ -32,10 +32,6 @@ class ButtonView @JvmOverloads constructor(
         // 텍스트컬러
         this.setTextColor(ContextCompat.getColor(context, R.color.brand_white))
 
-        // 폰트
-        val typeface = ResourcesCompat.getFont(context, R.font.notosans_bold)
-        this.typeface = typeface
-
         // text size
         setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.dp16))
 

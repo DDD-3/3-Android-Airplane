@@ -12,7 +12,7 @@
         android:id="@+id/bt_view"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:fontFamily="@font/notosans_bold"
+        android:fontFamily="@font/roboto_bold"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
