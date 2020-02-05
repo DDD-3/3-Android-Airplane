@@ -40,7 +40,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
             return
         }
 
-//        viewModelScope.launch {
+        viewModelScope.launch {
             GeneralRepository(this@HomeViewModel, viewModelScope).getHome().let { response ->
                 val list = response?.list.also {
                     checkStyle(it)
@@ -48,7 +48,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 }
                 _homeList.value = list
             }
-//        }
+        }
 
 //        RetrofitManager
 //            .general

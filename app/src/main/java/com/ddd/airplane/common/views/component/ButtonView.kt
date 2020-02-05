@@ -29,13 +29,14 @@ class ButtonView @JvmOverloads constructor(
         // 버튼 높이
         minHeight = context.resources.getDimensionPixelSize(R.dimen.dp48)
 
-        // 텍스트컬러
-        this.setTextColor(ContextCompat.getColor(context, R.color.brand_white))
-
         // text size
         setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.dp16))
 
-//        includeFontPadding = false
+        includeFontPadding = false
+
+        // 폰트
+        val typeface = ResourcesCompat.getFont(context, R.font.roboto_bold)
+        this.typeface = typeface
 
         // 라운드
         cornerRadius = context.resources.getDimensionPixelSize(R.dimen.dp4)
@@ -70,11 +71,13 @@ class ButtonView @JvmOverloads constructor(
                 backgroundTintList =
                     ContextCompat.getColorStateList(context, R.color.brand_blue)
                 strokeWidth = 0
+                this.setTextColor(ContextCompat.getColor(context, R.color.brand_black))
             } else {
                 backgroundTintList =
-                    ContextCompat.getColorStateList(context, R.color.grey500)
+                    ContextCompat.getColorStateList(context, R.color.brand_black)
                 setStrokeWidthResource(R.dimen.dp2)
-                setStrokeColorResource(R.color.brand_white)
+                setStrokeColorResource(R.color.grey500)
+                this.setTextColor(ContextCompat.getColor(context, R.color.brand_white))
             }
 
             isClickable = isEnable

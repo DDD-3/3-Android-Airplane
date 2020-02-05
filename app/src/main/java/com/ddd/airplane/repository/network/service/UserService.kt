@@ -17,7 +17,7 @@ interface UserService {
      * 계정생성
      */
     @POST("/api/v1/accounts")
-    fun postAccounts(
+    suspend fun postAccounts(
         @Body body: SignUpRequest
     ): Response<SignUpData>
 

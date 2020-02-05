@@ -55,11 +55,11 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
             onCheckValid()
         }
 
-        // test
-        val ts = System.currentTimeMillis()
-        et_nick_name.text = "닉네임$ts"
-        et_email.text = "jess$ts@test.com"
-        et_password.text = "aaaaaa"
+//        // test
+//        val ts = System.currentTimeMillis()
+//        et_nick_name.text = "닉네임$ts"
+//        et_email.text = "jess$ts@test.com"
+//        et_password.text = "aaaaaa"
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -77,9 +77,7 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
             }
 
             R.id.bt_sign_up -> {
-//                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
-//                }
+                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
             }
         }
     }
