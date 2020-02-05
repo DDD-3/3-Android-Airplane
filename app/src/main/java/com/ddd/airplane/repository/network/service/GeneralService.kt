@@ -16,7 +16,7 @@ interface GeneralService {
      * 홈 리스트 조회
      */
     @GET("/api/v1/home")
-    fun getHome(): Single<HomeData>
+    suspend fun getHome(): Response<HomeData>
 
     /**
      * 검색

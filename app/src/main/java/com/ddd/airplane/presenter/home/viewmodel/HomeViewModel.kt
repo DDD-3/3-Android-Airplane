@@ -3,6 +3,7 @@ package com.ddd.airplane.presenter.home.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.consts.Home
 import com.ddd.airplane.common.interfaces.OnResponseListener
@@ -11,10 +12,12 @@ import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.data.response.home.BannerData
 import com.ddd.airplane.data.response.home.HomeData
+import com.ddd.airplane.repository.network.GeneralRepository
 import com.ddd.airplane.repository.network.retrofit.RequestManager
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import com.google.gson.internal.LinkedTreeMap
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -31,29 +34,39 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 홈 데이터
      */
-    fun getHomeList() {
+    suspend fun getHomeList() {
 
         if (isExist) {
             return
         }
 
-        RetrofitManager
-            .general
-            .getHome()
-            .request(this, object : OnResponseListener<HomeData> {
-
-                override fun onSuccess(response: HomeData) {
-                    val list = response.list.also {
-                        checkStyle(it)
-                        checkItem(it)
-                    }
-                    _homeList.value = list
+//        viewModelScope.launch {
+            GeneralRepository(this@HomeViewModel, viewModelScope).getHome().let { response ->
+                val list = response?.list.also {
+                    checkStyle(it)
+                    checkItem(it)
                 }
+                _homeList.value = list
+            }
+//        }
 
-                override fun onError(error: ErrorData) {
-
-                }
-            })
+//        RetrofitManager
+//            .general
+//            .getHome()
+//            .request(this, object : OnResponseListener<HomeData> {
+//
+//                override fun onSuccess(response: HomeData) {
+//                    val list = response.list.also {
+//                        checkStyle(it)
+//                        checkItem(it)
+//                    }
+//                    _homeList.value = list
+//                }
+//
+//                override fun onError(error: ErrorData) {
+//
+//                }
+//            })
     }
 
     /**

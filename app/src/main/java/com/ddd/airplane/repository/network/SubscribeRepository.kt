@@ -12,12 +12,12 @@ import kotlin.coroutines.CoroutineContext
 /**
  * GeneralRepository for Coroutine
  */
-class GeneralRepository(
+class SubscribeRepository(
     private val status: OnNetworkStatusListener? = null,
     private val scope: CoroutineScope
 ) {
 
-    private val service = RetrofitManager.general
+    private val service = RetrofitManager.subscribe
 
     init {
         scope.launch(Dispatchers.Main) {
@@ -25,14 +25,10 @@ class GeneralRepository(
         }
     }
 
-    suspend fun getHome() = service.getHome().request(status)
-
     /**
-     * 검색
-     *
-     * @param query
+     * 구독 방송 리스트
      * @param pageNum
      */
-    suspend fun getSearch(query: String, pageNum: Int = 1) =
-        service.getSearch(query, pageNum).request(status)
+    suspend fun getSubscribe(pageNum: Int = 1) =
+        service.getSubscribe(pageNum).request(status)
 }

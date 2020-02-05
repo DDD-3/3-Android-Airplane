@@ -9,6 +9,9 @@ import com.ddd.airplane.databinding.HomeFragmentBinding
 import com.ddd.airplane.presenter.home.view.adapter.HomeAdapter
 import com.ddd.airplane.presenter.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 홈
@@ -33,12 +36,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     override fun initLayout() {
         rv_home.run {
-//            addItemDecoration(DividerItemSpace(space = context.resources.getDimensionPixelSize(R.dimen.dp40)))
             adapter = homeAdapter
         }
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
-        viewModel.getHomeList()
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.getHomeList()
+        }
     }
 }

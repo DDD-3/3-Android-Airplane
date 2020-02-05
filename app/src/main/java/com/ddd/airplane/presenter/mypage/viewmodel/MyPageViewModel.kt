@@ -15,6 +15,7 @@ import com.ddd.airplane.common.manager.MemberManager
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.SubscribeData
 import com.ddd.airplane.data.response.chat.ProgramData
+import com.ddd.airplane.repository.network.SubscribeRepository
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import kotlinx.coroutines.launch
@@ -61,19 +62,31 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
             return
         }
 
-        RetrofitManager
-            .subscribe
-            .getSubscribe(position)
-            .request(this@MyPageViewModel).let { response ->
-                val pageNum = response?.pageInfo?.pageNum ?: 1
-                val list = response?.items?.toMutableList() ?: mutableListOf()
+        SubscribeRepository(this@MyPageViewModel, viewModelScope).getSubscribe().let { response ->
+            val pageNum = response?.pageInfo?.pageNum ?: 1
+            val list = response?.items?.toMutableList() ?: mutableListOf()
 
-                subscribeList.addAll(list)
-                // 구독 리스트 여부
-                _isSubscribe.value = subscribeList.size > 0
+            subscribeList.addAll(list)
+            // 구독 리스트 여부
+            _isSubscribe.value = subscribeList.size > 0
 
-                listener?.invoke(list, pageNum)
-            }
+            listener?.invoke(list, pageNum)
+        }
+
+
+//        RetrofitManager
+//            .subscribe
+//            .getSubscribe(position)
+//            .request(this@MyPageViewModel).let { response ->
+//                val pageNum = response?.pageInfo?.pageNum ?: 1
+//                val list = response?.items?.toMutableList() ?: mutableListOf()
+//
+//                subscribeList.addAll(list)
+//                // 구독 리스트 여부
+//                _isSubscribe.value = subscribeList.size > 0
+//
+//                listener?.invoke(list, pageNum)
+//            }
     }
 
     /**
