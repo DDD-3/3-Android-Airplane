@@ -9,6 +9,9 @@ import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.signup_activity.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -74,7 +77,9 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
             }
 
             R.id.bt_sign_up -> {
-                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
+//                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
+//                }
             }
         }
     }

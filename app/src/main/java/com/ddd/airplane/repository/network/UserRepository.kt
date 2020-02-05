@@ -2,13 +2,12 @@ package com.ddd.airplane.repository.network
 
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.manager.TokenManager
+import com.ddd.airplane.data.request.SignUpRequest
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 /**
  * UserRepository for Coroutine
@@ -25,6 +24,12 @@ class UserRepository(
             status?.showProgress(true)
         }
     }
+
+    /**
+     * 계정생성
+     */
+    suspend fun postAccounts(signUpRequest: SignUpRequest) =
+        service.postAccounts(signUpRequest).request(status)
 
     /**
      * 토큰 새로고침

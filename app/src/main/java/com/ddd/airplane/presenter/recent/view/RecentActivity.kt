@@ -9,6 +9,7 @@ import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.databinding.SignupActivityBinding
 import com.ddd.airplane.presenter.signup.viewmodel.SignUpViewModel
 import kotlinx.android.synthetic.main.signup_activity.*
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * 최근 참여한 채팅방
@@ -52,13 +53,7 @@ class RecentActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.bt_sign_up -> {
-//                viewModel.doSignUp(et_nick_name.text, et_email.text, et_password.text)
-                val ts = System.currentTimeMillis()
-                viewModel.doSignUp(
-                    "jess$ts@test.com",
-                    "aaaaaa",
-                    "닉네임$ts"
-                )
+
             }
         }
     }

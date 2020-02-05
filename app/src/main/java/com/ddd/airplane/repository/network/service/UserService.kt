@@ -19,7 +19,7 @@ interface UserService {
     @POST("/api/v1/accounts")
     fun postAccounts(
         @Body body: SignUpRequest
-    ): Single<SignUpData>
+    ): Response<SignUpData>
 
     /**
      * 계정조회

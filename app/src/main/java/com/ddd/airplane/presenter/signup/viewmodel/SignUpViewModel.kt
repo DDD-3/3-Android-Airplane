@@ -3,6 +3,7 @@ package com.ddd.airplane.presenter.signup.viewmodel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
@@ -10,6 +11,8 @@ import com.ddd.airplane.repository.network.retrofit.request
 import com.ddd.airplane.data.request.SignUpRequest
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.data.response.user.SignUpData
+import com.ddd.airplane.repository.network.UserRepository
+import kotlinx.coroutines.launch
 
 /**
  * 회원가입 ViewModel
@@ -39,19 +42,33 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
      * @param nickName
      */
     fun doSignUp(email: String, password: String, nickName: String) {
-        RetrofitManager
-            .user
-            .postAccounts(SignUpRequest(email, password, nickName))
-            .request(this, object : OnResponseListener<SignUpData> {
 
-                override fun onSuccess(response: SignUpData) {
-                    _isSucceed.postValue(true)
-                }
+        viewModelScope.launch {
+            UserRepository(this@SignUpViewModel, viewModelScope).postAccounts(
+                SignUpRequest(
+                    email,
+                    password,
+                    nickName
+                )
+            )?.let { response ->
+                _isSucceed.postValue(true)
+            }
+        }
 
-                override fun onError(error: ErrorData) {
-                    _isSucceed.postValue(false)
-                }
 
-            })
+//        RetrofitManager
+//            .user
+//            .postAccounts(SignUpRequest(email, password, nickName))
+//            .request(this, object : OnResponseListener<SignUpData> {
+//
+//                override fun onSuccess(response: SignUpData) {
+//                    _isSucceed.postValue(true)
+//                }
+//
+//                override fun onError(error: ErrorData) {
+//                    _isSucceed.postValue(false)
+//                }
+//
+//            })
     }
 }
