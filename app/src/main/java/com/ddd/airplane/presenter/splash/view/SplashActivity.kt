@@ -1,18 +1,13 @@
 package com.ddd.airplane.presenter.splash.view
 
-import android.content.Intent
 import android.os.Bundle
 import com.ddd.airplane.R
-import com.ddd.airplane.databinding.SplashActivityBinding
 import com.ddd.airplane.common.base.BaseActivity
-import com.ddd.airplane.common.manager.MemberManager
-import com.ddd.airplane.presenter.main.view.MainActivity
-import com.ddd.airplane.presenter.signin.view.SignInActivity
+import com.ddd.airplane.databinding.SplashActivityBinding
 import com.ddd.airplane.presenter.splash.viewmodel.SplashViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.sign
 
 /**
  * 스플래시

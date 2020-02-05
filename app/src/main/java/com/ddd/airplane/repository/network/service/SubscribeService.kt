@@ -2,6 +2,7 @@ package com.ddd.airplane.repository.network.service
 
 import com.ddd.airplane.data.response.SubscribeData
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -13,9 +14,9 @@ interface SubscribeService {
      * 구독한 채팅방 조회
      */
     @GET("/api/v1/roomsOfSubscribedSubjects")
-    fun getSubscribe(
+    suspend fun getSubscribe(
         @Query("pageNum") pageNum: Int
-    ): Single<SubscribeData>
+    ): Response<SubscribeData>
 
     /**
      * 구독

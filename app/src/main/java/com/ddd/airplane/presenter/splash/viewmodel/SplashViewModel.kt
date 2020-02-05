@@ -50,6 +50,7 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
         if (TokenManager.isExist()) {
             startMainActivity()
         } else {
+            // 로그인 페이지
             MemberManager.signIn(this.context) {
                 if (it) {
                     startMainActivity()

@@ -51,7 +51,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 구독방송 리스트 조회
      */
-    private fun getSubscribe(
+    private suspend fun getSubscribe(
         position: Int = 1,
         listener: ((List<ProgramData>, Int) -> Unit)? = null
     ) {
@@ -64,23 +64,16 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
         RetrofitManager
             .subscribe
             .getSubscribe(position)
-            .request(this@MyPageViewModel, object : OnResponseListener<SubscribeData> {
+            .request(this@MyPageViewModel).let { response ->
+                val pageNum = response?.pageInfo?.pageNum ?: 1
+                val list = response?.items?.toMutableList() ?: mutableListOf()
 
-                override fun onSuccess(response: SubscribeData) {
-                    val pageNum = response.pageInfo?.pageNum ?: 1
-                    val list = response.items?.toMutableList() ?: mutableListOf()
+                subscribeList.addAll(list)
+                // 구독 리스트 여부
+                _isSubscribe.value = subscribeList.size > 0
 
-                    subscribeList.addAll(list)
-                    // 구독 리스트 여부
-                    _isSubscribe.value = subscribeList.size > 0
-
-                    listener?.invoke(list, pageNum)
-                }
-
-                override fun onError(error: ErrorData) {
-
-                }
-            })
+                listener?.invoke(list, pageNum)
+            }
     }
 
     /**
@@ -105,9 +98,11 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadInitialParams<Int>,
                     callback: LoadInitialCallback<Int, ProgramData>
                 ) {
-                    Timber.d(">> loadInitial : $params")
-                    getSubscribe(1) { list, pageNum ->
-                        callback.onResult(list, null, pageNum)
+                    viewModelScope.launch {
+                        Timber.d(">> loadInitial : $params")
+                        getSubscribe(1) { list, pageNum ->
+                            callback.onResult(list, null, pageNum)
+                        }
                     }
                 }
 
@@ -115,9 +110,11 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                     params: LoadParams<Int>,
                     callback: LoadCallback<Int, ProgramData>
                 ) {
-                    Timber.d(">> loadBefore : $params")
-                    getSubscribe(params.key) { list, pageNum ->
-                        callback.onResult(list, pageNum.plus(1))
+                    viewModelScope.launch {
+                        Timber.d(">> loadBefore : $params")
+                        getSubscribe(params.key) { list, pageNum ->
+                            callback.onResult(list, pageNum.plus(1))
+                        }
                     }
                 }
 
