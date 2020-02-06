@@ -36,7 +36,7 @@ abstract class BaseViewModel(application: Application) :
      *
      * @param isProgress
      */
-    override fun showProgress(isProgress: Boolean) {
+    override fun showProgress(isProgress: Boolean) = apply {
         _isProgress.postValue(isProgress)
     }
 
@@ -45,7 +45,7 @@ abstract class BaseViewModel(application: Application) :
      *
      * @param error
      */
-    override fun showErrorDialog(error: ErrorData?) {
+    override fun showErrorDialog(error: ErrorData?) = apply {
 
     }
 
@@ -54,7 +54,7 @@ abstract class BaseViewModel(application: Application) :
      *
      * @param message
      */
-    override fun showToast(message: String?) {
+    override fun showToast(message: String?) = apply {
         message?.let {
             _toast.postValue(message)
         }

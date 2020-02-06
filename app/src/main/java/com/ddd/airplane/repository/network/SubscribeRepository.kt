@@ -1,28 +1,24 @@
 package com.ddd.airplane.repository.network
 
+import com.ddd.airplane.common.base.BaseRepository
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
+import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 /**
  * GeneralRepository for Coroutine
  */
-class SubscribeRepository(
-    private val status: OnNetworkStatusListener? = null,
-    private val scope: CoroutineScope
-) {
+object SubscribeRepository : BaseRepository() {
 
     private val service = RetrofitManager.subscribe
 
-    init {
-        scope.launch(Dispatchers.Main) {
-            status?.showProgress(true)
-        }
+    fun setOnNetworkStatusListener(status: OnNetworkStatusListener?) = apply {
+        this.status = status
+    }
+
+    fun setOnErrorListener(error: ((ErrorData?) -> Unit)?) = apply {
+        this.error = error
     }
 
     /**
@@ -30,5 +26,5 @@ class SubscribeRepository(
      * @param pageNum
      */
     suspend fun getSubscribe(pageNum: Int = 1) =
-        service.getSubscribe(pageNum).request(status)
+        service.getSubscribe(pageNum).request(status, error)
 }

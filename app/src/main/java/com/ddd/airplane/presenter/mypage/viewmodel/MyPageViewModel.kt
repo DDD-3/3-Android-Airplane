@@ -62,31 +62,23 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
             return
         }
 
-        SubscribeRepository(this@MyPageViewModel, viewModelScope).getSubscribe().let { response ->
-            val pageNum = response?.pageInfo?.pageNum ?: 1
-            val list = response?.items?.toMutableList() ?: mutableListOf()
+        SubscribeRepository
+            .setOnNetworkStatusListener(
+                this@MyPageViewModel.showProgress(true)
+            )
+            .setOnErrorListener {
 
-            subscribeList.addAll(list)
-            // 구독 리스트 여부
-            _isSubscribe.value = subscribeList.size > 0
+            }
+            .getSubscribe().let { response ->
+                val pageNum = response?.pageInfo?.pageNum ?: 1
+                val list = response?.items?.toMutableList() ?: mutableListOf()
 
-            listener?.invoke(list, pageNum)
-        }
+                subscribeList.addAll(list)
+                // 구독 리스트 여부
+                _isSubscribe.value = subscribeList.size > 0
 
-
-//        RetrofitManager
-//            .subscribe
-//            .getSubscribe(position)
-//            .request(this@MyPageViewModel).let { response ->
-//                val pageNum = response?.pageInfo?.pageNum ?: 1
-//                val list = response?.items?.toMutableList() ?: mutableListOf()
-//
-//                subscribeList.addAll(list)
-//                // 구독 리스트 여부
-//                _isSubscribe.value = subscribeList.size > 0
-//
-//                listener?.invoke(list, pageNum)
-//            }
+                listener?.invoke(list, pageNum)
+            }
     }
 
     /**

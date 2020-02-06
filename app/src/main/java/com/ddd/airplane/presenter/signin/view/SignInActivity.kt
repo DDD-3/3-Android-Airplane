@@ -50,9 +50,9 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
             onCheckValid()
         }
 
-//        // test
-//        et_email.text = "ghi@gmail.com"
-//        et_password.text = "password"
+        // test
+        et_email.text = "ghi@gmail.com"
+        et_password.text = "password"
 
     }
 

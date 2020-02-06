@@ -56,7 +56,7 @@
     <!-- sign up -->
     <string name="sign_up">회원가입</string>
     <string name="sign_up_info">이미 사바사 계정이 있으세요?</string>
-    <string name="sign_up_nick_name_change">바꾸기</string>
+    <string name="sign_up_nick_name_change">다른 걸로 할래요!</string>
     <string name="sign_up_hide">숨기기</string>
     <string name="sign_up_show">보이기</string>
     <string name="sign_up_email_valid">이메일 주소를 확인해주세요</string>

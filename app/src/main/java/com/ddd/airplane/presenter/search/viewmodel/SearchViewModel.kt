@@ -13,7 +13,10 @@ import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.repository.network.GeneralRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SearchViewModel(application: Application) : BaseViewModel(application) {
@@ -85,13 +88,16 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         }
 
         viewModelScope.launch {
-            val response =
-                GeneralRepository(this@SearchViewModel, this).getSearch(searchFor!!, pageNum)
+            GeneralRepository
+                .setOnNetworkStatusListener(this@SearchViewModel)
+                .setOnErrorListener {
 
-            response?.let {
-                pageNum = response.pageInfo?.pageNum ?: 1
-                _searchList.value = response.items?.toMutableList() ?: mutableListOf()
-            }
+                }
+                .getSearch(searchFor!!, pageNum)
+                ?.let { response ->
+                    pageNum = response.pageInfo?.pageNum ?: 1
+                    _searchList.value = response.items?.toMutableList() ?: mutableListOf()
+                }
         }
     }
 

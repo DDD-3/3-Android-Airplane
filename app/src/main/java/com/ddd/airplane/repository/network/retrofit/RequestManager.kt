@@ -1,6 +1,7 @@
 package com.ddd.airplane.repository.network.retrofit
 
 import android.content.Context
+import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
 import com.ddd.airplane.common.interfaces.OnResponseListener
@@ -26,16 +27,38 @@ import timber.log.Timber
  */
 fun <T> Response<T>?.request(
     status: OnNetworkStatusListener? = null,
-    listener: OnResponseListener<T>? = null
+    errorListener: ((ErrorData?) -> Unit)? = null
 ): T? {
+
     val context = status?.context
+
     this?.let { response ->
         if (!response.isSuccessful) {
+
             val error = parseErrorBody(context, response.errorBody())
-            status?.showToast(error.message)
-            RequestManager.onError(
-                error, status, listener
-            )
+
+            // 에러파싱 실패
+            if (error.status == HttpStatus.UNAUTHORIZED.code) {
+                // 토큰 재발급
+                TokenManager.onRefreshToken(status) { isRefresh ->
+
+                    if (!isRefresh) {
+                        errorListener?.invoke(error)
+                    }
+
+                    status?.showToast(
+                        context?.getString(
+                            if (isRefresh) R.string.error_network_response_retry
+                            else R.string.error_network_response_error
+                        )
+                    )
+                }
+            } else {
+                status?.showToast(error.message)
+                errorListener?.invoke(error)
+            }
+
+            return null
         }
     }
     status?.showProgress(false)
@@ -155,7 +178,6 @@ object RequestManager {
             listener?.onError(error)
         }
     }
-
 
     /**
      * ArrayList<LinkedTreeMap<String, Any>> 를 원하는 class 로 변환함

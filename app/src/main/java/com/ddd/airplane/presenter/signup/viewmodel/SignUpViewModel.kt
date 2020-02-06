@@ -44,31 +44,22 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
     fun doSignUp(email: String, password: String, nickName: String) {
 
         viewModelScope.launch {
-            UserRepository(this@SignUpViewModel, viewModelScope).postAccounts(
-                SignUpRequest(
-                    email,
-                    password,
-                    nickName
+            UserRepository
+                .setOnNetworkStatusListener(
+                    this@SignUpViewModel.showProgress(true)
                 )
-            )?.let { response ->
-                _isSucceed.postValue(true)
-            }
+                .setOnErrorListener {
+                    _isSucceed.postValue(false)
+                }
+                .postAccounts(
+                    SignUpRequest(
+                        email,
+                        password,
+                        nickName
+                    )
+                )?.let { response ->
+                    _isSucceed.postValue(true)
+                }
         }
-
-
-//        RetrofitManager
-//            .user
-//            .postAccounts(SignUpRequest(email, password, nickName))
-//            .request(this, object : OnResponseListener<SignUpData> {
-//
-//                override fun onSuccess(response: SignUpData) {
-//                    _isSucceed.postValue(true)
-//                }
-//
-//                override fun onError(error: ErrorData) {
-//                    _isSucceed.postValue(false)
-//                }
-//
-//            })
     }
 }

@@ -7,10 +7,10 @@ interface OnNetworkStatusListener {
 
     val context: Context
 
-    fun showProgress(isProgress: Boolean)
+    fun showProgress(isProgress: Boolean) = apply { }
 
-    fun showErrorDialog(error: ErrorData?)
+    fun showErrorDialog(error: ErrorData?) = apply { }
 
-    fun showToast(message: String?)
+    fun showToast(message: String?) = apply { }
 
 }

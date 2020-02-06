@@ -151,7 +151,10 @@ object TokenManager {
                 // 토큰 지우고 발급
                 removeToken()
 
-                val response = UserRepository(status, scope)
+                val response = UserRepository
+                    .setOnNetworkStatusListener(
+                        status.showProgress(true)
+                    )
                     .postTokenRefresh(refreshToken)
 
                 Timber.d(">> 토큰 : $response")
