@@ -5,7 +5,7 @@ package com.ddd.airplane.data.response.chat
  */
 data class ChatRoomData(
     val liked: Boolean? = false,
-    val subjectSubscribed: Boolean? = false,
+    var subjectSubscribed: Boolean? = false,
     val upcomingSubjectSchedule: ScheduleData? = null,
     val recentMessages: ArrayList<ChatMessageData.MessageData>? = null
 ) : ProgramData()

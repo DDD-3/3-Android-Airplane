@@ -167,42 +167,23 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="2020년 3월 2일 19:00" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_subscribe_room"
                     style="@style/font_b"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
                     android:background="@drawable/shp_rect_0cbfff_r4"
                     android:gravity="center"
-                    android:text="@string/chat_subscribe"
+                    android:text="@{viewModel.roomData.subjectSubscribed ? @string/chat_subscribe_cancel : @string/chat_subscribe}"
                     android:textAlignment="gravity"
                     android:textColor="#000000"
                     android:textSize="12sp"
-                    android:visibility="@{viewModel.roomData.subjectSubscribed ? View.INVISIBLE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_subscribe_cancel_room"
-                    style="@style/font_b"
-                    android:layout_width="64dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/shp_rect_0cbfff_r4"
-                    android:gravity="center"
-                    android:text="@string/chat_subscribe_cancel"
-                    android:textAlignment="gravity"
-                    android:textColor="#000000"
-                    android:textSize="12sp"
-                    android:visibility="@{viewModel.roomData.subjectSubscribed ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_info_third"
@@ -235,6 +216,7 @@
                     style="@style/font_b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:ellipsize="end"
                     android:gravity="end"
                     android:maxLines="2"

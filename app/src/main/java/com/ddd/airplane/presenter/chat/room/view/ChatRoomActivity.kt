@@ -34,11 +34,11 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     }
 
     override fun initLayout() {
-        tv_send_msg.setOnClickListener(this)
-        iv_hold_info.setOnClickListener(this)
-        tv_subscribe_room.setOnClickListener(this)
-        tv_subscribe_cancel_room.setOnClickListener(this)
-        tv_more.setOnClickListener(this)
+
+        val views = arrayOf(tv_send_msg, iv_hold_info, tv_subscribe_room, tv_more)
+        views.forEach {
+            it.setOnClickListener(this)
+        }
 
         et_chat_msg.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -105,6 +105,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 et_chat_msg.text.clear()
                 DeviceUtils.hideKeyboard(v)
             }
+
             R.id.iv_hold_info -> {
                 v.rotation = v.rotation + 180
                 cl_info_second.visibility =
@@ -114,12 +115,11 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 tv_live.visibility =
                     if (tv_live.visibility == View.GONE) View.VISIBLE else View.GONE
             }
+
             R.id.tv_subscribe_room -> {
-                viewModel.postSubscribe()
+                viewModel.doSubscribe()
             }
-            R.id.tv_subscribe_cancel_room -> {
-                viewModel.deleteSubscribe()
-            }
+
             R.id.tv_more -> {
                 v.visibility = View.GONE
             }

@@ -25,6 +25,7 @@ import com.google.gson.Gson
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import org.json.JSONObject
 import timber.log.Timber
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.dto.LifecycleEvent
@@ -40,7 +41,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
     private val _roomData = MutableLiveData<ChatRoomData>()
     val roomData: LiveData<ChatRoomData> = _roomData
-    
+
     private val _roomSchedule = MutableLiveData<String>()
     val roomSchedule: LiveData<String> = _roomSchedule
 
@@ -52,13 +53,15 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
 
     var roomId: Long = 0
         private set
-    private val _subjectId = MutableLiveData<Long>()
+
+    var subjectId: Long = 0
+        private set
 
     //TODO chat api const 분리
     @SuppressLint("CheckResult")
     fun connectChatClient() {
 
-        if (roomId < 0) {
+        if (roomId < 1) {
             return
         }
 
@@ -128,10 +131,15 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun sendChatMessage(msg: String) {
-        val chatContent = "{\"type\": \"CHAT\", \"content\": \"$msg\"}"
+
+        val json = JSONObject().apply {
+            put("type", "CHAT")
+            put("content", msg)
+        }
+
         client.send(
             ServerUrl.SEND_MSG + roomId + "/chat",
-            chatContent
+            json.toString()
         ).subscribe()
     }
 
@@ -156,11 +164,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                 ?.let { response ->
 
                     _roomData.value = response
-
-                    _subjectId.value = response.subjectId
                     _roomSchedule.value = parseRoomSchedule(response.upcomingSubjectSchedule)
                     _liked.value = response.liked
                     _msgList.value = response.recentMessages
+
+                    subjectId = response.subjectId ?: 0
 
                     connectChatClient()
                 }
@@ -180,25 +188,40 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         return res
     }
 
+
+    /**
+     * 구독하기 판단
+     */
+    fun doSubscribe() {
+        roomData.value?.subjectSubscribed?.let {
+            if (it) {
+                deleteSubscribe()
+            } else {
+                postSubscribe()
+            }
+        }
+    }
+
     /**
      * 구독하기
      */
-    fun postSubscribe() {
+    private fun postSubscribe() {
+
+        if (subjectId < 1) {
+            return
+        }
+
         viewModelScope.launch {
-            _subjectId.value?.let {
+            var isSucceed = true
+            SubscribeRepository
+                .setOnErrorListener {
+                    isSucceed = false
+                }
+                .postSubscribe(subjectId)
 
-                var isSucceed = true
-                SubscribeRepository
-                    .setOnNetworkStatusListener(
-                        this@ChatRoomViewModel.showProgress(true)
-                    )
-                    .setOnErrorListener {
-                        isSucceed = false
-                    }
-                    .postSubscribe(it)
-
-                if (isSucceed) {
-                    getChatRoomInfo(roomId!!)
+            if (isSucceed) {
+                _roomData.value = roomData.value?.apply {
+                    subjectSubscribed = true
                 }
             }
         }
@@ -207,22 +230,23 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 구독 취소하기
      */
-    fun deleteSubscribe() {
+    private fun deleteSubscribe() {
+
+        if (subjectId < 1) {
+            return
+        }
+
         viewModelScope.launch {
-            _subjectId.value?.let {
+            var isSucceed = true
+            SubscribeRepository
+                .setOnErrorListener {
+                    isSucceed = false
+                }
+                .deleteSubscribe(subjectId)
 
-                var isSucceed = true
-                SubscribeRepository
-                    .setOnNetworkStatusListener(
-                        this@ChatRoomViewModel.showProgress(true)
-                    )
-                    .setOnErrorListener {
-                        isSucceed = false
-                    }
-                    .deleteSubscribe(it)
-
-                if (isSucceed) {
-                    getChatRoomInfo(roomId)
+            if (isSucceed) {
+                _roomData.value = roomData.value?.apply {
+                    subjectSubscribed = false
                 }
             }
         }
