@@ -11,10 +11,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * RecentRepository for Coroutine
  */
-class RecentRepository : CoroutineScope {
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO
+object RecentRepository {
 
     private val db = RoomManager.instance.recentDao()
 
@@ -22,16 +19,13 @@ class RecentRepository : CoroutineScope {
      * 최근 본 방송
      */
     suspend fun selectTopLimit() =
-        withContext(CoroutineScope(coroutineContext).coroutineContext) {
-            db.selectTopLimit()
-        }
+        db.selectTopLimit()
+
 
     /**
      * 최근 본 방송 삽입
      */
-    fun insertRecent(entity: RecentEntity) {
-        CoroutineScope(coroutineContext).launch {
-            db.insert(entity)
-        }
+    suspend fun insertRecent(entity: RecentEntity) {
+        db.insert(entity)
     }
 }

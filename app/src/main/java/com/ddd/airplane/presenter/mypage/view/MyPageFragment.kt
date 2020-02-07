@@ -13,6 +13,9 @@ import com.ddd.airplane.data.response.chat.ProgramData
 import com.ddd.airplane.databinding.MypageFragmentBinding
 import com.ddd.airplane.presenter.mypage.viewmodel.MyPageViewModel
 import kotlinx.android.synthetic.main.mypage_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 마이페이지
@@ -52,7 +55,9 @@ class MyPageFragment : BaseFragment<MypageFragmentBinding, MyPageViewModel>(),
 
         }.apply {
             setOnItemClickListener { view, data ->
-                ChatRoomManager.joinChatRoom(context, data)
+                CoroutineScope(Dispatchers.IO).launch {
+                    ChatRoomManager.joinChatRoom(context, data)
+                }
             }
         }
 

@@ -1,12 +1,7 @@
 package com.ddd.airplane.common.manager
 
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
-import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.data.response.ErrorData
-import com.ddd.airplane.data.response.user.TokenData
 import com.ddd.airplane.repository.network.UserRepository
-import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.repository.network.retrofit.request
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
 import timber.log.Timber

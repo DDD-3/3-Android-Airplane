@@ -3,7 +3,6 @@ package com.ddd.airplane.presenter.main.view
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
@@ -57,7 +56,9 @@ class MainActivity : BaseActivity<MainActivityBinding, MainViewModel>(), View.On
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
                         BottomSheetBehavior.STATE_HIDDEN -> {
-                            viewModel.setFloatingClose()
+                            CoroutineScope(Dispatchers.IO).launch {
+                                viewModel.setFloatingClose()
+                            }
                         }
 
                         else -> {

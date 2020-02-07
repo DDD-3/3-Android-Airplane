@@ -19,6 +19,9 @@ import com.ddd.airplane.databinding.SearchFragmentBinding
 import com.ddd.airplane.databinding.SearchItemBinding
 import com.ddd.airplane.presenter.search.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -61,7 +64,9 @@ class SearchFragment : BaseFragment<SearchFragmentBinding, SearchViewModel>(),
 
             }.apply {
                 setOnItemClickListener { view, data ->
-                    ChatRoomManager.joinChatRoom(context, data)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        ChatRoomManager.joinChatRoom(context, data)
+                    }
                 }
             }
 

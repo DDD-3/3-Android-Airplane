@@ -29,7 +29,7 @@ object ChatRoomManager {
     /**
      * 채팅방 이동, DB 저장
      */
-    fun joinChatRoom(context: Context?, program: ProgramData?) {
+    suspend fun joinChatRoom(context: Context?, program: ProgramData?) {
         program?.let { data ->
             // 채팅방 이동
             joinChatRoom(context, data.roomId)
@@ -42,9 +42,9 @@ object ChatRoomManager {
     /**
      * Room 에 데이터 저장
      */
-    private fun setRecentChatRoom(program: ProgramData?) {
+    private suspend fun setRecentChatRoom(program: ProgramData?) {
         program?.let { data ->
-            RecentRepository().insertRecent(
+            RecentRepository.insertRecent(
                 RecentEntity(
                     data.roomId,
                     data.subjectName,

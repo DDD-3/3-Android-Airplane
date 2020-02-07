@@ -14,6 +14,9 @@ import com.ddd.airplane.data.response.home.HomeData
 import com.ddd.airplane.databinding.HomeGridBinding
 import com.ddd.airplane.databinding.ThumbnailGridItemBinding
 import kotlinx.android.synthetic.main.home_grid.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -84,7 +87,9 @@ class GridViewHolder(
 
             }.apply {
                 setOnItemClickListener { view, data ->
-                    ChatRoomManager.joinChatRoom(context, data)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        ChatRoomManager.joinChatRoom(context, data)
+                    }
                 }
             }
 

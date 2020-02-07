@@ -1,25 +1,15 @@
 package com.ddd.airplane.common.manager
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
-import com.ddd.airplane.common.interfaces.OnResponseListener
-import com.ddd.airplane.repository.database.member.MemberEntity
-import com.ddd.airplane.repository.database.room.RoomManager
-import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.repository.network.retrofit.request
-import com.ddd.airplane.data.response.user.AccountData
-import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import com.ddd.airplane.repository.database.MemberRepository
+import com.ddd.airplane.repository.database.member.MemberEntity
+import com.ddd.airplane.repository.database.room.RoomManager
 import com.ddd.airplane.repository.network.UserRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
-import timber.log.Timber
-import java.lang.Exception
 
 /**
  * 회원정보 관리
@@ -30,8 +20,6 @@ object MemberManager {
 
     // 로그인 리스너
     private var sigInInListener: ((Boolean) -> Unit)? = null
-
-    private val repository = MemberRepository()
 
     /**
      * 로그인
@@ -56,7 +44,7 @@ object MemberManager {
     /**
      * 로그아웃
      */
-    fun signOut(listener: (() -> Unit)? = null) {
+    suspend fun signOut(listener: (() -> Unit)? = null) {
         TokenManager.removeToken()
         removeAccount()
         listener?.invoke()
@@ -66,8 +54,8 @@ object MemberManager {
      * 계정정보 삭제
      *
      */
-    private fun removeAccount() {
-        repository.deleteAll()
+    private suspend fun removeAccount() {
+        MemberRepository.deleteAll()
     }
 
 
@@ -75,7 +63,7 @@ object MemberManager {
      * 계정정보
      */
     suspend fun getAccount(listener: ((MemberEntity?) -> Unit)?) {
-        listener?.invoke(repository.select())
+        listener?.invoke(MemberRepository.select())
     }
 
     /**
@@ -97,7 +85,7 @@ object MemberManager {
 
             }.getAccounts(email)
             ?.let { response ->
-                MemberRepository().insertMember(
+                MemberRepository.insertMember(
                     MemberEntity(
                         response.email ?: "",
                         response.nickname ?: ""

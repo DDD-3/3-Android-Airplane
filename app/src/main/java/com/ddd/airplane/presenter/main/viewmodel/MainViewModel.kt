@@ -9,6 +9,7 @@ import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.manager.ChatRoomManager
 import com.ddd.airplane.repository.database.RecentRepository
 import com.ddd.airplane.repository.database.recent.RecentEntity
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,7 +24,9 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     private var recentEntity: RecentEntity? = null
 
     fun onResume() {
-        getRecent()
+        viewModelScope.launch {
+            getRecent()
+        }
     }
 
     fun onPause() {
@@ -33,11 +36,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 최근 방송 검색
      */
-    private fun getRecent() {
+    private suspend fun getRecent() {
 
         viewModelScope.launch {
 
-            RecentRepository().selectTopLimit()?.let { recent ->
+            RecentRepository.selectTopLimit()?.let { recent ->
 
                 // 닫았는지 여부 판단
                 if (recent.isFloatingClose) {
@@ -55,11 +58,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     /**
      * 최근 본 방송 닫기
      */
-    fun setFloatingClose() {
+    suspend fun setFloatingClose() {
         recentEntity?.let { recent ->
             viewModelScope.launch {
                 recent.isFloatingClose = true
-                RecentRepository().insertRecent(
+                RecentRepository.insertRecent(
                     recent
                 )
                 recentEntity = null
@@ -69,7 +72,6 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     /**
      * 최근 본 방송 접속
-     * TODO. from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want? ... ㅎㅎ
      */
     fun joinChatRoom() {
         recentEntity?.let {
