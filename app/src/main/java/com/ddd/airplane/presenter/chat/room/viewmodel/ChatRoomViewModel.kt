@@ -32,75 +32,74 @@ import ua.naiksoftware.stomp.dto.StompHeader
 import kotlin.collections.ArrayList
 
 class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
+
     private val client = Stomp.over(
         Stomp.ConnectionProvider.OKHTTP,
         ServerInfo.DOMAIN.REAL.domain + ServerUrl.WEB_SOCKET
     )
 
-    private val _roomName = MutableLiveData<String>()
-    val roomName: LiveData<String> = _roomName
-
-    private val _roomDesc = MutableLiveData<String>()
-    val roomDesc: LiveData<String> = _roomDesc
-
+    private val _roomData = MutableLiveData<ChatRoomData>()
+    val roomData: LiveData<ChatRoomData> = _roomData
+    
     private val _roomSchedule = MutableLiveData<String>()
     val roomSchedule: LiveData<String> = _roomSchedule
-
-    private val _subscribeCount = MutableLiveData<String>()
-    val subscribeCount: LiveData<String> = _subscribeCount
-
-    private val _userCount = MutableLiveData<String>()
-    val userCount: LiveData<String> = _userCount
 
     private val _liked = MutableLiveData<Boolean>()
     val liked: LiveData<Boolean> = _liked
 
-    private val _subscribed = MutableLiveData<Boolean>(false)
-    val subscribed: LiveData<Boolean> = _subscribed
-
     private val _msgList = MutableLiveData<ArrayList<ChatMessageData.MessageData>>()
     val msgList: LiveData<ArrayList<ChatMessageData.MessageData>> = _msgList
 
-    private val _roomId = MutableLiveData<Long>()
+    var roomId: Long = 0
+        private set
     private val _subjectId = MutableLiveData<Long>()
 
     //TODO chat api const 분리
     @SuppressLint("CheckResult")
     fun connectChatClient() {
+
+        if (roomId < 0) {
+            return
+        }
+
         val headerList: List<StompHeader> =
             listOf(StompHeader("access-token", TokenManager.accessToken))
 
-        client.apply {
+        client.run {
+
+            // connect
             connect(headerList)
-        }
 
-        client.topic(ServerUrl.SUBSCRIBE_ROOM + _roomId.value)
-            .doOnError {
-                Timber.e(it.message)
-            }
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                Timber.d(it.payload)
-                val res: ChatPayloadData = Gson().fromJson(it.payload, ChatPayloadData::class.java)
-                handlePayLoadData(res)
-            }, {
-                Timber.e(it.message)
-            })
-
-        client
-            .lifecycle()
-            .subscribeOn(Schedulers.io())
-            .doOnError {
-                Timber.e(it.message)
-            }
-            .subscribe({
-                when (it.type) {
-                    LifecycleEvent.Type.OPENED -> Timber.e("Stomp connection opened")
-                    LifecycleEvent.Type.CLOSED -> Timber.e("Stomp connection closed")
+            // topic
+            topic(ServerUrl.SUBSCRIBE_ROOM + roomId)
+                .doOnError {
+                    Timber.e(it.message)
                 }
-            }, {
-                Timber.e(it.message)
-            })
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    Timber.d(it.payload)
+                    val res: ChatPayloadData =
+                        Gson().fromJson(it.payload, ChatPayloadData::class.java)
+                    handlePayLoadData(res)
+                }, {
+                    Timber.e(it.message)
+                })
+
+            // lifecycle
+            lifecycle()
+                .subscribeOn(Schedulers.io())
+                .doOnError {
+                    Timber.e(it.message)
+                }
+                .subscribe({
+                    when (it.type) {
+                        LifecycleEvent.Type.OPENED -> Timber.e("Stomp connection opened")
+                        LifecycleEvent.Type.CLOSED -> Timber.e("Stomp connection closed")
+                    }
+                }, {
+                    Timber.e(it.message)
+                })
+        }
     }
 
     private fun handlePayLoadData(res: ChatPayloadData) {
@@ -131,7 +130,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
     fun sendChatMessage(msg: String) {
         val chatContent = "{\"type\": \"CHAT\", \"content\": \"$msg\"}"
         client.send(
-            ServerUrl.SEND_MSG + _roomId.value + "/chat",
+            ServerUrl.SEND_MSG + roomId + "/chat",
             chatContent
         ).subscribe()
     }
@@ -142,6 +141,9 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
      * @param roomId
      */
     fun getChatRoomInfo(roomId: Long) {
+
+        this.roomId = roomId
+
         viewModelScope.launch {
             ChatRepository
                 .setOnNetworkStatusListener(
@@ -152,14 +154,11 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                 }
                 .getRoomInfo(roomId)
                 ?.let { response ->
+
+                    _roomData.value = response
+
                     _subjectId.value = response.subjectId
-                    _roomName.value = response.subjectName
-                    _roomDesc.value = response.subjectDescription
                     _roomSchedule.value = parseRoomSchedule(response.upcomingSubjectSchedule)
-                    _subscribeCount.value = response.subjectSubscribeCount.toString()
-                    _subscribed.value = response.subjectSubscribed
-                    _roomId.value = response.roomId
-                    _userCount.value = response.roomUserCount.toString()
                     _liked.value = response.liked
                     _msgList.value = response.recentMessages
 
@@ -199,7 +198,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                     .postSubscribe(it)
 
                 if (isSucceed) {
-                    getChatRoomInfo(_roomId.value!!)
+                    getChatRoomInfo(roomId!!)
                 }
             }
         }
@@ -223,7 +222,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
                     .deleteSubscribe(it)
 
                 if (isSucceed) {
-                    getChatRoomInfo(_roomId.value!!)
+                    getChatRoomInfo(roomId)
                 }
             }
         }
@@ -234,23 +233,19 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
      *
      */
     fun getChatMessages() {
-
         //TODO baseMsg, size 정의
-        _roomId.value?.let { roomId ->
-            viewModelScope.launch {
-                ChatRepository
-                    .setOnNetworkStatusListener(
-                        this@ChatRoomViewModel.showProgress(true)
-                    )
-                    .setOnErrorListener {
-                        showToast(it?.message)
-                    }
-                    .getRoomMessages(roomId, 0, 20, "BACKWARD")
-                    ?.let { response ->
-                        _msgList.value = response.messages
-                    }
-            }
+        viewModelScope.launch {
+            ChatRepository
+                .setOnNetworkStatusListener(
+                    this@ChatRoomViewModel.showProgress(true)
+                )
+                .setOnErrorListener {
+                    showToast(it?.message)
+                }
+                .getRoomMessages(roomId, 0, 20, "BACKWARD")
+                ?.let { response ->
+                    _msgList.value = response.messages
+                }
         }
     }
-
 }
