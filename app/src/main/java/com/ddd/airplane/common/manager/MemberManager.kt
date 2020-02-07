@@ -13,8 +13,11 @@ import com.ddd.airplane.data.response.user.AccountData
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.presenter.signin.view.SignInActivity
 import com.ddd.airplane.repository.database.MemberRepository
+import com.ddd.airplane.repository.network.UserRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.lang.Exception
 
@@ -78,34 +81,31 @@ object MemberManager {
     /**
      * 계정정보 저장
      */
-    fun setAccount(
+    suspend fun setAccount(
         status: OnNetworkStatusListener,
-        email: String,
-        listener: ((Boolean) -> Unit)? = null
-    ) {
-        RetrofitManager
-            .user
-            .getAccounts(email)
-            .request(status, object : OnResponseListener<AccountData> {
+        scope: CoroutineScope,
+        email: String
+    ) = withContext(scope.coroutineContext) {
 
-                override fun onSuccess(response: AccountData) {
-                    try {
-                        MemberRepository().insertMember(
-                            MemberEntity(
-                                response.email ?: "",
-                                response.nickname ?: ""
-                            )
-                        )
-                        listener?.invoke(true)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        listener?.invoke(false)
-                    }
-                }
+        var isSuccess = false
 
-                override fun onError(error: ErrorData) {
-                    listener?.invoke(false)
-                }
-            })
+        UserRepository
+            .setOnNetworkStatusListener(
+                status.showProgress(true)
+            )
+            .setOnErrorListener {
+
+            }.getAccounts(email)
+            ?.let { response ->
+                MemberRepository().insertMember(
+                    MemberEntity(
+                        response.email ?: "",
+                        response.nickname ?: ""
+                    )
+                )
+                isSuccess = true
+            }
+
+        isSuccess
     }
 }

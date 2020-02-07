@@ -30,6 +30,8 @@ fun <T> Response<T>?.request(
     errorListener: ((ErrorData?) -> Unit)? = null
 ): T? {
 
+    status?.showProgress(false)
+
     val context = status?.context
 
     this?.let { response ->
@@ -61,7 +63,7 @@ fun <T> Response<T>?.request(
             return null
         }
     }
-    status?.showProgress(false)
+
     return this?.body()
 }
 
@@ -72,6 +74,8 @@ fun <T> Single<T>.request(
     status: OnNetworkStatusListener? = null,
     listener: OnResponseListener<T>?
 ) {
+
+    status?.showProgress(false)
 
     val context = status?.context
 
@@ -87,32 +91,36 @@ fun <T> Single<T>.request(
 
             override fun onSuccess(response: T) {
                 tryCatch {
+
+                    status?.showProgress(false)
+
                     Timber.v("onSuccess($response)")
 
                     // Return
                     response?.let {
                         listener?.onSuccess(response)
-                    }
-//                        ?: let {
-//                        // response 가 null 인 경우
-//                        val error = ErrorData(
-//                            error = "null",
-//                            error_description = "Data is null",
-//                            message = context?.getString(R.string.error_network_response_null) ?: ""
-//                        )
-//
-//                        error.let {
-//                            status?.showToast(it.message)
-//                            listener?.onError(it)
-//                        }
-//                    }
+                    } ?: let {
+                        // response 가 null 인 경우
+                        val error = ErrorData(
+                            error = "null",
+                            error_description = "Data is null",
+                            message = context?.getString(R.string.error_network_response_null)
+                                ?: ""
+                        )
 
-                    status?.showProgress(false)
+                        error.let {
+                            status?.showToast(it.message)
+                            listener?.onError(it)
+                        }
+                    }
                 }
             }
 
             override fun onError(e: Throwable) {
                 tryCatch {
+
+                    status?.showProgress(false)
+
                     Timber.e("onError($e)")
 
                     val errorBody = (e as HttpException).response()?.errorBody()
@@ -121,8 +129,6 @@ fun <T> Single<T>.request(
                     RequestManager.onError(
                         error, status, listener
                     )
-
-                    status?.showProgress(false)
                 }
             }
         })

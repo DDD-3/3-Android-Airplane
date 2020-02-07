@@ -72,7 +72,7 @@ object TokenManager {
     /**
      * 토큰발급
      */
-    fun getAccessToken(
+    suspend fun getAccessToken(
         status: OnNetworkStatusListener?,
         email: String,
         password: String,
@@ -82,23 +82,48 @@ object TokenManager {
         // 토큰 지우고 발급
         removeToken()
 
-        RetrofitManager
-            .user
-            .postAccessToken(email, password, "password")
-            .request(status, object : OnResponseListener<TokenData> {
+        UserRepository
+            .setOnNetworkStatusListener(
+                status?.showProgress(true)
+            )
+            .setOnErrorListener {
+                listener?.invoke(false)
+            }
+            .postAccessToken(email, password)
+            ?.let { response ->
+                setToken(response.accessToken, response.refreshToken, response.tokenType)
+                listener?.invoke(true)
+            }
+    }
 
-                override fun onSuccess(response: TokenData) {
-                    // 토큰 세팅
-                    response.let {
-                        setToken(it.accessToken, it.refreshToken, it.tokenType)
-                    }
-                    listener?.invoke(true)
-                }
+    /**
+     * 토큰발급
+     */
+    suspend fun getAccessToken(
+        status: OnNetworkStatusListener?,
+        scope: CoroutineScope,
+        email: String,
+        password: String
+    ) = withContext(scope.coroutineContext) {
 
-                override fun onError(error: ErrorData) {
-                    listener?.invoke(false)
-                }
-            })
+        // 토큰 지우고 발급
+        removeToken()
+
+        var isSuccess = false
+        UserRepository
+            .setOnNetworkStatusListener(
+                status?.showProgress(true)
+            )
+            .setOnErrorListener {
+
+            }
+            .postAccessToken(email, password)
+            ?.let { response ->
+                setToken(response.accessToken, response.refreshToken, response.tokenType)
+                isSuccess = true
+            }
+
+        isSuccess
     }
 
     /**

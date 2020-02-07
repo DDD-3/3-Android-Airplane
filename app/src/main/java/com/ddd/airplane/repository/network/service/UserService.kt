@@ -25,20 +25,20 @@ interface UserService {
      * 계정조회
      */
     @GET("/api/v1/accounts/{email}")
-    fun getAccounts(
+    suspend fun getAccounts(
         @Path("email") email: String
-    ): Single<AccountData>
+    ): Response<AccountData>
 
     /**
      * 토큰발급
      */
     @FormUrlEncoded
     @POST("/oauth/token")
-    fun postAccessToken(
+    suspend fun postAccessToken(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("grant_type") grantType: String
-    ): Single<TokenData>
+    ): Response<TokenData>
 
     /**
      * 토큰 재발급

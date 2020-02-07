@@ -22,8 +22,21 @@ object SubscribeRepository : BaseRepository() {
     }
 
     /**
+     * 방송 구독
+     */
+    suspend fun postSubscribe(subjectId: Long) =
+        service.postSubscribe(subjectId).request(status, error)
+
+
+    /**
+     * 방송 구독 취소
+     */
+    suspend fun deleteSubscribe(subjectId: Long) =
+        service.deleteSubscribe(subjectId).request(status, error)
+
+
+    /**
      * 구독 방송 리스트
-     * @param pageNum
      */
     suspend fun getSubscribe(pageNum: Int = 1) =
         service.getSubscribe(pageNum).request(status, error)

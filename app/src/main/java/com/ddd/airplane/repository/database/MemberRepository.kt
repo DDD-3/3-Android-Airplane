@@ -30,7 +30,7 @@ class MemberRepository : CoroutineScope {
     /**
      * 회원 정보 세팅
      */
-    fun insertMember(entity: MemberEntity) {
+    suspend fun insertMember(entity: MemberEntity) {
         CoroutineScope(coroutineContext).launch {
             db.memberInsert(entity)
         }

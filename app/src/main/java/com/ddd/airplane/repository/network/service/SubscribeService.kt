@@ -21,20 +21,17 @@ interface SubscribeService {
     /**
      * 구독
      */
-    @FormUrlEncoded
     @POST("/api/v1/subjects/{subjectId}/subscribe")
-    fun postSubscribe(
-        @Path("subjectId") subjectId: Long,
-        @Field("subjectId") subId: Long
-    ): Single<Any>
+    suspend fun postSubscribe(
+        @Path("subjectId") subjectId: Long
+    ): Response<Unit>
 
     /**
      * 구독 취소
      */
     @DELETE("/api/v1/subjects/{subjectId}/subscribe")
-    fun deleteSubscribe(
+    suspend fun deleteSubscribe(
         @Path("subjectId") subjectId: Long
-    ): Single<Any>
-
+    ): Response<Unit>
 
 }

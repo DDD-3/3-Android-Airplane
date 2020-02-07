@@ -2,9 +2,11 @@ package com.ddd.airplane.repository.network
 
 import com.ddd.airplane.common.base.BaseRepository
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
+import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
 import com.ddd.airplane.data.request.SignUpRequest
 import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.data.response.user.TokenData
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 
@@ -30,9 +32,24 @@ object UserRepository : BaseRepository() {
         service.postAccounts(signUpRequest).request(status, error)
 
     /**
+     * 토큰발급
+     */
+    suspend fun postAccessToken(email: String, password: String) =
+        service.postAccessToken(email, password, "password").request(status, error)
+
+    /**
      * 토큰 새로고침
      */
     suspend fun postTokenRefresh(refreshToken: String?) =
         service.postTokenRefreshCoruoutine(refreshToken, TokenManager.REFRESH_TOKEN)
             .request(status, error)
+
+    /**
+     * 유저정보 조회
+     *
+     * @param email
+     */
+    suspend fun getAccounts(email: String) =
+        service.getAccounts(email).request(status, error)
+
 }

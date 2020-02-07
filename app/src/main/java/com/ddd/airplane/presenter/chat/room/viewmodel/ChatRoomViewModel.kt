@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseViewModel
 import com.ddd.airplane.common.interfaces.OnResponseListener
@@ -14,12 +15,15 @@ import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatPayloadData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.ScheduleData
+import com.ddd.airplane.repository.network.SubscribeRepository
 import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.config.ServerUrl
 import com.ddd.airplane.repository.network.retrofit.RetrofitManager
 import com.ddd.airplane.repository.network.retrofit.request
 import com.google.gson.Gson
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import timber.log.Timber
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.dto.LifecycleEvent
@@ -171,42 +175,53 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         return res
     }
 
+    /**
+     * 구독하기
+     */
     fun postSubscribe() {
-        val subId = _subjectId.value
-        if (subId != null) {
-            RetrofitManager
-                .subscribe
-                .postSubscribe(subId, subId)
-                .request(this, object : OnResponseListener<Any> {
-                    override fun onSuccess(response: Any) {
-                        getChatRoomInfo(_roomId.value!!)
-                    }
+        viewModelScope.launch {
+            _subjectId.value?.let {
 
-                    override fun onError(error: ErrorData) {
+                var isSucceed = true
+                SubscribeRepository
+                    .setOnNetworkStatusListener(
+                        this@ChatRoomViewModel.showProgress(true)
+                    )
+                    .setOnErrorListener {
+                        isSucceed = false
                     }
+                    .postSubscribe(it)
 
-                })
+                if (isSucceed) {
+                    getChatRoomInfo(_roomId.value!!)
+                }
+            }
         }
     }
 
+    /**
+     * 구독 취소하기
+     */
     fun deleteSubscribe() {
-        val subId = _subjectId.value
-        if (subId != null) {
-            RetrofitManager
-                .subscribe
-                .deleteSubscribe(subId)
-                .request(this, object : OnResponseListener<Any> {
-                    override fun onSuccess(response: Any) {
-                        getChatRoomInfo(_roomId.value!!)
-                    }
+        viewModelScope.launch {
+            _subjectId.value?.let {
 
-                    override fun onError(error: ErrorData) {
+                var isSucceed = true
+                SubscribeRepository
+                    .setOnNetworkStatusListener(
+                        this@ChatRoomViewModel.showProgress(true)
+                    )
+                    .setOnErrorListener {
+                        isSucceed = false
                     }
+                    .deleteSubscribe(it)
 
-                })
+                if (isSucceed) {
+                    getChatRoomInfo(_roomId.value!!)
+                }
+            }
         }
     }
-
 
     fun getChatMessages() {
 
