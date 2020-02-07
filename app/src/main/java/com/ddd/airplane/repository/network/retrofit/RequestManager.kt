@@ -1,31 +1,24 @@
 package com.ddd.airplane.repository.network.retrofit
 
 import android.content.Context
-import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.interfaces.OnNetworkStatusListener
-import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
-import com.ddd.airplane.common.utils.tryCatch
 import com.ddd.airplane.data.response.ErrorData
 import com.ddd.airplane.repository.network.config.HttpStatus
 import com.ddd.airplane.repository.network.retrofit.RequestManager.parseErrorBody
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
-import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import okhttp3.ResponseBody
-import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
 
 /**
  * 네트워크 통신
  */
-fun <T> Response<T>?.request(
+suspend fun <T> Response<T>?.request(
     status: OnNetworkStatusListener? = null,
     errorListener: ((ErrorData?) -> Unit)? = null
 ): T? {
@@ -41,20 +34,21 @@ fun <T> Response<T>?.request(
 
             // 에러파싱 실패
             if (error.status == HttpStatus.UNAUTHORIZED.code) {
-                // 토큰 재발급
-                TokenManager.onRefreshToken(status) { isRefresh ->
 
-                    if (!isRefresh) {
-                        errorListener?.invoke(error)
-                    }
+                TokenManager.onRefreshToken(status, CoroutineScope(Dispatchers.IO))
+                    .let { isSuccess ->
+                        Timber.d(">> 토큰갱신 완료 결과 : $isSuccess")
+                        if (!isSuccess) {
+                            errorListener?.invoke(error)
+                        }
 
-                    status?.showToast(
-                        context?.getString(
-                            if (isRefresh) R.string.error_network_response_retry
-                            else R.string.error_network_response_error
+                        status?.showToast(
+                            context?.getString(
+                                if (isSuccess) R.string.error_network_response_retry
+                                else R.string.error_network_response_error
+                            )
                         )
-                    )
-                }
+                    }
             } else {
                 status?.showToast(error.message)
                 errorListener?.invoke(error)
@@ -65,73 +59,6 @@ fun <T> Response<T>?.request(
     }
 
     return this?.body()
-}
-
-/**
- * 네트워크 통신
- */
-fun <T> Single<T>.request(
-    status: OnNetworkStatusListener? = null,
-    listener: OnResponseListener<T>?
-) {
-
-    status?.showProgress(false)
-
-    val context = status?.context
-
-    this.retry(3)
-        .subscribeOn(Schedulers.newThread())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(object : SingleObserver<T> {
-
-            override fun onSubscribe(disposable: Disposable) {
-                Timber.v("onSubscribe($disposable) ${Thread.currentThread().name}")
-                status?.showProgress(true)
-            }
-
-            override fun onSuccess(response: T) {
-                tryCatch {
-
-                    status?.showProgress(false)
-
-                    Timber.v("onSuccess($response)")
-
-                    // Return
-                    response?.let {
-                        listener?.onSuccess(response)
-                    } ?: let {
-                        // response 가 null 인 경우
-                        val error = ErrorData(
-                            error = "null",
-                            error_description = "Data is null",
-                            message = context?.getString(R.string.error_network_response_null)
-                                ?: ""
-                        )
-
-                        error.let {
-                            status?.showToast(it.message)
-                            listener?.onError(it)
-                        }
-                    }
-                }
-            }
-
-            override fun onError(e: Throwable) {
-                tryCatch {
-
-                    status?.showProgress(false)
-
-                    Timber.e("onError($e)")
-
-                    val errorBody = (e as HttpException).response()?.errorBody()
-                    val error = parseErrorBody(context, errorBody)
-
-                    RequestManager.onError(
-                        error, status, listener
-                    )
-                }
-            }
-        })
 }
 
 object RequestManager {
@@ -159,30 +86,6 @@ object RequestManager {
         }
 
         return error
-    }
-
-    fun <T> onError(
-        error: ErrorData,
-        status: OnNetworkStatusListener? = null,
-        listener: OnResponseListener<T>? = null
-    ) {
-        val context = status?.context
-
-        // 에러파싱 실패
-        if (error.status == HttpStatus.UNAUTHORIZED.code) {
-            // 토큰 재발급
-            TokenManager.onRefreshToken(status) { isRefresh ->
-                status?.showToast(
-                    context?.getString(
-                        if (isRefresh) R.string.error_network_response_retry
-                        else R.string.error_network_response_error
-                    )
-                )
-            }
-        } else {
-            status?.showToast(error.message)
-            listener?.onError(error)
-        }
     }
 
     /**
@@ -218,5 +121,4 @@ object RequestManager {
         Timber.d(model.toString())
         return model
     }
-
 }

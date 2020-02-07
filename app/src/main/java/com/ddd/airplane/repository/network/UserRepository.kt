@@ -46,8 +46,6 @@ object UserRepository : BaseRepository() {
 
     /**
      * 유저정보 조회
-     *
-     * @param email
      */
     suspend fun getAccounts(email: String) =
         service.getAccounts(email).request(status, error)

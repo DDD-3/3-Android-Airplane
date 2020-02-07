@@ -1,6 +1,6 @@
 package com.ddd.airplane.repository.network.service
 
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -10,32 +10,29 @@ interface LikeService {
 
     /**
      * 좋아요 조회
-     * TODO
      */
     @GET("/api/v1/subjects/{?}/like")
-    fun getLike(
+    suspend fun getLike(
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int
-    ): Single<Any>
+    ): Response<Any>
 
     /**
      * 좋아요
-     * TODO
      */
     @FormUrlEncoded
     @POST("/api/v1/subjects/{?}/like")
-    fun postLike(
+    suspend fun postLike(
 
-    ): Single<Any>
+    ): Response<Unit>
 
     /**
-     * 구독 취소
-     * TODO
+     * 좋아요 취소
      */
     @DELETE("/api/v1/subjects/{?}/like")
-    fun deleteLike(
+    suspend fun deleteLike(
 
-    ): Single<Any>
+    ): Response<Unit>
 
 
 }

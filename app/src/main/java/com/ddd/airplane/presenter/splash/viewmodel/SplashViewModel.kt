@@ -34,7 +34,7 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
      */
     private suspend fun refreshToken() =
         withContext(viewModelScope.coroutineContext) {
-            TokenManager.onRefreshTokenCoroutine(this@SplashViewModel, this)
+            TokenManager.onRefreshToken(this@SplashViewModel, this)
                 .let { isSuccess ->
                     Timber.d(">> 토큰갱신 완료 결과 : $isSuccess")
                     if (!isSuccess) {

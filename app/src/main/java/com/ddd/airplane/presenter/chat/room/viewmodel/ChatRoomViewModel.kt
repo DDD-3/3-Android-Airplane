@@ -15,6 +15,7 @@ import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatPayloadData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.data.response.chat.ScheduleData
+import com.ddd.airplane.repository.network.ChatRepository
 import com.ddd.airplane.repository.network.SubscribeRepository
 import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.config.ServerUrl
@@ -135,32 +136,37 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         ).subscribe()
     }
 
+    /**
+     * 채팅방 정보
+     *
+     * @param roomId
+     */
     fun getChatRoomInfo(roomId: Long) {
-        RetrofitManager
-            .chat
-            .getRoom(roomId)
-            .request(this, object : OnResponseListener<ChatRoomData> {
-                override fun onSuccess(response: ChatRoomData) {
-                    response.let { data ->
-                        _subjectId.value = data.subjectId
-                        _roomName.value = data.subjectName
-                        _roomDesc.value = data.subjectDescription
-                        _roomSchedule.value = parseRoomSchedule(data.upcomingSubjectSchedule)
-                        _subscribeCount.value = data.subjectSubscribeCount.toString()
-                        _subscribed.value = data.subjectSubscribed
-                    }
+        viewModelScope.launch {
+            ChatRepository
+                .setOnNetworkStatusListener(
+                    this@ChatRoomViewModel.showProgress(true)
+                )
+                .setOnErrorListener {
+                    showToast(it?.message)
+                }
+                .getRoomInfo(roomId)
+                ?.let { response ->
+                    _subjectId.value = response.subjectId
+                    _roomName.value = response.subjectName
+                    _roomDesc.value = response.subjectDescription
+                    _roomSchedule.value = parseRoomSchedule(response.upcomingSubjectSchedule)
+                    _subscribeCount.value = response.subjectSubscribeCount.toString()
+                    _subscribed.value = response.subjectSubscribed
                     _roomId.value = response.roomId
                     _userCount.value = response.roomUserCount.toString()
                     _liked.value = response.liked
                     _msgList.value = response.recentMessages
+
                     connectChatClient()
                 }
 
-                override fun onError(error: ErrorData) {
-                    showToast("Error")
-                }
-
-            })
+        }
     }
 
     private fun parseRoomSchedule(schedule: ScheduleData?): String? {
@@ -223,22 +229,28 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    /**
+     * 채팅방 메세지 조회
+     *
+     */
     fun getChatMessages() {
 
         //TODO baseMsg, size 정의
-        RetrofitManager
-            .chat
-            .getRoomMessages(_roomId.value!!, 0, 20, "BACKWARD")
-            .request(this, object : OnResponseListener<ChatMessageData> {
-                override fun onSuccess(response: ChatMessageData) {
-                    _msgList.value = response.messages
-                }
-
-                override fun onError(error: ErrorData) {
-                    showToast("Error")
-                }
-
-            })
+        _roomId.value?.let { roomId ->
+            viewModelScope.launch {
+                ChatRepository
+                    .setOnNetworkStatusListener(
+                        this@ChatRoomViewModel.showProgress(true)
+                    )
+                    .setOnErrorListener {
+                        showToast(it?.message)
+                    }
+                    .getRoomMessages(roomId, 0, 20, "BACKWARD")
+                    ?.let { response ->
+                        _msgList.value = response.messages
+                    }
+            }
+        }
     }
 
 }

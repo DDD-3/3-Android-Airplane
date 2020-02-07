@@ -126,47 +126,48 @@ object TokenManager {
         isSuccess
     }
 
+//    /**
+//     * 토큰 재발급
+//     */
+//    fun onRefreshToken(
+//        status: OnNetworkStatusListener?,
+//        listener: ((Boolean) -> Unit)? = null
+//    ) {
+//
+//        Timber.d(">> onRefreshToken")
+//
+//        refreshToken?.let { token ->
+//
+//            // 토큰 지우고 발급
+//            removeToken()
+//
+//            RetrofitManager
+//                .user
+//                .postTokenRefresh(token, REFRESH_TOKEN)
+//                .request(status, object : OnResponseListener<TokenData> {
+//
+//                    override fun onSuccess(response: TokenData) {
+//                        // 토큰 세팅
+//                        response.let {
+//                            setToken(it.accessToken, it.refreshToken, it.tokenType)
+//                        }
+//                        listener?.invoke(true)
+//                    }
+//
+//                    override fun onError(error: ErrorData) {
+//                        listener?.invoke(false)
+//                    }
+//                })
+//        } ?: run {
+//            listener?.invoke(false)
+//        }
+//    }
+
     /**
      * 토큰 재발급
      */
-    fun onRefreshToken(
+    suspend fun onRefreshToken(
         status: OnNetworkStatusListener?,
-        listener: ((Boolean) -> Unit)? = null
-    ) {
-        Timber.d(">> onRefreshToken")
-
-        refreshToken?.let { token ->
-
-            // 토큰 지우고 발급
-            removeToken()
-
-            RetrofitManager
-                .user
-                .postTokenRefresh(token, REFRESH_TOKEN)
-                .request(status, object : OnResponseListener<TokenData> {
-
-                    override fun onSuccess(response: TokenData) {
-                        // 토큰 세팅
-                        response.let {
-                            setToken(it.accessToken, it.refreshToken, it.tokenType)
-                        }
-                        listener?.invoke(true)
-                    }
-
-                    override fun onError(error: ErrorData) {
-                        listener?.invoke(false)
-                    }
-                })
-        } ?: run {
-            listener?.invoke(false)
-        }
-    }
-
-    /**
-     * 토큰 재발급
-     */
-    suspend fun onRefreshTokenCoroutine(
-        status: OnNetworkStatusListener,
         scope: CoroutineScope
     ): Boolean {
         Timber.d(">> onRefreshToken")
@@ -178,7 +179,7 @@ object TokenManager {
 
                 val response = UserRepository
                     .setOnNetworkStatusListener(
-                        status.showProgress(true)
+                        status?.showProgress(true)
                     )
                     .postTokenRefresh(refreshToken)
 

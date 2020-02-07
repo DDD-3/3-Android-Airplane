@@ -5,6 +5,7 @@ import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatRoomData
 import com.ddd.airplane.repository.network.config.ServerUrl
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,28 +19,28 @@ interface ChatService {
      * 채팅방 조회
      */
     @GET(ServerUrl.GET_ROOM_INFO)
-    fun getRoom(
+    suspend fun getRoomInfo(
         @Path("roomId") roomId: Long
-    ): Single<ChatRoomData>
+    ): Response<ChatRoomData>
 
     /**
      * 채팅방 메세지 조회
      */
     @GET(ServerUrl.GET_ROOM_MESSAGE)
-    fun getRoomMessages(
+    suspend fun getRoomMessages(
         @Path("roomId") roomId: Long,
         @Query("baseMessageId") baseMessageId: Int,
         @Query("size") size: Int,
         @Query("direction") direction: String
-    ): Single<ChatMessageData>
+    ): Response<ChatMessageData>
 
     /**
      * 최근 채팅방 조회
      */
     @GET(ServerUrl.GET_RECENT_ROOM)
-    fun getRecentRooms(
+    suspend fun getRecentRooms(
         @Query("pageNum") pageNum: Int,
         @Query("pageSize") pageSize: Int
-    ): Single<RecentData>
+    ): Response<RecentData>
 
 }
