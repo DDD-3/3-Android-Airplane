@@ -27,7 +27,7 @@ object RetrofitManager {
     // 채팅
     val chat: ChatService = create(ChatService::class.java)
     // 좋아요
-    val Like: LikeService = create(LikeService::class.java)
+    val like: LikeService = create(LikeService::class.java)
     // 구독
     val subscribe: SubscribeService = create(SubscribeService::class.java)
 
