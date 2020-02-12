@@ -299,6 +299,9 @@ class EditTextView @JvmOverloads constructor(
         get() = et_input.text.toString()
         set(value) {
             if (value.isNotEmpty()) {
+                // 포커스 활성화
+                setFocus(true)
+                // 데이터 세팅
                 value.let {
                     et_input.setText(it)
                     tv_input.text = it

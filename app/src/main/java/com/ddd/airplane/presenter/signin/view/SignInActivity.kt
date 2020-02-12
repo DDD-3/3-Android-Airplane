@@ -1,11 +1,13 @@
 package com.ddd.airplane.presenter.signin.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
+import com.ddd.airplane.common.consts.Constants
 import com.ddd.airplane.common.extension.showToast
 import com.ddd.airplane.databinding.SigninActivityBinding
 import com.ddd.airplane.presenter.signin.viewmodel.SignInViewModel
@@ -28,7 +30,11 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
         viewModel.run {
             // 로그인 성공 여부
             isSucceed.observe(this@SignInActivity, Observer {
-                if (it) finish() else this@SignInActivity.showToast(R.string.sign_in_failed)
+                if (it) {
+                    finish()
+                } else {
+                    this@SignInActivity.showToast(R.string.sign_in_failed)
+                }
             })
         }
     }
@@ -50,15 +56,37 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
             onCheckValid()
         }
 
-        // test
-        et_email.text = "ghi@gmail.com"
-        et_password.text = "password"
+//        // test
+//        et_email.text = "ghi@gmail.com"
+//        et_password.text = "password"
 
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
 
     }
+
+    protected override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+
+        when (requestCode) {
+            Constants.Request.SIGN_UP.ordinal -> {
+                // 로그인 시도
+                data?.let {
+                    val email = data.getStringExtra(Constants.Extra.EMAIL)
+                    val password = data.getStringExtra(Constants.Extra.PASSWORD)
+                    viewModel.doSignIn(email, password)
+                }
+            }
+            else -> {
+
+            }
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -67,7 +95,10 @@ class SignInActivity : BaseActivity<SigninActivityBinding, SignInViewModel>(),
             }
 
             R.id.cl_sign_up_info -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
+                startActivityForResult(
+                    Intent(this, SignUpActivity::class.java),
+                    Constants.Request.SIGN_UP.ordinal
+                )
             }
         }
     }

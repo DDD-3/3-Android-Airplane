@@ -23,9 +23,12 @@ class SignInViewModel(application: Application) : BaseViewModel(application) {
      * @param email
      * @param password
      */
-    fun doSignIn(email: String, password: String) {
-        // 토큰 발급
-        // TODO Scope 정리필요
+    fun doSignIn(email: String?, password: String?) {
+
+        if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+            return
+        }
+
         viewModelScope.launch {
 
             var result =

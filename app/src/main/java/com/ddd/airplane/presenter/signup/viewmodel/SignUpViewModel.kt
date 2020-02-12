@@ -23,17 +23,6 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
     private val _isSucceed = MutableLiveData<Boolean>()
     val isSucceed: LiveData<Boolean> = _isSucceed
 
-    // 회원가입 성공여부
-    private val _nickName = MutableLiveData<String>()
-    val nickName: LiveData<String> = _nickName
-
-    /**
-     * 닉네임
-     */
-    fun getNickName() {
-
-    }
-
     /**
      *  회원가입
      *
@@ -42,7 +31,6 @@ class SignUpViewModel(application: Application) : BaseViewModel(application) {
      * @param nickName
      */
     fun doSignUp(email: String, password: String, nickName: String) {
-
         viewModelScope.launch {
             UserRepository
                 .setOnNetworkStatusListener(

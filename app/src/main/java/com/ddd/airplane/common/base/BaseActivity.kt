@@ -72,7 +72,6 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
      * 데이터 바인딩 초기화
      */
     protected open fun initDataBinding() {
-
         binding = DataBindingUtil.setContentView(this, layoutRes)
         binding.run {
 
@@ -85,7 +84,6 @@ abstract class BaseActivity<VD : ViewDataBinding, VM : BaseViewModel> : AppCompa
             lifecycleOwner = this@BaseActivity
             setVariable(BR.viewModel, viewModel)
         }
-
     }
 
     /**
