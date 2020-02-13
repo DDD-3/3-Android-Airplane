@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.utils.tryCatch
+import com.ddd.airplane.common.views.component.BoundRecyclerView
 import com.google.android.material.tabs.TabLayout
 
 
@@ -40,6 +41,25 @@ fun RecyclerView.addAllItem(
         }
     }
 }
+
+@BindingAdapter(value = ["items", "isClear"], requireAll = false)
+fun BoundRecyclerView.addAllItem(
+    items: List<Any>?,
+    isClear: Boolean = true
+) {
+    tryCatch {
+        (this.adapter as? BaseRecyclerViewAdapter<Any, ViewDataBinding>)?.run {
+            if (isClear) {
+                this.clear()
+            }
+
+            if (!items.isNullOrEmpty()) {
+                this.addAllItem(items)
+            }
+        }
+    }
+}
+
 
 /**
  * ViewPager2 Adapter

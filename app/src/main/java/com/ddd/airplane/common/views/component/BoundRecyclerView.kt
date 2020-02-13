@@ -2,8 +2,10 @@ package com.ddd.airplane.common.views.component
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ddd.airplane.common.utils.tryCatch
 import timber.log.Timber
 
 class BoundRecyclerView @JvmOverloads constructor(
@@ -14,8 +16,7 @@ class BoundRecyclerView @JvmOverloads constructor(
 
     private var listener: (() -> Unit)? = null
     private var lastVisiblePosition = -1
-    private var listSize = 0
-    private var isLoaded = false
+    private var isLoading = false
 
     init {
         initialize()
@@ -27,48 +28,61 @@ class BoundRecyclerView @JvmOverloads constructor(
 
     private fun initialize() {
 
-        this.layoutManager = LinearLayoutManager(context)
 
-//        isFocusable = false
-//        isFocusableInTouchMode = false
-//        isNestedScrollingEnabled = false
-
+        /**
+         * RecyclerView.OnScrollListener
+         */
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+
+            }
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
 
-                val totalItemCount = layoutManager!!.itemCount
-                if (totalItemCount == 0 || dy == 0) return
+                layoutManager?.let { layoutManager ->
 
-                lastVisiblePosition =
-                    (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    var manager = layoutManager as LinearLayoutManager
+                    if (layoutManager is GridLayoutManager) {
+                        manager = layoutManager as GridLayoutManager
+                    }
 
-                if (!isLoaded && totalItemCount <= lastVisiblePosition + 2) {
-                    listener?.let {
-                        Timber.d(">> Bound")
-                        isLoaded = true
-                        it.invoke()
+                    if (!isLoading) {
+
+                        val visibleItemCount = manager.childCount
+                        val totalItemCount = manager.itemCount
+                        val firstVisibleItem = manager.findFirstVisibleItemPosition()
+                        val lastVisibleItem = manager.findLastVisibleItemPosition()
+
+                        if (totalItemCount == 0 || dy == 0) {
+                            return
+                        }
+
+                        if (!isLoading && totalItemCount <= lastVisiblePosition + 2) {
+                            listener?.let {
+                                Timber.d(">> Bound")
+                                isLoading = true
+                                it.invoke()
+                            }
+                        }
                     }
                 }
+
             }
         })
     }
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<*>?) {
         if (adapter != null) {
-            try {
+            tryCatch {
                 adapter.registerAdapterDataObserver(object :
                     RecyclerView.AdapterDataObserver() {
                     override fun onChanged() {
                         super.onChanged()
-                        isLoaded = false
-                        listSize = adapter.itemCount
+                        isLoading = false
                     }
                 })
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
-
         }
         super.setAdapter(adapter)
     }
