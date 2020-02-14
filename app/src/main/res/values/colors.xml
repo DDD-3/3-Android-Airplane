@@ -33,8 +33,6 @@
     <color name="grey100">#e5e5e7</color>
 
     <!-- 컬러 리소스 정의되지 않음 -->
-    <color name="color_0cbfff">#0cbfff</color>
-    <color name="color_828181">#828181</color>
     <color name="color_36363e">#36363e</color>
 
 </resources>

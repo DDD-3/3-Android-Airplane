@@ -21,7 +21,6 @@ import com.petersamokhin.android.floatinghearts.HeartsRenderer
 import com.petersamokhin.android.floatinghearts.HeartsView
 import kotlinx.android.synthetic.main.chat_room_activity.*
 
-
 /**
  * 채팅
  * @author jess
@@ -40,7 +39,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override fun initLayout() {
 
-        val views = arrayOf(tv_send_msg, iv_hold_info, tv_subscribe_room, tv_more, btn_room_like)
+        val views = arrayOf(tv_send_msg, iv_hold_info, tv_subscribe_room, tv_more, cl_like)
         views.forEach {
             it.setOnClickListener(this)
         }
@@ -49,10 +48,10 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
             override fun afterTextChanged(s: Editable?) {
                 if (et_chat_msg.text.isNotEmpty()) {
                     tv_send_msg.visibility = View.VISIBLE
-                    btn_room_like.visibility = View.GONE
+                    iv_room_like.visibility = View.GONE
                 } else {
                     tv_send_msg.visibility = View.GONE
-                    btn_room_like.visibility = View.VISIBLE
+                    iv_room_like.visibility = View.VISIBLE
                 }
             }
 
@@ -61,8 +60,13 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
         })
 
         rv_chat.apply {
-
             setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemSpace(
+                    DividerItemSpace.VERTICAL,
+                    context.resources.getDimensionPixelSize(R.dimen.dp8)
+                )
+            )
             adapter = object :
                 BaseRecyclerViewAdapter<ChatMessageData.MessageData, ChatMsgItemBinding>(R.layout.chat_msg_item) {
 
@@ -137,7 +141,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                 v.visibility = View.GONE
             }
 
-            R.id.btn_room_like -> {
+            R.id.cl_like -> {
                 initHeartView()
             }
         }
@@ -146,27 +150,28 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
     private fun initHeartView() {
         val drawable = getDrawable(R.drawable.ic_heart)
 
-        val bitmap = Bitmap.createBitmap(
-            drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width, canvas.height)
-        drawable.draw(canvas)
+        drawable?.let {
+            val bitmap = Bitmap.createBitmap(
+                drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            drawable.setBounds(0, 0, canvas.width, canvas.height)
+            drawable.draw(canvas)
 
 
-        val model = HeartsView.Model(
-            0,                         // Unique ID of this image, used for Rajawali materials caching
-            bitmap                          // Bitmap image
-        )
+            val model = HeartsView.Model(
+                0,                         // Unique ID of this image, used for Rajawali materials caching
+                bitmap                          // Bitmap image
+            )
 
-        val config = HeartsRenderer.Config(
-            2f,
-            0.08f,
-            2f
-        )
-        heartsView.applyConfig(config)
+            val config = HeartsRenderer.Config(
+                2f,
+                0.08f,
+                2f
+            )
+            heartsView.applyConfig(config)
 
-        heartsView.emitHeart(model)
+            heartsView.emitHeart(model)
+        }
     }
-
 }

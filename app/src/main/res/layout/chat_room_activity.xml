@@ -113,7 +113,7 @@
                         android:gravity="center_vertical"
                         android:text="@{String.valueOf(viewModel.roomData.subjectSubscribeCount)}"
                         android:textAlignment="gravity"
-                        android:textColor="@color/color_828181"
+                        android:textColor="@color/grey300"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/iv_follow_count"
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="@{String.valueOf(viewModel.roomData.roomUserCount)}"
-                        android:textColor="@color/color_828181"
+                        android:textColor="@color/grey300"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/iv_viewer_count"
@@ -162,7 +162,7 @@
                         android:gravity="start"
                         android:text="@{viewModel.roomSchedule}"
                         android:textAlignment="center"
-                        android:textColor="@color/color_828181"
+                        android:textColor="@color/grey300"
                         android:textSize="14sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -174,7 +174,7 @@
                     style="@style/font_b"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
-                    android:background="@drawable/shp_rect_0cbfff_r4"
+                    android:background="@drawable/shp_rect_brand_blue_r4"
                     android:gravity="center"
                     android:text="@{viewModel.roomData.subjectSubscribed ? @string/chat_subscribe_cancel : @string/chat_subscribe}"
                     android:textAlignment="gravity"
@@ -204,7 +204,7 @@
                     android:maxLines="2"
                     android:text="@{viewModel.roomData.subjectDescription}"
                     android:textAlignment="textStart"
-                    android:textColor="@color/color_828181"
+                    android:textColor="@color/grey300"
                     android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/tv_more"
@@ -244,6 +244,8 @@
                 android:id="@+id/rv_chat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -262,13 +264,14 @@
             app:layout_constraintLeft_toRightOf="@+id/ll_chat_msg"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_room_info">
+
             <com.petersamokhin.android.floatinghearts.HeartsView
                 android:id="@+id/heartsView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:x_max="1"
+                app:floating_time_coeff="0.15"
                 app:size_coeff="1"
-                app:floating_time_coeff="0.15" />
+                app:x_max="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -293,7 +296,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/btn_room_like">
+                app:layout_constraintRight_toLeftOf="@+id/cl_like">
 
                 <EditText
                     android:id="@+id/et_chat_msg"
@@ -302,7 +305,7 @@
                     android:background="@null"
                     android:hint="@string/chat_msg_hint"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -316,22 +319,37 @@
                     android:gravity="center"
                     android:text="@string/send"
                     android:textColor="#4283ff"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/btn_room_like"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/shp_oval_brand_white"
-                android:src="@drawable/ic_heart"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_room_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shp_oval_brand_white"
+                    android:paddingStart="7dp"
+                    android:paddingTop="9dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/ic_heart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

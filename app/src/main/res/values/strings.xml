@@ -66,7 +66,7 @@
 
     <!-- chat -->
     <string name="chat_msg_hint">대화를 입력하세요.</string>
-    <string name="chat_msg_divider">&#160;:&#160;</string>
+    <string name="chat_msg_divider">:&#160;</string>
     <string name="chat_subscribe">구독하기</string>
     <string name="chat_subscribe_cancel">구독취소</string>
 </resources>
