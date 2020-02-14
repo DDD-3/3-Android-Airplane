@@ -18,6 +18,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <!-- base, mock 포함 -->
+        <uses-library
+            android:name="android.test.runner"
+            android:required="false" />
+
         <activity
             android:name=".presenter.splash.view.SplashActivity"
             android:launchMode="singleTop">

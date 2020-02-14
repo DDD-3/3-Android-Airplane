@@ -18,6 +18,7 @@ import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import com.ddd.airplane.R
 import com.ddd.airplane.common.utils.DeviceUtils
+import com.ddd.airplane.common.utils.StringUtils
 import com.ddd.airplane.databinding.EditTextViewBinding
 import kotlinx.android.synthetic.main.edit_text_view.view.*
 
@@ -355,7 +356,7 @@ class EditTextView @JvmOverloads constructor(
      * 이메일 검증
      */
     fun checkValidEmail(char: CharSequence) {
-        isValid = char.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(char).matches()
+        isValid = StringUtils.isValidEmail(char.toString())
         cl_info.visibility = if (isValid) View.GONE else View.VISIBLE
         validListener?.invoke(isValid)
     }
@@ -364,7 +365,7 @@ class EditTextView @JvmOverloads constructor(
      * 비밀번호 검증
      */
     fun checkValidPassword(char: CharSequence) {
-        isValid = char.length >= 4
+        isValid = StringUtils.isValidPassword(char.toString())
         cl_info.visibility = if (isValid) View.GONE else View.VISIBLE
         validListener?.invoke(isValid)
     }

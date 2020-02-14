@@ -7,10 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseViewModel
-import com.ddd.airplane.common.interfaces.OnResponseListener
 import com.ddd.airplane.common.manager.TokenManager
-import com.ddd.airplane.common.utils.Utils
-import com.ddd.airplane.data.response.ErrorData
+import com.ddd.airplane.common.utils.DateUtils
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.data.response.chat.ChatPayloadData
 import com.ddd.airplane.data.response.chat.ChatRoomData
@@ -19,12 +17,9 @@ import com.ddd.airplane.repository.network.ChatRepository
 import com.ddd.airplane.repository.network.SubscribeRepository
 import com.ddd.airplane.repository.network.config.ServerInfo
 import com.ddd.airplane.repository.network.config.ServerUrl
-import com.ddd.airplane.repository.network.retrofit.RetrofitManager
-import com.ddd.airplane.repository.network.retrofit.request
 import com.google.gson.Gson
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import org.json.JSONObject
 import timber.log.Timber
 import ua.naiksoftware.stomp.Stomp
@@ -182,7 +177,7 @@ class ChatRoomViewModel(application: Application) : BaseViewModel(application) {
         var res = R.string.error_info.toString()
 
         if (startAt != null) {
-            res = Utils.convertLongToYearDayTime(startAt)
+            res = DateUtils.convertLongToYearDayTime(startAt)
         }
 
         return res
