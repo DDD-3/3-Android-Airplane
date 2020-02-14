@@ -96,9 +96,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                         isLast = true
                     }
 
-                    if (!isLast) {
-                        _subscribeList.postValue(response?.items)
-                    }
+                    _subscribeList.postValue(response?.items)
                 }
         }
     }
