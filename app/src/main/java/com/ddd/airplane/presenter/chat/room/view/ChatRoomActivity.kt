@@ -1,19 +1,24 @@
 package com.ddd.airplane.presenter.chat.room.view
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
 import com.ddd.airplane.common.utils.DeviceUtils
+import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.databinding.ChatMsgItemBinding
 import com.ddd.airplane.databinding.ChatRoomActivityBinding
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatMsgViewModel
 import com.ddd.airplane.presenter.chat.room.viewmodel.ChatRoomViewModel
+import com.petersamokhin.android.floatinghearts.HeartsRenderer
+import com.petersamokhin.android.floatinghearts.HeartsView
 import kotlinx.android.synthetic.main.chat_room_activity.*
 
 
@@ -35,7 +40,7 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
     override fun initLayout() {
 
-        val views = arrayOf(tv_send_msg, iv_hold_info, tv_subscribe_room, tv_more)
+        val views = arrayOf(tv_send_msg, iv_hold_info, tv_subscribe_room, tv_more, btn_room_like)
         views.forEach {
             it.setOnClickListener(this)
         }
@@ -82,7 +87,15 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
                     }
                 }
             }
+
+            addItemDecoration(
+                DividerItemSpace(
+                    DividerItemSpace.HORIZONTAL,
+                    context.resources.getDimensionPixelSize(R.dimen.dp4)
+                )
+            )
         }
+
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
@@ -123,6 +136,37 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
             R.id.tv_more -> {
                 v.visibility = View.GONE
             }
+
+            R.id.btn_room_like -> {
+                initHeartView()
+            }
         }
     }
+
+    private fun initHeartView() {
+        val drawable = getDrawable(R.drawable.ic_heart)
+
+        val bitmap = Bitmap.createBitmap(
+            drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+
+
+        val model = HeartsView.Model(
+            0,                         // Unique ID of this image, used for Rajawali materials caching
+            bitmap                          // Bitmap image
+        )
+
+        val config = HeartsRenderer.Config(
+            2f,
+            0.08f,
+            2f
+        )
+        heartsView.applyConfig(config)
+
+        heartsView.emitHeart(model)
+    }
+
 }

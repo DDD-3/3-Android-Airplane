@@ -228,15 +228,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_chat_msg"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toTopOf="@+id/cl_chat_personal"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cl_heart_view"
             app:layout_constraintTop_toBottomOf="@+id/cl_room_info">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -251,7 +252,24 @@
                 bind:items="@{viewModel.msgList}"
                 tools:itemCount="20"
                 tools:listitem="@layout/chat_msg_item" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_heart_view"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cl_chat_personal"
+            app:layout_constraintLeft_toRightOf="@+id/ll_chat_msg"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_room_info">
+            <com.petersamokhin.android.floatinghearts.HeartsView
+                android:id="@+id/heartsView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:x_max="1"
+                app:size_coeff="1"
+                app:floating_time_coeff="0.15" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_chat_personal"
