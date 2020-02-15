@@ -2,7 +2,6 @@ package com.ddd.airplane.presenter.chat.room.view
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +9,6 @@ import android.view.View
 import com.ddd.airplane.R
 import com.ddd.airplane.common.base.BaseActivity
 import com.ddd.airplane.common.base.BaseRecyclerViewAdapter
-import com.ddd.airplane.common.utils.DeviceUtils
 import com.ddd.airplane.common.views.decoration.DividerItemSpace
 import com.ddd.airplane.data.response.chat.ChatMessageData
 import com.ddd.airplane.databinding.ChatMsgItemBinding
@@ -82,16 +80,6 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
 
             }
 
-            addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-                if (bottom != oldBottom) {
-                    if (rv_chat.childCount > 0) {
-                        rv_chat.postDelayed({
-                            rv_chat.smoothScrollToPosition(rv_chat.childCount - 1)
-                        }, 100)
-                    }
-                }
-            }
-
             addItemDecoration(
                 DividerItemSpace(
                     DividerItemSpace.HORIZONTAL,
@@ -120,7 +108,8 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
             R.id.tv_send_msg -> {
                 viewModel.sendChatMessage(et_chat_msg.text.toString())
                 et_chat_msg.text.clear()
-                DeviceUtils.hideKeyboard(v)
+//                DeviceUtils.hideKeyboard(v)
+                scrollDown()
             }
 
             R.id.iv_hold_info -> {
@@ -172,6 +161,18 @@ class ChatRoomActivity : BaseActivity<ChatRoomActivityBinding, ChatRoomViewModel
             heartsView.applyConfig(config)
 
             heartsView.emitHeart(model)
+        }
+    }
+
+    /**
+     * 스크롤 다운
+     */
+    private fun scrollDown() {
+        if (rv_chat.childCount > 0) {
+            rv_chat.postDelayed({
+                val count = rv_chat.adapter?.itemCount ?: 0
+                rv_chat.scrollToPosition(if (count > 0) count - 1 else 0)
+            }, 100)
         }
     }
 }

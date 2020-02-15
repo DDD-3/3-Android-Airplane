@@ -65,11 +65,11 @@ class SignUpActivity : BaseActivity<SignupActivityBinding, SignUpViewModel>(),
             onCheckValid()
         }
 
-        // test
-        val ts = System.currentTimeMillis()
-        et_nick_name.text = "$ts"
-        et_email.text = "airplane$ts@airplane.com"
-        et_password.text = "qqqqqq"
+//        // test
+//        val ts = System.currentTimeMillis()
+//        et_nick_name.text = "$ts"
+//        et_email.text = "airplane$ts@airplane.com"
+//        et_password.text = "qqqqqq"
     }
 
     override fun onCreated(savedInstanceState: Bundle?) {
